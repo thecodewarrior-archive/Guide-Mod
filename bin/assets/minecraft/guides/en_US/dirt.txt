@@ -1,0 +1,3 @@
+Dirt
+
+Dropped by both dirt and grass, this block is useful for it's soft nature and because it is so common, so it is useful as scaffolding or anything temporary really. Dirt will transform into grass randomly when near another grass block.

@@ -1,0 +1,3 @@
+Leaves
+
+Leaves naturally spawn on trees, and will decay slowly if all logs within 4 blocks are removed, leaves have a chance of dropping saplings and apples when broken or when they decay, if leaves are collected with Shears, they will be dropped in block form and won't decay when placed.
