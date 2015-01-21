@@ -1,3 +1,3 @@
 Silk Touch
 
-Silk touch is an enchantment that allows the tool to pick up blocks that normally wouldn't be dropped, such as ice, grass, stone, glass, glass panes, etc. The major thing that cannot be picked up using silk touch is <<monster spawners|minecraft:spawner>>
+Silk touch is an enchantment that allows the tool to pick up blocks that normally wouldn't be dropped, such as ice, grass, stone, glass, glass panes, etc. The major thing that cannot be picked up using silk touch is <<guide:monster spawners|minecraft:spawner>>

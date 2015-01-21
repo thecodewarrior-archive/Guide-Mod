@@ -1,5 +1,7 @@
 package com.thecodewarrior.guides.proxy;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
@@ -18,7 +20,7 @@ public class CommonProxy implements IGuiHandler{
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
 			int x, int y, int z) {
 		if ( ID == GuiBookOfRevealing.GUI_ID )
-            return new GuiContainerBookOfRevealing(player, player.getHeldItem());
+            return new GuiContainerBookOfRevealing(player);
 		return null;
 	}
 	@Override
@@ -34,7 +36,7 @@ public class CommonProxy implements IGuiHandler{
 			if(tag.getBoolean("guide_is_picking")) {
 				return new GuiBookOfRevealing(player, player.getHeldItem(), world, clickX, clickY, clickZ);
 			} else {
-				return new GuiBookOfRevealing(player, player.getHeldItem());
+				return new GuiBookOfRevealing(player);
 			}
 		}
 		
@@ -49,6 +51,14 @@ public class CommonProxy implements IGuiHandler{
 		return false;
 	}
 	public String getFileText(ResourceLocation guideLoc) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public FontRenderer getFontRenderer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public Minecraft getMC() {
 		// TODO Auto-generated method stub
 		return null;
 	}

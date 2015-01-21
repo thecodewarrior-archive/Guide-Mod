@@ -1,0 +1,66 @@
+---- Minecraft Crash Report ----
+// I bet Cylons wouldn't have this problem.
+
+Time: 1/20/15 3:19 PM
+Description: Ticking memory connection
+
+java.lang.NullPointerException: Ticking memory connection
+	at com.thecodewarrior.guides.gui.GuiContainerBookOfRevealing.refreshGuide(GuiContainerBookOfRevealing.java:148)
+	at com.thecodewarrior.guides.gui.GuiContainerBookOfRevealing.slotClickPhantom(GuiContainerBookOfRevealing.java:303)
+	at com.thecodewarrior.guides.gui.GuiContainerBookOfRevealing.slotClick(GuiContainerBookOfRevealing.java:265)
+	at net.minecraft.network.NetHandlerPlayServer.processClickWindow(NetHandlerPlayServer.java:950)
+	at net.minecraft.network.play.client.C0EPacketClickWindow.processPacket(C0EPacketClickWindow.java:41)
+	at net.minecraft.network.play.client.C0EPacketClickWindow.processPacket(C0EPacketClickWindow.java:113)
+	at net.minecraft.network.NetworkManager.processReceivedPackets(NetworkManager.java:241)
+	at net.minecraft.network.NetworkSystem.networkTick(NetworkSystem.java:182)
+	at net.minecraft.server.MinecraftServer.updateTimeLightAndEntities(MinecraftServer.java:726)
+	at net.minecraft.server.MinecraftServer.tick(MinecraftServer.java:614)
+	at net.minecraft.server.integrated.IntegratedServer.tick(IntegratedServer.java:118)
+	at net.minecraft.server.MinecraftServer.run(MinecraftServer.java:485)
+	at net.minecraft.server.MinecraftServer$2.run(MinecraftServer.java:752)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at com.thecodewarrior.guides.gui.GuiContainerBookOfRevealing.refreshGuide(GuiContainerBookOfRevealing.java:148)
+	at com.thecodewarrior.guides.gui.GuiContainerBookOfRevealing.slotClickPhantom(GuiContainerBookOfRevealing.java:303)
+	at com.thecodewarrior.guides.gui.GuiContainerBookOfRevealing.slotClick(GuiContainerBookOfRevealing.java:265)
+	at net.minecraft.network.NetHandlerPlayServer.processClickWindow(NetHandlerPlayServer.java:950)
+	at net.minecraft.network.play.client.C0EPacketClickWindow.processPacket(C0EPacketClickWindow.java:41)
+	at net.minecraft.network.play.client.C0EPacketClickWindow.processPacket(C0EPacketClickWindow.java:113)
+	at net.minecraft.network.NetworkManager.processReceivedPackets(NetworkManager.java:241)
+
+-- Ticking connection --
+Details:
+	Connection: net.minecraft.network.NetworkManager@26c4054a
+Stacktrace:
+	at net.minecraft.network.NetworkSystem.networkTick(NetworkSystem.java:182)
+	at net.minecraft.server.MinecraftServer.updateTimeLightAndEntities(MinecraftServer.java:726)
+	at net.minecraft.server.MinecraftServer.tick(MinecraftServer.java:614)
+	at net.minecraft.server.integrated.IntegratedServer.tick(IntegratedServer.java:118)
+	at net.minecraft.server.MinecraftServer.run(MinecraftServer.java:485)
+	at net.minecraft.server.MinecraftServer$2.run(MinecraftServer.java:752)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.7.10
+	Operating System: Mac OS X (x86_64) version 10.10
+	Java Version: 1.8.0_05, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 875827872 bytes (835 MB) / 1056309248 bytes (1007 MB) up to 1056309248 bytes (1007 MB)
+	JVM Flags: 3 total; -Xincgc -Xmx1024M -Xms1024M
+	AABB Pool Size: 0 (0 bytes; 0 MB) allocated, 0 (0 bytes; 0 MB) used
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	FML: MCP v9.05 FML v7.10.25.1205 Minecraft Forge 10.13.0.1205 4 mods loaded, 4 mods active
+	mcp{9.05} [Minecraft Coder Pack] (minecraft.jar) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available->Available
+	FML{7.10.25.1205} [Forge Mod Loader] (forgeSrc-1.7.10-10.13.0.1205.jar) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available->Available
+	Forge{10.13.0.1205} [Minecraft Forge] (forgeSrc-1.7.10-10.13.0.1205.jar) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available->Available
+	guides{0.1} [In-game guides] (bin) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available->Available
+	Profiler Position: N/A (disabled)
+	Vec3 Pool Size: 0 (0 bytes; 0 MB) allocated, 0 (0 bytes; 0 MB) used
+	Player Count: 1 / 8; [EntityPlayerMP['Player476'/170, l='Test:TheCodeWarrior', x=1087.50, y=4.00, z=-1729.50]]
+	Type: Integrated Server (map_client.txt)
+	Is Modded: Definitely; Client brand changed to 'fml,forge'

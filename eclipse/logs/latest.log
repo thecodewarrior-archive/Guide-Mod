@@ -1,39 +1,35 @@
-[10:03:13] [main/INFO]: Setting user: Player115
-[10:03:15] [Client thread/INFO]: LWJGL Version: 2.9.1
-[10:03:20] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:In-game guides
-[10:03:21] [Sound Library Loader/INFO]: Sound engine started
-[10:03:23] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
-[10:03:24] [Client thread/INFO]: Created: 256x256 textures/items-atlas
-[10:03:24] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:In-game guides
-[10:03:24] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
-[10:03:25] [Client thread/INFO]: Created: 256x256 textures/items-atlas
-[10:03:25] [Sound Library Loader/INFO]: Sound engine started
-[10:03:26] [Client thread/ERROR]: ########## GL ERROR ##########
-[10:03:26] [Client thread/ERROR]: @ Post startup
-[10:03:26] [Client thread/ERROR]: 1281: Invalid value
-[10:03:31] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
-[10:03:31] [Server thread/INFO]: Generating keypair
-[10:03:31] [Server thread/INFO]: Preparing start region for level 0
-[10:03:32] [Server thread/INFO]: Changing view distance to 12, from 10
-[10:03:33] [Server thread/INFO]: Player115[local:E:3f34bbe3] logged in with entity id 193 at (1106.4119782566484, 4.0, -1736.6515186285537)
-[10:03:33] [Server thread/INFO]: Player115 joined the game
-[10:03:36] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 2220ms behind, skipping 44 tick(s)
-[10:04:03] [Server thread/INFO]: [Player115: Set game difficulty to Peaceful]
-[10:04:03] [Client thread/INFO]: [CHAT] Set game difficulty to Peaceful
-[10:04:07] [Client thread/INFO]: [CHAT] doDaylightCycle, doFireTick, doMobLoot, doMobSpawning, doTileDrops
-[10:04:08] [Client thread/INFO]: [CHAT] doDaylightCycle, doFireTick, doMobLoot, doMobSpawning, doTileDrops
-[10:04:08] [Client thread/INFO]: [CHAT] doDaylightCycle, doFireTick, doMobLoot, doMobSpawning, doTileDrops
-[10:04:09] [Client thread/INFO]: [CHAT] doDaylightCycle, doFireTick, doMobLoot, doMobSpawning, doTileDrops
-[10:04:12] [Server thread/INFO]: [Player115: Game rule has been updated]
-[10:04:12] [Client thread/INFO]: [CHAT] Game rule has been updated
-[10:04:40] [Server thread/INFO]: Saving and pausing game...
-[10:04:40] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
-[10:04:40] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
-[10:04:40] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End
-[10:04:43] [Client thread/INFO]: Stopping!
-[10:04:43] [Server thread/INFO]: Stopping server
-[10:04:43] [Server thread/INFO]: Saving players
-[10:04:43] [Server thread/INFO]: Saving worlds
-[10:04:43] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
-[10:04:43] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
-[10:04:43] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End
+[16:16:34] [main/INFO]: Setting user: Player820
+[16:16:37] [Client thread/INFO]: LWJGL Version: 2.9.1
+[16:16:45] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Not Enough Items, FMLFileResourcePack:In-game guides, FMLFileResourcePack:Inventory Tweaks, FMLFileResourcePack:Waila
+[16:16:47] [Sound Library Loader/INFO]: Sound engine started
+[16:16:49] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+[16:16:50] [Client thread/INFO]: Created: 256x256 textures/items-atlas
+[16:16:52] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Not Enough Items, FMLFileResourcePack:In-game guides, FMLFileResourcePack:Inventory Tweaks, FMLFileResourcePack:Waila
+[16:16:53] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+[16:16:53] [Client thread/INFO]: Created: 256x256 textures/items-atlas
+[16:16:54] [Sound Library Loader/INFO]: Sound engine started
+[16:16:55] [Client thread/ERROR]: ########## GL ERROR ##########
+[16:16:55] [Client thread/ERROR]: @ Post startup
+[16:16:55] [Client thread/ERROR]: 1281: Invalid value
+[16:17:00] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
+[16:17:00] [Server thread/INFO]: Generating keypair
+[16:17:01] [Server thread/INFO]: Preparing start region for level 0
+[16:17:02] [Server thread/INFO]: Changing view distance to 12, from 10
+[16:17:03] [Server thread/INFO]: Player820[local:E:d4492d31] logged in with entity id 178 at (1088.324652451664, 4.0, -1727.6547886638173)
+[16:17:04] [Server thread/INFO]: Player820 joined the game
+[16:17:11] [Client thread/INFO]: [CHAT] InvTweaks: ./config/InvTweaksRules.txt missing, creating default one.
+[16:17:11] [Client thread/INFO]: [CHAT] InvTweaks: ./config/InvTweaksTree.txt missing, creating default one.
+[16:17:11] [Client thread/INFO]: [CHAT] InvTweaks: Configuration loaded.
+[16:17:15] [Server thread/INFO]: Player820 has just earned the achievement [Taking Inventory]
+[16:17:16] [Client thread/INFO]: [CHAT] Player820 has just earned the achievement [Taking Inventory]
+[16:17:24] [Server thread/INFO]: Saving and pausing game...
+[16:17:24] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
+[16:17:24] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
+[16:17:24] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End
+[16:20:09] [Client thread/INFO]: Stopping!
+[16:20:09] [Server thread/INFO]: Stopping server
+[16:20:09] [Server thread/INFO]: Saving players
+[16:20:09] [Server thread/INFO]: Saving worlds
+[16:20:09] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
+[16:20:09] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
+[16:20:09] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End

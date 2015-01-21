@@ -1,7 +1,6 @@
 package com.thecodewarrior.guides.gui;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -16,9 +15,17 @@ import com.thecodewarrior.guides.GuideMod;
 import com.thecodewarrior.guides.api.GuideRegistry;
 import com.thecodewarrior.guides.api.IBlockGuideProvider;
 import com.thecodewarrior.guides.api.IItemGuideProvider;
+import com.thecodewarrior.guides.guides.GuideText;
+import com.thecodewarrior.guides.views.View;
+import com.thecodewarrior.guides.views.ViewGuide;
+import com.thecodewarrior.guides.views.ViewMissing;
+import com.thecodewarrior.guides.views.ViewNull;
 import com.thecodewarrior.notmine.buildcraft.core.gui.slots.IPhantomSlot;
 import com.thecodewarrior.notmine.buildcraft.core.gui.slots.SlotPhantom;
 import com.thecodewarrior.notmine.codechicken.lib.inventory.InventorySimple;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class GuiContainerBookOfRevealing extends Container {
 
@@ -27,7 +34,7 @@ public class GuiContainerBookOfRevealing extends Container {
 	public GuiBookOfRevealing gui;
 	
 	
-	public GuiContainerBookOfRevealing(EntityPlayer player, ItemStack stack) {
+	public GuiContainerBookOfRevealing(EntityPlayer player) {
 		int left = 48;
 		int top = 126;
 		for (int i = 0; i < 3; i++)
@@ -43,114 +50,36 @@ public class GuiContainerBookOfRevealing extends Container {
 			this.addSlotToContainer(new Slot(player.inventory, j, left + j * 18, top + 58));
 		}
 		InventorySimple inventory = new InventorySimple(1);
-		this.addSlotToContainer(new SlotPhantom(inventory, 0, left-42, top));
-		
-		
-	}
-	
-	protected void actionPerformed(GuiButton guibutton) {
-        //id is the id you give your button
-        switch(guibutton.id) {
-        case 1:
-                topLine += 1;
-                break;
-        case 2:
-                topLine -= 1;
-        }
-        //Packet code here
-        //PacketDispatcher.sendPacketToServer(packet); //send packet
-	}
-	
-	public void refreshGuide(Item item) {
-		refreshGuide(item, null);
-	}
-	
-	public void refreshGuide(Item item, ItemStack stack) {
+		this.addSlotToContainer(new SlotPhantom(inventory, 0, left-42, top) {
+			public int getSlotStackLimit()
+		    {
+				return 1;
+		    }
+		});
 		
 	}
 	
-	public void refreshGuide(Block block) {
-		refreshGuide(block, null);
-	}
-	
-	public void refreshGuide(Block block, ItemStack stack) {
-		String name = null;
-		if( block instanceof IBlockGuideProvider ) {
-			name = ( (IBlockGuideProvider) block ).getItemGuideName(stack);
-		} else if (GuideRegistry.hasBlockGuide(block.getClass())) {
-			name = GuideRegistry.getBlockGuide(block.getClass(), stack);
-		}
-		refreshGuide(name);
-	}
-	
-	public void refreshGuide(Block block, World w, int x, int y, int z) {
-		String name = null;
-		if( block instanceof IBlockGuideProvider ) {
-			name = ( (IBlockGuideProvider) block ).getItemGuideName(new ItemStack(block));
-		} else if (GuideRegistry.hasBlockGuide(block.getClass())) {
-			name = GuideRegistry.getBlockGuide(block.getClass(), w, x, y, z);
-		}
-		refreshGuide(name);
-	}
-	
-	public void refreshGuide(String name) {
-		topLine = 0;
-		if(!GuideMod.proxy.isClient()) {
-			return;
-		}
-		
-		if(name == null) {
-			guide = null;
-			return;
-		}
-		
-		ResourceLocation guideLoc = new ResourceLocation(name.split(":")[0], "guides/" + GuideMod.proxy.getLang() + "/" + name.split(":")[1] + ".txt");
-		
-		this.guide = guideLoc.getResourcePath();
-		String val = GuideMod.proxy.getFileText(guideLoc);
-		if( val != null ) this.guide = val;
-		
-		if(gui != null) {
-			gui.refreshGuide();
-		}
-		
-	}
-	
-	private void refreshGuide(ItemStack stack) {
-		// TODO Auto-generated method stub
-		topLine = 0;
-		if(!GuideMod.proxy.isClient()) {
-			return;
-		}
-		
-		if(stack == null) {
-			guide = null;
-			return;
-		}
-				
-		String name = null;
-		if(stack.getItem() instanceof IItemGuideProvider) {
-			name = ( (IItemGuideProvider) stack.getItem() ).getGuideName(stack);
-			
-		} else if(GuideRegistry.hasItemGuide(stack.getItem().getClass())) {
-			name = GuideRegistry.getItemGuide(stack.getItem().getClass(), stack);
-			
-		} else if(stack.getItem() instanceof ItemBlock){
-			Block block = ((ItemBlock)stack.getItem()).field_150939_a;
-			refreshGuide(block, stack);
-			
+	@SideOnly(Side.CLIENT)
+	public View getView(int width, int height) {		
+		if(this.guide == "") {
+			return new ViewMissing(width, height, this.gui);
+		} else if(this.guide == null) {
+			return new ViewNull(width, height, this.gui);
 		} else {
-			return;
+			return new ViewGuide(new GuideText(this.guide), width, height, this.gui);
 		}
 		
-		if(name != null) {
-			refreshGuide(name);
+	}
+
+	private void refreshGuide(ItemStack stack) {
+		if(this.gui == null) {
+			return;
 		}
+		this.gui.itemPlaced(stack);
 	}
 
 	@Override
 	public boolean canInteractWith(EntityPlayer p_75145_1_) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 	

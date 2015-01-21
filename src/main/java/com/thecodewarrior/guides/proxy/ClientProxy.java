@@ -3,31 +3,49 @@ package com.thecodewarrior.guides.proxy;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.commons.io.IOUtils;
-
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
 
+import org.apache.commons.io.IOUtils;
+
+import com.thecodewarrior.guides.guides.GuideText;
+
 public class ClientProxy extends CommonProxy{
-	public void registerEvents() {}
+	@Override
+	public void registerEvents() {
+		GuideText.getSeperator(Minecraft.getMinecraft().fontRenderer);
+	}
+	
+	@Override
+	public FontRenderer getFontRenderer() {
+		return Minecraft.getMinecraft().fontRenderer;
+	}
+	
+	@Override
 	public void registerProxies() {}
 	
+	@Override
 	public String getLang() {
 		return Minecraft.getMinecraft().gameSettings.language;
 	}
 	
+	@Override
 	public boolean isClient() {
 		return true;
 	}
 	
+	@Override
 	public String getFileText(ResourceLocation loc) {
-		// TODO Auto-generated method stub
 		try {
 			InputStream stream = Minecraft.getMinecraft().getResourceManager().getResource(loc).getInputStream();
 			return IOUtils.toString(stream, "UTF-8");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			return null;
+			return loc.getResourcePath();
 		}
+	}
+	
+	public Minecraft getMC() {
+		return Minecraft.getMinecraft();
 	}
 }
