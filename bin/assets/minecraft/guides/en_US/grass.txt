@@ -1,0 +1,3 @@
+Grass
+
+Probably the first material you will encounter when you spawn, it's uses are mainly decorative. Grass can only be picked up with a <<guide:silk touch|minecraft:silkTouch>> tool, and will drop dirt if broken with any other tool.
