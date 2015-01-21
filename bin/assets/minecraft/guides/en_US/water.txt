@@ -1,12 +1,6 @@
 Water
 
-One of the only two liquids in vanilla minecraft, Water is by far the most common, spawning in lakes, rivers, and oceans around the world.
-
-There are two types of water blocks, flowing water, which is thin and slanted, and water source blocks.
-
-Water can be picked up with a bucket by right clicking a source block, and can be placed back down by right clicking a block with the water bucket.
-
-Blocks can be placed inside of water, replacing the water in the process.
+One of the only two <<guide:liquids|minecraft:liquid>> in vanilla minecraft, Water is by far the most common, spawning in lakes, rivers, and oceans around the world.
 
 The player can swim in Water by holding down the space key, and while submerged they will have an air meter above their hunger meter, if this runs out the player will start to take damage until their head leaves the water.
 

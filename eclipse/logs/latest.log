@@ -1,35 +1,33 @@
-[16:16:34] [main/INFO]: Setting user: Player820
-[16:16:37] [Client thread/INFO]: LWJGL Version: 2.9.1
-[16:16:45] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Not Enough Items, FMLFileResourcePack:In-game guides, FMLFileResourcePack:Inventory Tweaks, FMLFileResourcePack:Waila
-[16:16:47] [Sound Library Loader/INFO]: Sound engine started
-[16:16:49] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
-[16:16:50] [Client thread/INFO]: Created: 256x256 textures/items-atlas
-[16:16:52] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Not Enough Items, FMLFileResourcePack:In-game guides, FMLFileResourcePack:Inventory Tweaks, FMLFileResourcePack:Waila
-[16:16:53] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
-[16:16:53] [Client thread/INFO]: Created: 256x256 textures/items-atlas
-[16:16:54] [Sound Library Loader/INFO]: Sound engine started
-[16:16:55] [Client thread/ERROR]: ########## GL ERROR ##########
-[16:16:55] [Client thread/ERROR]: @ Post startup
-[16:16:55] [Client thread/ERROR]: 1281: Invalid value
-[16:17:00] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
-[16:17:00] [Server thread/INFO]: Generating keypair
-[16:17:01] [Server thread/INFO]: Preparing start region for level 0
-[16:17:02] [Server thread/INFO]: Changing view distance to 12, from 10
-[16:17:03] [Server thread/INFO]: Player820[local:E:d4492d31] logged in with entity id 178 at (1088.324652451664, 4.0, -1727.6547886638173)
-[16:17:04] [Server thread/INFO]: Player820 joined the game
-[16:17:11] [Client thread/INFO]: [CHAT] InvTweaks: ./config/InvTweaksRules.txt missing, creating default one.
-[16:17:11] [Client thread/INFO]: [CHAT] InvTweaks: ./config/InvTweaksTree.txt missing, creating default one.
-[16:17:11] [Client thread/INFO]: [CHAT] InvTweaks: Configuration loaded.
-[16:17:15] [Server thread/INFO]: Player820 has just earned the achievement [Taking Inventory]
-[16:17:16] [Client thread/INFO]: [CHAT] Player820 has just earned the achievement [Taking Inventory]
-[16:17:24] [Server thread/INFO]: Saving and pausing game...
-[16:17:24] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
-[16:17:24] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
-[16:17:24] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End
-[16:20:09] [Client thread/INFO]: Stopping!
-[16:20:09] [Server thread/INFO]: Stopping server
-[16:20:09] [Server thread/INFO]: Saving players
-[16:20:09] [Server thread/INFO]: Saving worlds
-[16:20:09] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
-[16:20:09] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
-[16:20:09] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End
+[17:13:20] [main/INFO]: Setting user: Player630
+[17:13:23] [Client thread/INFO]: LWJGL Version: 2.9.1
+[17:13:31] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Not Enough Items, FMLFileResourcePack:In-game guides, FMLFileResourcePack:Inventory Tweaks, FMLFileResourcePack:Waila
+[17:13:33] [Sound Library Loader/INFO]: Sound engine started
+[17:13:35] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+[17:13:36] [Client thread/INFO]: Created: 256x256 textures/items-atlas
+[17:13:38] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Not Enough Items, FMLFileResourcePack:In-game guides, FMLFileResourcePack:Inventory Tweaks, FMLFileResourcePack:Waila
+[17:13:39] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+[17:13:39] [Client thread/INFO]: Created: 256x256 textures/items-atlas
+[17:13:40] [Sound Library Loader/INFO]: Sound engine started
+[17:13:41] [Client thread/ERROR]: ########## GL ERROR ##########
+[17:13:41] [Client thread/ERROR]: @ Post startup
+[17:13:41] [Client thread/ERROR]: 1281: Invalid value
+[17:13:49] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
+[17:13:49] [Server thread/INFO]: Generating keypair
+[17:13:51] [Server thread/INFO]: Preparing start region for level 0
+[17:13:52] [Server thread/INFO]: Changing view distance to 12, from 10
+[17:13:53] [Server thread/INFO]: Player630[local:E:f3ad3c06] logged in with entity id 167 at (1088.324652451664, 4.0, -1727.6547886638173)
+[17:13:53] [Server thread/INFO]: Player630 joined the game
+[17:14:02] [Client thread/INFO]: [CHAT] InvTweaks: Configuration loaded.
+[17:14:14] [Server thread/INFO]: Player630 has just earned the achievement [Taking Inventory]
+[17:14:14] [Client thread/INFO]: [CHAT] Player630 has just earned the achievement [Taking Inventory]
+[17:15:36] [Server thread/INFO]: Saving and pausing game...
+[17:15:36] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
+[17:15:36] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
+[17:15:36] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End
+[17:15:37] [Server thread/INFO]: Stopping server
+[17:15:37] [Server thread/INFO]: Saving players
+[17:15:37] [Server thread/INFO]: Saving worlds
+[17:15:37] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
+[17:15:37] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
+[17:15:37] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End
+[17:15:39] [Client thread/INFO]: Stopping!

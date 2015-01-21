@@ -55,7 +55,10 @@ public class ViewGuide extends View {
 	}
 
 	public int getScrollPx() {
-		return this.scroll;
+		if(mc == null) {
+			return 0;
+		}
+		return this.scroll*mc.fontRenderer.FONT_HEIGHT;
 	}
 	
 	@Override
@@ -84,7 +87,7 @@ public class ViewGuide extends View {
 			}
 			break;
 		case 2:
-			if(this.getScrollFraction() != 1.0D) {
+			if(( ( this.contentHeight - this.height ) + this.getScrollPx() ) > 0) { // scrollPx is negative
 				this.scroll -= 1;
 			}
 			break;

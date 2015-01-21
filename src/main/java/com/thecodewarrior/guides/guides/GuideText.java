@@ -1,15 +1,13 @@
 package com.thecodewarrior.guides.guides;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.client.gui.FontRenderer;
 
 import org.apache.commons.lang3.StringUtils;
 
-import scala.actors.threadpool.Arrays;
-
-import com.thecodewarrior.guides.gui.IndexedRect;
 import com.thecodewarrior.guides.guides.elements.GuideElement;
 import com.thecodewarrior.guides.guides.elements.GuideElementText;
 import com.thecodewarrior.guides.guides.elements.GuideElementTextLink;
