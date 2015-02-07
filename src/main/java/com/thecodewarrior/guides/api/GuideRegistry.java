@@ -1,6 +1,9 @@
 package com.thecodewarrior.guides.api;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import net.minecraft.block.Block;
@@ -13,6 +16,7 @@ import com.thecodewarrior.guides.GuideMod;
 import com.thecodewarrior.guides.gui.GuiBookOfRevealing;
 import com.thecodewarrior.guides.guides.Guide;
 import com.thecodewarrior.guides.guides.GuideText;
+import com.thecodewarrior.guides.guides.tags.Tag;
 import com.thecodewarrior.guides.views.View;
 import com.thecodewarrior.guides.views.ViewGuide;
 import com.thecodewarrior.guides.views.ViewNull;
@@ -30,7 +34,13 @@ public class GuideRegistry {
 	private static HashMap<String, GuideGenerator> itemsIDMeta = new HashMap<String, GuideGenerator>();
 	private static HashMap<IItemMatcher, GuideGenerator> itemsCustom = new HashMap<IItemMatcher, GuideGenerator>();
 	
+	private static HashMap<String, Tag> tags = new HashMap<String, Tag>();
+	
+	private static List<File> guidePacks = new ArrayList<File>();
+	
 	private static HashMap<String, View> views = new HashMap<String, View>();
+	
+	//{{ Items
 	
 	public static GuideGenerator findItemGuide(ItemStack stack) {
 		if(stack == null) {
@@ -85,6 +95,9 @@ public class GuideRegistry {
 		return null;
 	}
 
+	//}}
+	
+	//{{ Blocks
 	
 	public static GuideGenerator findBlockGuide(ItemStack stack) {
 		if(stack == null) {
@@ -126,7 +139,7 @@ public class GuideRegistry {
 				return entry.getValue();
 			}
 		}
-		return GuideRegistry.findBlockGuide(new ItemStack(w.getBlock(x, y, z)));
+		return GuideRegistry.findBlockGuide(new ItemStack(w.getBlock(x, y, z), 1, w.getBlockMetadata(x, y, z)));
 	}
 	
 	private static GuideGenerator findBlockByCustom(Block block) {
@@ -162,7 +175,9 @@ public class GuideRegistry {
 		return null;
 	}
 
+	//}}
 	
+	//{{ register Blocks
 	
 	public static void registerBlockGuideByCustom(IBlockMatcher matcher, GuideGenerator guide) {
 		GuideRegistry.blocksCustom.put(matcher, guide);
@@ -176,6 +191,10 @@ public class GuideRegistry {
 		GuideRegistry.blocksID.put(id, guide);
 	}
 
+	//}}
+	
+	//{{ register Items
+	
 	public static void registerItemGuideByCustom(IItemMatcher matcher, GuideGenerator guide) {
 		GuideRegistry.itemsCustom.put(matcher, guide);
 	}
@@ -188,7 +207,23 @@ public class GuideRegistry {
 		GuideRegistry.itemsID.put(id, guide);
 	}
 	
+	//}}
+	
+	//{{ Tags
+	public static void registerTag(Tag tag) {
+		GuideRegistry.tags.put(tag.getProtocol().toLowerCase(), tag);
+	}
+	
+	public static Tag getTag(String protocol) {
+		return GuideRegistry.tags.get(protocol.toLowerCase());
+	}
+	//}}
+	
 	// Default Guide Generators
+	
+	public static void registerGuidePack(File loc) {
+		GuideMod.proxy.registerPack(loc);
+	}
 	
 	public static GuideGenerator newBasicGuide(String name) {
 		return new GuideGeneratorBasic(name);
@@ -210,7 +245,6 @@ public class GuideRegistry {
 		return new ResourceLocation( name.split(":")[0], "guides/" + GuideMod.proxy.getLang() + "/" + name.split(":")[1] + ".txt" );
 	}
 	// GuideGenerator classes
-	
 		public static class GuideGeneratorError extends GuideGenerator {
 	
 			public String name;
@@ -239,7 +273,9 @@ public class GuideRegistry {
 			@Override
 			public View generate(int width, int height, GuiBookOfRevealing gui) {
 				
-				return new ViewGuide(new GuideText( GuideMod.proxy.getFileText(GuideRegistry.guideLoc(guideName))),
+				return new ViewGuide(new GuideText(
+							GuideMod.proxy.getGuideText(guideName.split(":")[0], guideName.split(":")[1])
+						),
 						width, height, gui);
 			}
 			

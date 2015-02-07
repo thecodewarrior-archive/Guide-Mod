@@ -1,7 +1,0 @@
-Water
-
-One of the only two <<guide:liquids|minecraft:liquid>> in vanilla minecraft, Water is by far the most common, spawning in lakes, rivers, and oceans around the world.
-
-The player can swim in Water by holding down the space key, and while submerged they will have an air meter above their hunger meter, if this runs out the player will start to take damage until their head leaves the water.
-
-Glass panes placed underwater provide just enough space for the player to "breathe", allowing for an on-site air supply for players who are doing underwater work.

@@ -1,19 +1,38 @@
 package com.thecodewarrior.guides.guides;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+
 import net.minecraft.client.gui.FontRenderer;
 
 import org.apache.commons.lang3.StringUtils;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
 
 import com.thecodewarrior.guides.guides.elements.GuideElement;
+import com.thecodewarrior.guides.guides.elements.GuideElementImage;
 import com.thecodewarrior.guides.guides.elements.GuideElementText;
-import com.thecodewarrior.guides.guides.elements.GuideElementTextLink;
 
 public class GuideText extends Guide {
 
+	public static DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+	
+	public static XPathFactory xPathfactory = XPathFactory.newInstance();
+	public static XPath xpath = xPathfactory.newXPath();
+	
 	protected List<String> parts;
 		
 	public int textMargin = 1;
@@ -59,57 +78,109 @@ public class GuideText extends Guide {
 		}
 		
 		parts = Arrays.asList( rawGuide.split("<<|>>") );
-		
-//		
-//		String[] guideParts = rawGuide.split("<<|>>");
-//		this.links = new String[(int) Math.floor(guideParts.length/2.0)];
-//		
-//		int linkNum = 0;
-//		boolean isLink = false;
-//		
-//		StringBuilder builder = new StringBuilder();
-//		
-//		for(String part : guideParts) {
-//			if(isLink) {
-//				if(part.matches(".+?\\|.+?:.+?")) { // link to another guide
-//					String linkText = part.split("\\|")[0];
-//					
-//					builder.append( seperator+ linkText +seperator );
-//					
-//					this.links[linkNum] = "guide:" + subsetJoin( part.split("\\|"), 1, "|");
-//				}
-//			} else {
-//				builder.append( part );
-//			}
-//			isLink = !isLink;
-//		}
-//		
-//		guide = builder.toString();
 		return true;
 	}
 	
 	@Override
 	public List<GuideElement> getGuideElements(int width, int height) {
-		List<GuideElement> elements = new ArrayList<GuideElement>();
 		
-		int curX = 0;
-		int curY = 0;
-		boolean isTag = false;
-		for(String part : parts) {
-			GuideElement element = null;
-			if(isTag) {
-				element = new GuideElementTextLink(curX, curY, width, part);
-			} else {
-				element = new GuideElementText(curX, curY, width, part);
-			}
-			if(element != null) {
-				curX = element.newX();
-				curY = element.newY();
-				element.gui = this.gui;
-				elements.add(element);
-			}
-			isTag = !isTag;
+		List<GuideElement> elements = new ArrayList<GuideElement>();
+
+		
+		DocumentBuilder builder = null;
+		try {
+		    builder = builderFactory.newDocumentBuilder();
+		} catch (ParserConfigurationException e) {
+		    e.printStackTrace();  
 		}
+		
+		if(builder == null) { return elements; }
+		
+		try {
+		    Document document = builder.parse( new ByteArrayInputStream(
+		    			( 
+		    				"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
+		    				"<root>\n" +
+		    						rawGuide +
+		    				"\n</root>"
+		    			).getBytes( "UTF-8" )
+		    		) );
+		    
+		    int top = 0;
+		    
+		    
+		    Element toolnode    = (Element) document.getElementsByTagName("tool").item(0);
+		    if(toolnode != null) {
+		    	Element img = (Element) toolnode.getElementsByTagName("image").item(0);
+		    	if(img != null) {
+			    	img.setAttribute("height", "16");
+			    	img.setAttribute("align", "right");
+		    		GuideElement imgElement = new GuideElementImage(0, 0, width, img);
+		    		imgElement.gui = gui;
+		    		elements.add(imgElement);
+		    		top = imgElement.bounds.getBottom();
+		    	}
+		    }
+		    
+		    Node titlenode   = document.getElementsByTagName("title").item(0);
+		    if(titlenode != null) {
+		    	double scale = 1.4D;
+		    	GuideElement titleElement = new GuideElementText(0, 0, width, GuideElementText.BOLD + titlenode.getTextContent());
+		    	GuideElement scaleElement = new GuideElementScale(titleElement, scale);
+		    	int titleHeight = (int)( scaleElement.fontRendererObj.FONT_HEIGHT * scale );
+		    	if(titleHeight > top) {
+		    		top = titleHeight;
+		    	}
+		    	titleElement.gui = gui;
+		    	scaleElement.gui = gui;
+		    	elements.add(scaleElement);
+		    }
+		    
+		    Node contentnode = document.getElementsByTagName("content").item(0);
+		    if(contentnode != null) {
+		    	elements.addAll( GuideTextParser.parse(contentnode.getChildNodes(), this.gui, width, height, 0, top) );
+		    }
+
+		} catch (IOException e) {
+		    e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		}
+		
+		return elements;
+		
+//		List<GuideElement> elements = new ArrayList<GuideElement>();
+//		
+//		int curX = 0;
+//		int curY = 0;
+//		int curWidth = width;
+//		boolean isTag = false;
+//		for(String part : parts) {
+//			GuideElement element = null;
+//			if(isTag) {
+//				String[] tagParts = part.split(":", 2);
+//				String protocol = tagParts[0];
+//				String data     = "";
+//				if(tagParts.length > 1) {
+//					data = tagParts[1];
+//				}
+//				
+//				Tag tag = GuideRegistry.getTag(protocol);
+//				if(tag != null) {
+//					element = tag.getElement(curX, curY, curWidth, data);
+//				}
+//			} else {
+//				element = new GuideElementText(curX, curY, curWidth, part);
+//			}
+//			if(element != null) {
+//				curX = element.newX();
+//				curY = element.newY();
+//				curWidth = element.newWidth();
+//				element.gui = this.gui;
+//				elements.add(element);
+//			}
+//			isTag = !isTag;
+//		}
 		
 //		
 //		if(fontRendererObj == null)
@@ -161,7 +232,7 @@ public class GuideText extends Guide {
 //		int textLeft = textMargin;
 //		int textTop  = textMargin;
 //		
-		return elements;
+//		return elements;
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.thecodewarrior.guides.proxy;
 
+import java.io.File;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -61,5 +63,45 @@ public class CommonProxy implements IGuiHandler{
 	public Minecraft getMC() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	public String getGuideText(String modid, String guideName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public void loadGuidePacks() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void loadGuideFiles(File path) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void registerPack(File f) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void downloadGuides() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void bindGuideImage(String modid, String name) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void loadGuideImage(String modid, String name) {
+		// TODO Auto-generated method stub
+		
+	}
+	public int imageWidth(String modid, String name) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int imageHeight(String modid, String name) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public void registerLoggers() {
+		// TODO Auto-generated method stub
+		
 	}
 }

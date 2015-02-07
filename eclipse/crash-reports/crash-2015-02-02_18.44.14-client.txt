@@ -1,0 +1,125 @@
+---- Minecraft Crash Report ----
+// Who set us up the TNT?
+
+Time: 2/2/15 6:44 PM
+Description: Unexpected error
+
+java.lang.ArrayIndexOutOfBoundsException: 1
+	at com.thecodewarrior.guides.guides.elements.GuideElementImage.<init>(GuideElementImage.java:30)
+	at com.thecodewarrior.guides.guides.GuideText.getGuideElements(GuideText.java:124)
+	at com.thecodewarrior.guides.views.ViewGuide.init(ViewGuide.java:42)
+	at com.thecodewarrior.guides.views.View.<init>(View.java:40)
+	at com.thecodewarrior.guides.views.ViewGuide.<init>(ViewGuide.java:24)
+	at com.thecodewarrior.guides.api.GuideRegistry$GuideGeneratorBasic.generate(GuideRegistry.java:276)
+	at com.thecodewarrior.guides.gui.GuiBookOfRevealing.refreshView(GuiBookOfRevealing.java:118)
+	at com.thecodewarrior.guides.gui.GuiBookOfRevealing.<init>(GuiBookOfRevealing.java:60)
+	at com.thecodewarrior.guides.proxy.CommonProxy.getClientGuiElement(CommonProxy.java:39)
+	at cpw.mods.fml.common.network.NetworkRegistry.getLocalGuiContainer(NetworkRegistry.java:263)
+	at cpw.mods.fml.common.network.internal.FMLNetworkHandler.openGui(FMLNetworkHandler.java:93)
+	at net.minecraft.entity.player.EntityPlayer.openGui(EntityPlayer.java:2500)
+	at com.thecodewarrior.guides.BookOfRevealing.onItemRightClick(BookOfRevealing.java:39)
+	at net.minecraft.item.ItemStack.useItemRightClick(ItemStack.java:162)
+	at net.minecraft.client.multiplayer.PlayerControllerMP.sendUseItem(PlayerControllerMP.java:430)
+	at net.minecraft.client.Minecraft.func_147121_ag(Minecraft.java:1546)
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:2033)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1028)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:951)
+	at net.minecraft.client.main.Main.main(Main.java:164)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:134)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:78)
+	at GradleStart.main(GradleStart.java:45)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at com.thecodewarrior.guides.guides.elements.GuideElementImage.<init>(GuideElementImage.java:30)
+	at com.thecodewarrior.guides.guides.GuideText.getGuideElements(GuideText.java:124)
+	at com.thecodewarrior.guides.views.ViewGuide.init(ViewGuide.java:42)
+	at com.thecodewarrior.guides.views.View.<init>(View.java:40)
+	at com.thecodewarrior.guides.views.ViewGuide.<init>(ViewGuide.java:24)
+	at com.thecodewarrior.guides.api.GuideRegistry$GuideGeneratorBasic.generate(GuideRegistry.java:276)
+	at com.thecodewarrior.guides.gui.GuiBookOfRevealing.refreshView(GuiBookOfRevealing.java:118)
+	at com.thecodewarrior.guides.gui.GuiBookOfRevealing.<init>(GuiBookOfRevealing.java:60)
+	at com.thecodewarrior.guides.proxy.CommonProxy.getClientGuiElement(CommonProxy.java:39)
+	at cpw.mods.fml.common.network.NetworkRegistry.getLocalGuiContainer(NetworkRegistry.java:263)
+	at cpw.mods.fml.common.network.internal.FMLNetworkHandler.openGui(FMLNetworkHandler.java:93)
+	at net.minecraft.entity.player.EntityPlayer.openGui(EntityPlayer.java:2500)
+	at com.thecodewarrior.guides.BookOfRevealing.onItemRightClick(BookOfRevealing.java:39)
+	at net.minecraft.item.ItemStack.useItemRightClick(ItemStack.java:162)
+	at net.minecraft.client.multiplayer.PlayerControllerMP.sendUseItem(PlayerControllerMP.java:430)
+	at net.minecraft.client.Minecraft.func_147121_ag(Minecraft.java:1546)
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityClientPlayerMP['Player183'/166, l='MpServer', x=1088.60, y=5.62, z=-1727.68]]
+	Chunk stats: MultiplayerChunkCache: 625, 625
+	Level seed: 0
+	Level generator: ID 01 - flat, ver 0. Features enabled: false
+	Level generator options: 
+	Level spawn location: World: (1096,4,-1739), Chunk: (at 8,0,5 in 68,-109; contains blocks 1088,0,-1744 to 1103,255,-1729), Region: (2,-4; contains chunks 64,-128 to 95,-97, blocks 1024,0,-2048 to 1535,255,-1537)
+	Level time: 4344011 game time, 6000 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: false
+	Forced entities: 75 total; [EntityCow['Cow'/128, l='MpServer', x=1149.78, y=4.00, z=-1795.72], EntityPig['Pig'/129, l='MpServer', x=1144.09, y=4.00, z=-1783.13], EntityCow['Cow'/130, l='MpServer', x=1149.13, y=4.00, z=-1780.91], EntityCow['Cow'/131, l='MpServer', x=1141.66, y=4.00, z=-1783.72], EntityCow['Cow'/132, l='MpServer', x=1146.72, y=4.00, z=-1747.22], EntityCow['Cow'/133, l='MpServer', x=1139.19, y=4.00, z=-1713.06], EntityChicken['Chicken'/134, l='MpServer', x=1148.47, y=4.00, z=-1684.53], EntityItem['item.item.egg'/135, l='MpServer', x=1144.81, y=4.13, z=-1689.88], EntityPig['Pig'/136, l='MpServer', x=1136.81, y=4.00, z=-1678.88], EntityCow['Cow'/142, l='MpServer', x=1165.72, y=4.00, z=-1781.34], EntityCow['Cow'/143, l='MpServer', x=1153.06, y=4.00, z=-1754.91], EntityPig['Pig'/144, l='MpServer', x=1155.38, y=4.00, z=-1706.25], EntityCow['Cow'/153, l='MpServer', x=1162.19, y=4.00, z=-1669.28], EntitySheep['Sheep'/35, l='MpServer', x=1023.38, y=4.00, z=-1807.75], EntityCow['Cow'/36, l='MpServer', x=1023.94, y=4.00, z=-1803.94], EntityCow['Cow'/37, l='MpServer', x=1020.22, y=4.00, z=-1808.78], EntityPig['Pig'/38, l='MpServer', x=1023.72, y=4.00, z=-1781.19], EntityClientPlayerMP['Player183'/166, l='MpServer', x=1088.60, y=5.62, z=-1727.68], EntityPig['Pig'/39, l='MpServer', x=1015.13, y=4.00, z=-1770.97], EntityHorse['Donkey'/40, l='MpServer', x=1021.25, y=4.00, z=-1750.13], EntitySheep['Sheep'/41, l='MpServer', x=1010.91, y=4.00, z=-1723.94], EntityHorse['Donkey'/42, l='MpServer', x=1020.13, y=4.00, z=-1699.94], EntityHorse['Horse'/43, l='MpServer', x=1017.75, y=4.00, z=-1690.34], EntityCow['Cow'/44, l='MpServer', x=1012.16, y=4.00, z=-1671.88], EntityCow['Cow'/45, l='MpServer', x=1014.19, y=4.00, z=-1669.06], EntityHorse['Donkey'/54, l='MpServer', x=1040.78, y=4.00, z=-1760.44], EntityPig['Pig'/55, l='MpServer', x=1039.16, y=4.00, z=-1736.03], EntityHorse['Horse'/56, l='MpServer', x=1038.78, y=4.00, z=-1732.16], EntitySheep['Sheep'/57, l='MpServer', x=1033.16, y=4.00, z=-1741.81], EntityHorse['Horse'/58, l='MpServer', x=1034.72, y=4.00, z=-1705.13], EntityCow['Cow'/59, l='MpServer', x=1037.22, y=4.00, z=-1711.84], EntityChicken['Chicken'/60, l='MpServer', x=1034.56, y=4.00, z=-1689.53], EntityHorse['Horse'/61, l='MpServer', x=1037.13, y=4.00, z=-1664.97], EntityPig['Pig'/62, l='MpServer', x=1028.72, y=4.00, z=-1650.06], EntityCow['Cow'/63, l='MpServer', x=1034.13, y=4.00, z=-1656.13], EntityPig['Pig'/64, l='MpServer', x=1026.97, y=4.00, z=-1649.06], EntityChicken['Chicken'/68, l='MpServer', x=1044.53, y=4.00, z=-1780.44], EntityCow['Cow'/69, l='MpServer', x=1042.06, y=4.00, z=-1780.03], EntityCow['Cow'/70, l='MpServer', x=1051.78, y=4.00, z=-1762.31], EntityCow['Cow'/71, l='MpServer', x=1052.72, y=4.00, z=-1754.31], EntityHorse['Horse'/72, l='MpServer', x=1050.25, y=4.00, z=-1724.50], EntityCow['Cow'/73, l='MpServer', x=1050.28, y=4.00, z=-1722.78], EntityPig['Pig'/74, l='MpServer', x=1040.13, y=4.00, z=-1726.91], EntityHorse['Horse'/75, l='MpServer', x=1051.28, y=4.00, z=-1696.41], EntityItem['item.item.egg'/76, l='MpServer', x=1046.53, y=4.13, z=-1692.47], EntityCow['Cow'/77, l='MpServer', x=1054.25, y=4.00, z=-1688.34], EntityChicken['Chicken'/81, l='MpServer', x=1057.38, y=4.00, z=-1793.56], EntityCow['Cow'/82, l='MpServer', x=1061.69, y=4.00, z=-1798.41], EntityChicken['Chicken'/83, l='MpServer', x=1060.63, y=4.00, z=-1788.56], EntityCow['Cow'/84, l='MpServer', x=1059.09, y=4.00, z=-1761.06], EntityHorse['Horse'/85, l='MpServer', x=1062.78, y=4.00, z=-1772.78], EntityCow['Cow'/86, l='MpServer', x=1060.25, y=4.00, z=-1748.78], EntityPig['Pig'/87, l='MpServer', x=1063.63, y=4.00, z=-1650.84], EntityCow['Cow'/90, l='MpServer', x=1091.03, y=4.00, z=-1787.09], EntityPig['Pig'/91, l='MpServer', x=1086.84, y=4.00, z=-1680.03], EntityPig['Pig'/96, l='MpServer', x=1100.13, y=4.00, z=-1799.09], EntityCow['Cow'/97, l='MpServer', x=1094.25, y=4.00, z=-1684.19], EntityChicken['Chicken'/98, l='MpServer', x=1094.44, y=4.00, z=-1687.44], EntityCow['Cow'/99, l='MpServer', x=1103.88, y=4.00, z=-1683.06], EntityPig['Pig'/100, l='MpServer', x=1097.84, y=4.00, z=-1648.81], EntityHorse['Horse'/101, l='MpServer', x=1093.13, y=4.00, z=-1651.97], EntityCow['Cow'/104, l='MpServer', x=1116.69, y=4.00, z=-1788.25], EntitySheep['Sheep'/105, l='MpServer', x=1117.25, y=4.00, z=-1679.63], EntityCow['Cow'/110, l='MpServer', x=1125.28, y=4.00, z=-1762.31], EntityPig['Pig'/111, l='MpServer', x=1131.59, y=4.00, z=-1753.22], EntityCow['Cow'/112, l='MpServer', x=1131.03, y=4.00, z=-1719.91], EntityChicken['Chicken'/113, l='MpServer', x=1121.19, y=4.00, z=-1713.31], EntityCow['Cow'/114, l='MpServer', x=1121.25, y=4.00, z=-1714.38], EntityCow['Cow'/115, l='MpServer', x=1130.22, y=4.00, z=-1706.81], EntitySheep['Sheep'/116, l='MpServer', x=1121.19, y=4.00, z=-1667.38], EntityPig['Pig'/117, l='MpServer', x=1133.09, y=4.00, z=-1668.97], EntitySheep['Sheep'/118, l='MpServer', x=1130.88, y=4.00, z=-1666.94], EntityPig['Pig'/119, l='MpServer', x=1128.75, y=4.00, z=-1659.53], EntityPig['Pig'/120, l='MpServer', x=1132.16, y=4.00, z=-1661.75], EntityPig['Pig'/121, l='MpServer', x=1128.56, y=4.00, z=-1661.75]]
+	Retry entities: 0 total; []
+	Server brand: fml,forge
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:415)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2555)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:980)
+	at net.minecraft.client.main.Main.main(Main.java:164)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:134)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:78)
+	at GradleStart.main(GradleStart.java:45)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.7.10
+	Operating System: Mac OS X (x86_64) version 10.10
+	Java Version: 1.8.0_05, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 848089064 bytes (808 MB) / 1056309248 bytes (1007 MB) up to 1056309248 bytes (1007 MB)
+	JVM Flags: 3 total; -Xincgc -Xmx1024M -Xms1024M
+	AABB Pool Size: 0 (0 bytes; 0 MB) allocated, 0 (0 bytes; 0 MB) used
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	FML: MCP v9.05 FML v7.10.25.1205 Minecraft Forge 10.13.0.1205 8 mods loaded, 8 mods active
+	mcp{9.05} [Minecraft Coder Pack] (minecraft.jar) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available->Available
+	FML{7.10.25.1205} [Forge Mod Loader] (forgeSrc-1.7.10-10.13.0.1205.jar) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available->Available
+	Forge{10.13.0.1205} [Minecraft Forge] (forgeSrc-1.7.10-10.13.0.1205.jar) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available->Available
+	CodeChickenCore{1.0.4.29} [CodeChicken Core] (minecraft.jar) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available->Available
+	NotEnoughItems{1.0.4.83} [Not Enough Items] (NotEnoughItems-1.7.10-1.0.4.83-universal.jar) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available->Available
+	guides{0.2} [In-game guides] (bin) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available->Available
+	inventorytweaks{1.58-147-645ca10} [Inventory Tweaks] (InventoryTweaks-1.58-147.jar) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available->Available
+	Waila{1.5.8} [Waila] (Waila-1.5.8a_1.7.10.jar) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available->Available
+	Launched Version: 1.7.10
+	LWJGL: 2.9.1
+	OpenGL: NVIDIA GeForce 9400M OpenGL Engine GL version 2.1 NVIDIA-10.0.19 310.90.10.05b12, NVIDIA Corporation
+	GL Caps: Using GL 1.3 multitexturing.
+Using framebuffer objects because ARB_framebuffer_object is supported and separate blending is supported.
+Anisotropic filtering is supported and maximum anisotropy is 16.
+Shaders are available because OpenGL 2.1 is supported.
+
+	Is Modded: Definitely; Client brand changed to 'fml,forge'
+	Type: Client (map_client.txt)
+	Resource Packs: []
+	Current Language: English (US)
+	Profiler Position: N/A (disabled)
+	Vec3 Pool Size: 0 (0 bytes; 0 MB) allocated, 0 (0 bytes; 0 MB) used
+	Anisotropic Filtering: Off (1)

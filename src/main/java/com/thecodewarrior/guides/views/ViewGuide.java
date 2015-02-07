@@ -34,12 +34,13 @@ public class ViewGuide extends View {
 	public static int scrollbarLeft = 230;
 	public static int scrollbarHeight = 83;
 	public static int scrollbarWidth = 16;
+	public static int scrollTickSize = 120; // distance one "click" of mouse moves
 	
 	@Override
 	public void init() {
 		int scrollBarWidth = 16;
 		elements = guide.getGuideElements(width-scrollBarWidth, height);
-		GuideMod.logger.info("length is" + elements.size());
+		GuideMod.l.info("length is" + elements.size());
 		this.contentHeight = 0;
 		for(GuideElement elem: elements) {
 			if(elem.bounds.getBottom() > this.contentHeight) {
@@ -50,15 +51,42 @@ public class ViewGuide extends View {
 		this.buttonList.add(new GuiButtonCustomTexture(2, scrollbarLeft, 99, 0, 240, 16, 16, tex));
 	}
 	
+	public void scroll(int amt) {
+		tryScroll(amt);
+	}
+	
 	public double getScrollFraction() {
-		return ((double)-scroll)/contentHeight;
+		int overflow = ( this.contentHeight - this.height );
+		int done = -this.getScrollPx();
+		return (double)done / (double)overflow;
 	}
 
+	protected void tryScroll(int amt) {
+		if(amt > 1) {
+			if(this.scroll != 0) {
+				this.scroll += amt;
+			}
+			if(this.scroll > 0) {
+				this.scroll = 0;
+			}
+		} else if(amt < 1){
+			if(( ( this.contentHeight - this.height ) + this.getScrollPx() ) > 0) { // scrollPx is negative
+				this.scroll += amt; // amt is negative
+			}
+		}
+	}
+	
 	public int getScrollPx() {
 		if(mc == null) {
 			return 0;
 		}
-		return this.scroll*mc.fontRenderer.FONT_HEIGHT;
+		int overflow = (this.contentHeight - this.height);
+		int px = -(int)(this.scroll/(double)scrollTickSize)*mc.fontRenderer.FONT_HEIGHT;
+		if(px > overflow && overflow > 0) {
+			return -overflow;
+		} else {
+			return -px;
+		}
 	}
 	
 	@Override
@@ -82,14 +110,10 @@ public class ViewGuide extends View {
 	public void actionPerformed(GuiButton guibutton) {
 		switch(guibutton.id) {
 		case 1:
-			if(this.scroll != 0) {
-				this.scroll += 1;
-			}
+			tryScroll( this.scrollTickSize);
 			break;
 		case 2:
-			if(( ( this.contentHeight - this.height ) + this.getScrollPx() ) > 0) { // scrollPx is negative
-				this.scroll -= 1;
-			}
+			tryScroll(-this.scrollTickSize);
 			break;
 		}
 	}

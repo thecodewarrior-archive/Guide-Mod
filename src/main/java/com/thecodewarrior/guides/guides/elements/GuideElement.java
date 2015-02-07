@@ -28,12 +28,28 @@ public class GuideElement extends Gui {
 		this.newY = y;
 	}
 	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	public int getScreenWidth() {
+		return width;
+	}
+	
 	public int newX() {
 		return this.newX;
 	}
 	
 	public int newY() {
 		return this.newY;
+	}
+	
+	public int newWidth() {
+		return this.width;
 	}
 	
 	public void clickInside(int mX, int mY, int button) {

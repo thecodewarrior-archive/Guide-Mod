@@ -59,6 +59,10 @@ public abstract class View extends Gui {
         }
 	}
 	
+	public void scroll(int amt) {
+		
+	}
+	
 	/**
 	 * Called to draw the view, draw relative to top left of the view
 	 * @param mX mouse X position relative to view left

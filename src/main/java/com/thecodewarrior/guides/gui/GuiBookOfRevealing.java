@@ -5,21 +5,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiLabel;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.MouseEvent;
 
 import org.lwjgl.BufferUtils;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 import com.thecodewarrior.guides.Reference;
 import com.thecodewarrior.guides.api.GuideGenerator;
 import com.thecodewarrior.guides.api.GuideRegistry;
-import com.thecodewarrior.guides.guides.Guide;
 import com.thecodewarrior.guides.views.View;
+
+import cpw.mods.fml.client.config.GuiButtonExt;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class GuiBookOfRevealing extends GuiContainer {
 	public static final int GUI_ID = 100;
@@ -30,21 +35,9 @@ public class GuiBookOfRevealing extends GuiContainer {
 	public static final String seperator = "\u0380";// some random unused code point with size=0 in glyph_sizes.bin
 	
 	public List<View> viewHistory = new ArrayList<View>();
-	
-	String[] links;
-	
-	private int lineCount = 0;
-	private int topLine   = 0;
-
-	private List<String> lines;
-
-	private int textTop;
-	private int textLeft;
 
 	private boolean needsRefresh;
 	
-	private List<IndexedRect> linkRects;
-
 	private float mouseX;
 
 	private float mouseY;
@@ -54,7 +47,11 @@ public class GuiBookOfRevealing extends GuiContainer {
 	private int viewWidth;
 	private int viewHeight;
 	
+	private GuiButtonExt backButton;
+	
 	private GuideGenerator guideGen;
+
+	private int viewIndex;
 	
 	public GuiBookOfRevealing(EntityPlayer player, ItemStack stack, World w, int x, int y, int z) {
 		super(new GuiContainerBookOfRevealing(player));
@@ -74,7 +71,7 @@ public class GuiBookOfRevealing extends GuiContainer {
 		this.container = (GuiContainerBookOfRevealing) this.inventorySlots;
 		this.container.gui = this;
 		
-		this.xSize = 255;
+		this.xSize = 256;
 		this.ySize = 208;
 		
 		this.viewWidth = 246;
@@ -98,10 +95,38 @@ public class GuiBookOfRevealing extends GuiContainer {
 	}
 
 	
+	public void back() {
+		this.viewIndex--;
+		this.view = this.viewHistory.get(this.viewIndex);
+		for(int i=this.viewHistory.size()-1; i >= this.viewIndex; i--) {
+			this.viewHistory.remove(i);
+		}
+		if(this.viewIndex == 0 && this.backButton != null) {
+			this.backButton.enabled = false;
+		}
+	}
+	
 	public void refreshView() {
 		if(this.needsRefresh) {
+			if(this.view != null) {
+				this.viewHistory.add(this.view);
+				this.viewIndex = this.viewHistory.size();
+				if(this.viewIndex >= 0 && this.backButton != null) {
+					this.backButton.enabled = true;
+				}
+			}
 			this.view = this.guideGen.generate(viewWidth, viewHeight, this);
 			this.needsRefresh = false;
+		}
+	}
+	
+	public void handleMouseInput() {
+		super.handleMouseInput();
+		
+		int wheel = Mouse.getDWheel();
+		
+		if(this.view != null) {
+			this.view.scroll(wheel);
 		}
 	}
 	
@@ -111,7 +136,7 @@ public class GuiBookOfRevealing extends GuiContainer {
 
 		int left = (width - xSize)  / 2;
 		int top  = (height - ySize) / 2;
-		
+		if(this.view == null) { return; }
 		this.view.onClick(x-(left+5), y-(top+5), button);
 		
 		/* minecraft button code */
@@ -133,6 +158,7 @@ public class GuiBookOfRevealing extends GuiContainer {
 
 	protected void mouseMovedOrUp(int x, int y, int button) {
 		super.mouseMovedOrUp(x, y, button);
+		
 		if(this.view == null) {
 			return;
 		}
@@ -148,7 +174,7 @@ public class GuiBookOfRevealing extends GuiContainer {
 	
 	public void refreshGuide() {
 		this.needsRefresh = true;
-		refreshView();
+		//refreshView();
 	}
 	
 	private void refreshGuide(World w, int x, int y, int z) {
@@ -166,11 +192,12 @@ public class GuiBookOfRevealing extends GuiContainer {
 		int left = ((width - xSize) / 2);
 		int top = (height - ySize) / 2;
 		//id, x, y, u, v, width, height, texture 224
-		GuiButtonCustomTexture buttonUp = new GuiButtonCustomTexture(1, left+236, top+4, 0, 224, 16, 16, texture);
-		//buttonUp.visible = false;
-//		this.buttonList.add(buttonUp);
-//		this.buttonList.add(new GuiButtonCustomTexture(2, left+236, top+104, 0, 240, 16, 16, texture));
-		//.buttonList.add(new GuiButtonLink(3, left+10, top+10, "Click me"));
+		
+
+		
+		this.backButton = new GuiButtonExt(1, left+215, top+124, 40, 20, "Back");
+		this.backButton.enabled = false;
+		this.buttonList.add(this.backButton);
 	}
 	
 	
@@ -179,19 +206,7 @@ public class GuiBookOfRevealing extends GuiContainer {
 		GuiContainerBookOfRevealing container = ((GuiContainerBookOfRevealing) this.inventorySlots);
         switch(guibutton.id) {
         case 1:
-        	container.topLine -= 1;
-            if(container.topLine < 0) {
-            	container.topLine = 0;
-            }
-            this.refreshGuide();
-            break;
-        case 2:
-        	container.topLine += 1;
-        	this.refreshGuide();
-            break;
-//        case 3:
-//        	System.out.println("HELLO!");
-//        	break;
+        	this.back();
         }
         //Packet code here
         //PacketDispatcher.sendPacketToServer(packet); //send packet
@@ -255,13 +270,28 @@ public class GuiBookOfRevealing extends GuiContainer {
 		
 	}
 	
+	protected void drawButtons(int mX, int mY) {
+		int k;
+
+        for (k = 0; k < this.buttonList.size(); ++k)
+        {
+            ((GuiButton)this.buttonList.get(k)).drawButton(this.mc, mX, mY);
+        }
+
+        for (k = 0; k < this.labelList.size(); ++k)
+        {
+            ((GuiLabel)this.labelList.get(k)).func_146159_a(this.mc, mX, mY);
+        }
+	}
+	
 	public void drawScreen(int mX, int mY, float par3)
 	{
 		this.mouseX = (float)mX;
 		this.mouseY = (float)mY;
 		
+		this.drawButtons(mX, mY);
+		
 		if(this.needsRefresh) {
-			this.viewHistory.add(this.view);
 			this.refreshView();
 		}
 		
