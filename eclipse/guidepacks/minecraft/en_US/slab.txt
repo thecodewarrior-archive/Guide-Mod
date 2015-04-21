@@ -1,0 +1,35 @@
+<title>
+Slabs
+</title>
+<tool>
+    <image src="wood-ish_stone-ish_tools"/>
+</tool>
+<content>
+Slabs are half-height blocks, they can be made of any of the following materials:
+
+Stone-like:
+<indent>
+<guide href="minecraft:stone">Stone</guide>
+
+<guide href="minecraft:cobblestone">Cobblestone</guide>
+
+<guide href="minecraft:sandstone">Sandstone</guide>
+
+<guide href="minecraft:red_sandstone">Red Sandstone</guide>
+
+<guide href="minecraft:brick_block">Bricks</guide>
+
+<guide href="minecraft:stone_bricks">Stone Bricks</guide>
+
+<guide href="minecraft:nether_brick">Nether Bricks</guide>
+
+<guide href="minecraft:quartz_block">Quartz Block</guide>
+</indent>
+
+Wooden:
+    Any <guide href="minecraft:planks">Wood Plank</guide>
+
+Stone-like slabs require a pickaxe to mine. Wooden slabs can be mined with anything, but an axe is quickest.
+
+
+</content>

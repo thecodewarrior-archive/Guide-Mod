@@ -1,0 +1,54 @@
+<!--
+<<table cols=4 header=true lines=true>>
+
+
+<</table>>
+
+EID|Name|Max Level|Primary Items|Secondary Items|Effect|
+0|Protection|IV|<<guide Armor href=minecraft:armor>>|-|Reduces most damage|
+1|Fire Protection|IV|<<guide:Armor|minecraft:armor>>|-|Reduces fire damage|
+2|Feather Falling|IV|<<guide:Boots|minecraft:boot>>|-|Reduces fall damage|
+3|Blast Protection|IV|<<guide:Armor|minecraft:armor>>|-|Reduces explosion damage|
+4|Projectile Protection|IV|<<guide:Armor|minecraft:armor>>|-|Reduces projectile damage|
+5|Respiration|III|<<guide:Helmet|minecraft:helmet>>|-|Extends underwater breathing time
+• Increases underwater breathing time by +15 seconds per level
+• Increases time between suffocation damage by +1 second per level
+• Improves underwater vision|
+6|Aqua Affinity|I|<<guide:Helmet|minecraft:helmet>>|-|Breaking blocks underwater is allowed at regular speed, though the player cannot be floating to get the full effect.|
+7|Thorns|III|<<guide:Chestplate|minecraft:chestplate>>|<<guide:Helmet|minecraft:helmet>>
+<<guide:Leggings|minecraft:leggings>>
+<<guide:Boots|minecraft:boots>>|Damages attackers|
+8|Depth Strider|III|<<guide:Boots|minecraft:boots>>|-|Increases underwater movement speed|
+-->
+
+
+<title>Enchanting table</title>
+<tool>
+    <name>Pickaxe</name>
+    <id>minecraft:pickaxe</id>
+    <image src="minecraft:tools/any_type/pick"/>
+</tool>
+
+<content>
+    <image src="minecraft:block/angle/enchanting_table"
+        align="right" margin-top="-10"/>
+    <b>Enchantments</b>
+    <table>
+        <tr>
+            <td><b>EID</b></td>
+            <td><b>Name</b></td>
+            <td><b>Max Level</b></td>
+            <td><b>Primary Items</b></td>
+            <td><b>Secondary Items</b></td>
+            <td><b>Effect</b></td>
+        </td>
+        <tr>
+            <td>0</td>
+            <td>Protection</td>
+            <td>IV</td>
+            <td><guide href="minecraft:armor">Armor</guide></td>
+            <td>-</td>
+            <td>Reduces most damage</td>
+        </tr>
+    </table>
+</content>

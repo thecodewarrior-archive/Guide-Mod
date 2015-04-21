@@ -18,8 +18,8 @@ import org.apache.logging.log4j.Logger;
 
 public class GuideServerInterface {
 	public static String  protocol = "http";
-	public static String  host     = "localhost";
-	public static int     port     = 3000;
+	public static String  host     = "localhost";//"localhost";
+	public static int     port     = 80;//3000;
 	public static boolean enabled  = false;
 	
 	public static boolean dev      = false;

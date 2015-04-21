@@ -1,0 +1,23 @@
+<title>
+Mushroom (plant)
+</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content>
+The mushroom is a fungi and comes in two different colors, red and brown. Red mushrooms are red with white spots and have a white trunk. Brown mushrooms are a medium tan, also with a white trunk.
+
+ A mushroom can be grown in light levels below 13 and not directly under the sky. If planted on a <guide href="minecraft:mycelium">Mycelium</guide> block or a <guide href="minecraft:podzol">Podzol</guide> block, a mushroom will stay planted in any light level and under open sky. Both types of mushroom, red and brown, grow and spread at the same rate on <guide href="minecraft:mycelium">Mycelium</guide> or <guide href="minecraft:podzol">Podzol</guide>. Mushrooms will spread onto nearby block if in appropriate conditions. They will spread only if there are less than 5 mushrooms of the same type in a 9x9x3 block area.
+
+Mushrooms may spawn in the  <guide href="minecraft:overworld">Overworld</guide> , in the <guide href="minecraft:biomes/mushroom_island">Mushroom island</guide> biome, and in the <guide href="minecraft:nether">Nether</guide>. 
+
+Besides being mined directly, a mushroom will be dropped as an item if:
+
+- The block below them falls, is moved, or is destroyed. 
+- A fluid flows over them.
+- It is above light level 12 and a block updates next to them.
+
+Brown mushrooms emit a barely visible light level of 1.
+</content>

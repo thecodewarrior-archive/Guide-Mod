@@ -1,36 +1,10 @@
-[18:53:54] [main/INFO]: Setting user: Player577
-[18:53:58] [Client thread/INFO]: LWJGL Version: 2.9.1
-[18:54:07] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Not Enough Items, FMLFileResourcePack:In-game guides, FMLFileResourcePack:Inventory Tweaks, FMLFileResourcePack:Waila
-[18:54:09] [Sound Library Loader/INFO]: Sound engine started
-[18:54:12] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
-[18:54:13] [Client thread/INFO]: Created: 256x256 textures/items-atlas
-[18:54:17] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Not Enough Items, FMLFileResourcePack:In-game guides, FMLFileResourcePack:Inventory Tweaks, FMLFileResourcePack:Waila
-[18:54:18] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
-[18:54:19] [Client thread/INFO]: Created: 256x256 textures/items-atlas
-[18:54:20] [Sound Library Loader/INFO]: Sound engine started
-[18:54:20] [Client thread/ERROR]: ########## GL ERROR ##########
-[18:54:20] [Client thread/ERROR]: @ Post startup
-[18:54:20] [Client thread/ERROR]: 1281: Invalid value
-[18:54:24] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
-[18:54:24] [Server thread/INFO]: Generating keypair
-[18:54:25] [Server thread/INFO]: Preparing start region for level 0
-[18:54:27] [Server thread/INFO]: Changing view distance to 12, from 10
-[18:54:28] [Server thread/INFO]: Player577[local:E:0e0ab39e] logged in with entity id 166 at (1087.3423204797937, 5.4036090672809385, -1726.3543947683063)
-[18:54:28] [Server thread/INFO]: Player577 joined the game
-[18:54:29] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 2003ms behind, skipping 40 tick(s)
-[18:54:36] [Client thread/INFO]: [CHAT] InvTweaks: Configuration loaded.
-[18:54:39] [Server thread/INFO]: Saving and pausing game...
-[18:54:39] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
-[18:54:39] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
-[18:54:39] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End
-[18:56:22] [Server thread/INFO]: Saving and pausing game...
-[18:56:22] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
-[18:56:23] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
-[18:56:23] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End
-[18:56:23] [Server thread/INFO]: Stopping server
-[18:56:23] [Server thread/INFO]: Saving players
-[18:56:23] [Server thread/INFO]: Saving worlds
-[18:56:23] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
-[18:56:23] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
-[18:56:23] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End
-[18:56:30] [Client thread/INFO]: Stopping!
+[00:28:43] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 6450569ms behind, skipping 129011 tick(s)
+[00:28:49] [Server thread/WARN]: Time ran backwards! Did the system time change?
+[00:29:38] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 36189ms behind, skipping 723 tick(s)
+[01:40:19] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 4241383ms behind, skipping 84827 tick(s)
+[04:40:29] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 10789910ms behind, skipping 215798 tick(s)
+[04:41:43] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 36338ms behind, skipping 726 tick(s)
+[08:00:43] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 11940378ms behind, skipping 238807 tick(s)
+[08:01:56] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 36584ms behind, skipping 731 tick(s)
+[08:31:16] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 1759981ms behind, skipping 35199 tick(s)
+[08:39:36] [Client Shutdown Thread/INFO]: Stopping server

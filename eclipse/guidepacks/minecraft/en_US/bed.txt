@@ -1,0 +1,9 @@
+<title>Bed</title>
+
+<content>
+A bed is a block that allows the player to sleep and reset its spawn point to within a few blocks of the bed.
+
+Beds can be mined with any tool, or no tool. 
+
+When crafted, neither the type of wood used or the color of the wool effects the appearance of the bed.
+</content>

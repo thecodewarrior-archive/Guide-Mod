@@ -1,0 +1,21 @@
+<title>
+Liquids
+</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content>
+Liquids in minecraft behave differently than liquids in the real world, as they will infinitely flow, and water is capable of duplicating itself.
+
+There are only two kinds of liquid in vanilla minecraft, <guide href="minecraft:water">water</guide>, and <guide href="minecraft:lava">lava</guide>.
+
+Liquids will flow outward to a point, each time the water flows sideways the "depth" of the water decreases, and when it flows down it resets.
+
+Water can flow 8 blocks, but lava will only flow for 4 blocks, except in the <guide href="minecraft:nether">nether</guide>, where lava flows a full 8 blocks.
+
+Water flows faster than lava, and is harmless to touch, where lava will light the player on fire. The player will drown in any liquid if they are under the surface for too long—indicated by the bubbles above the hunger bar when under the surface.
+
+Liquids tend to seep through single layers of blocks and drip onto the floor, though this is a purely cosmetic effect.
+</content>

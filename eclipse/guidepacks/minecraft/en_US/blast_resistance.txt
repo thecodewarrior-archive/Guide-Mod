@@ -1,0 +1,11 @@
+<title>
+Blast resistance
+</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content>
+Blast resistance is part of every <guide href="minecraft:block">block</guide> in minecraft, and dictates how powerful of an <guide href="minecraft:explosion">explosion</guide> is required to destroy the block, and how much the explosion is dampened by the block.
+</content>

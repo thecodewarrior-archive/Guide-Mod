@@ -1,0 +1,19 @@
+<title>
+Axe
+</title>
+
+<content>
+Axes are tools used to quicken the process of collecting <guide src="minecraft:wood">wood</guide> based items. An axe can also be used as a weapon, in which role it deals a half of a heart of damage. Usage of the axe as a weapon will deal double durability damage to the axe.
+
+A bonus chest may contain wooden and/or stone axes.
+
+Iron and diamond axes can be bought from Weapon Smith <guide src="minecraft:villager">villagers</guide> if given <guide src="minecraft:emerald">emeralds</guide>.
+
+Here is a list of axes:
+
+Wood: 60 Uses
+Stone: 132 Uses
+Iron: 251 Uses
+Golden: 33 Uses
+Diamond: 1562 Uses 
+</content>

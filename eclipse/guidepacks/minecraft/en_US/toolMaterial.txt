@@ -1,0 +1,37 @@
+<title>
+Tool Materials
+</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content>
+There are five tool materials in minecraft, each of which is used to make tools of varying strength and speed, and they are as follows.
+
+<guide href="minecraft:planks">Wood</guide>
+<indent>
+Wood tools are used mainly very <guide href="minecraft:early_late_mid_game">early-game</guide>, as they are the bottom of the list of materials.
+</indent>
+
+<guide href="minecraft:cobblestone">Stone</guide>
+<indent>
+Stone tools are the second tier of tools, and are also used mainly very <guide href="minecraft:early_late_mid_game">early-game</guide>.
+</indent>
+
+<guide href="minecraft:iron">Iron</guide>
+<indent>
+Iron tools are your mid-tier tools, they have decent durability and speed, and are all around pretty good tools.
+</indent>
+
+<guide href="minecraft:gold">Gold</guide>
+<indent>
+Pretty much the least useful tools in Minecraft, gold tools are extremely fast, but have barely more than half the durability of Wood tools.
+</indent>
+
+<guide href="minecraft:diamond">Diamond</guide>
+<indent>
+The best tool material by far, diamond tools have far more durability than any other material, and are also far faster. The only problem is that diamonds are rare.
+</indent>
+
+</content>

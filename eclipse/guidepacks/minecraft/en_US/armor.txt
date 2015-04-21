@@ -1,0 +1,11 @@
+<title>
+Armor
+</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content>
+Armor is a selection of items that stop some of the damage from mobs/players and instead of dameging you, it dameges the armor.
+</content>

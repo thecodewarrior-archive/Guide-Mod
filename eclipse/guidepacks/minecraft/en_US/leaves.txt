@@ -1,0 +1,14 @@
+<title>
+Leaves
+</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content>
+Leaves naturally spawn on trees, and will decay slowly if all <guide href="minecraft:wood_log">logs</guide> within 4 blocks are removed, leaves have a chance of dropping <guide href="minecraft:sapling">saplings</guide> when broken or when they decay, if leaves are collected with <guide href="minecraft:shear">Shears</guide>, they will be dropped in block form and won't decay when placed.
+
+Note:
+Oak leaves have a chance of dropping <guide href="minecraft:apple">apples</guide> when broken or when they decay.
+</content>

@@ -1,0 +1,22 @@
+Tags start with << and end with >>
+
+Tags contain a protocol, and arguments separated with pipe(|, shift+\, under delete)
+
+format: <<[protocol]:arg|arg|arg...>>
+
+Links to other guides: Shift+Cmd+T
+	<<guide:actual text|minecraft:guide_name>>
+
+example, for a link to cobblestone slab
+	<<guide:Cobblestone Slab|minecraft:cobblestone_slab>>
+
+Images:
+	<<image:minecraft:image/path[|optional arguments]>>
+optional arguments:
+	align=left,right,center
+	width=pixels, the default view is 230px wide
+	height=pixels
+example:
+	<<image:minecraft:dimensions/nether/overview|width=200|align=center>>
+	dimensions/nether/overview.png displayed center-aligned, and at max 200 "minecraft" pixels wide
+

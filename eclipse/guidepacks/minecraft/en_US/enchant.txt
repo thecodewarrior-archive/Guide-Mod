@@ -1,0 +1,18 @@
+<title>
+Enchanting
+</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content>
+Enchanting is a mechanic that augments <guide href="minecraft:armor">armor</guide>, <guide href="minecraft:tools">tools</guide>, weapons (<guide href="minecraft:sword">swords</guide> and <guide href="minecraft:bow">bows</guide>) and books with one or more of a variety of "enchantments" that improve an item's existing abilities or give additional abilities.
+
+The three main mechanics for enchanting are as follows.
+
+Through an enchantment table in exchange for <guide href="minecraft:XP">experience points</guide> and <guide href="minecraft:lapisLazuli">lapis lazuli</guide>. Only unenchanted items may be enchanted this way.
+Through an <guide href="minecraft:anvil">anvil</guide>, combining items with different existing <guide href="minecraft:enchantments">enchantments</guide> into a single item that has the enchantments of both.
+Through an <guide href="minecraft:anvil">anvil</guide>, combining an <guide href="minecraft:enchantedBook">enchanted book</guide> with an item, which also costs <guide href="minecraft:XP">experience points</guide>.
+
+</content>

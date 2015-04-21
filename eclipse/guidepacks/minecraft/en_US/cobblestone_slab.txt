@@ -1,0 +1,11 @@
+<title>
+Cobblestone slab
+</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content>
+Cobblestone slabs are just like any other <guide href="minecraft:slab">slab</guide>, but are made of cobblestone, so are very cheap.
+</content>

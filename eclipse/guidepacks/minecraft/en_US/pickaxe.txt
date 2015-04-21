@@ -1,0 +1,11 @@
+<title>
+Pickaxe
+</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content>
+The Pickaxe is a very important <guide href="minecraft:tool">tool</guide>
+</content>

@@ -1,0 +1,13 @@
+<title>
+Sand
+</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content>
+Sand generates naturally in many <guide href="minecraft:biomes">biomes</guide> of the <guide href="minecraft:overworld">Overworld</guide>, notably <guide href="minecraft:biomes/desert">deserts</guide>, <guide href="minecraft:biomes/beach">beaches</guide>, and <guide href="minecraft:biomes/river">rivers</guide>, generally in four-block-deep layers supported by <guide href="minecraft:stone">stone</guide> and <guide href="minecraft:sandstone">sandstone</guide>. There are two variaties of sand, normal sand, which is slightly yellow, and red sand, which, as it's name implies, has a red hue.
+
+Sand is most notable because it is affected by gravity, if the block below it is removed, the sand will fall as an <guide href="minecraft:entity">entity</guide>, when it lands on a solid block, it will create a sand block there, if it lands on a non-solid block, instead it will be dropped as an item instead.
+</content>

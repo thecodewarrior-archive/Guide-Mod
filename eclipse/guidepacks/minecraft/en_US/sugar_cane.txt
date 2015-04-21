@@ -1,0 +1,19 @@
+<title>
+Sugar Cane
+</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content>
+Sugar cane (formerly called reeds, and sometimes called papyrus or bamboo) is an item and an important crafting ingredient. It can generate naturally near water, and is usually three-blocks tall, with a small chance to naturally spawn four-blocks tall.
+
+Sugar cane can be mined with or without any tool.
+
+Sugar cane must be planted on a <guide href="minecraft:grass">grass</guide>, <guide href="minecraft:dirt">dirt</guide>, <guide href="minecraft:sand">sand</guide>, or red sand block that is directly adjacent to water and cannot be planted on a block above or diagonal to water. The adjacent water can be covered with another block, whether opaque or transparent, and sugar cane will still be able to be planted and grow next to it. Sugar cane can also be planted adjacent to flowing water. It does not need <guide href="minecraft:light">light</guide> to grow. Planted sugar cane may grow to a maximum height of three blocks. The player can place sugar cane on top of existing sugar cane to make sugar cane of any height (up to the build limit).
+
+Due to its water-displacing properties, sugar cane can be use to create underwater paths, allowing a player to move at normal speed and breathe if it is two blocks in height. Again, water must be adjacent to the block that the sugar cane is placed on. 
+
+Sugar cane can appear as a different shade of green depending on which biome they are in.
+</content>

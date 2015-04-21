@@ -1,0 +1,31 @@
+<title>The Example Page!</title>
+
+<tool>
+    <image src="minecraft:tools/pickaxe/generic" />
+</tool>
+
+<content>
+These are some of the features of the In-Game Guides mod.
+
+Here is some bold text: <b>bold</b>!
+Here is some italic text: <i>italic</i>!
+Here is some underlined text: <u>underlined</u>!
+Here is some strikethrough text: <strike>strikethrough</strike>!
+Here is some obfuscated text: <obf>obfuscated</obf>!
+
+Here is a link: <guide href="minecraft:example/link_target">link!</guide>
+
+Here is a image:
+<image src="minecraft:dimensions/nether/overview" />
+
+Here is an indented area:
+<indent>
+Weeeeeee! I'm indented
+<indent>
+I'm indented <i>more</i>
+</indent>
+
+Awww. I'm only indented once...
+</indent>
+
+</content>

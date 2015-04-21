@@ -1,0 +1,15 @@
+<title>
+Podzol
+</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content>
+A purely decorative block, it spawns in <guide href="minecraft:biome_mega_tiaga">mega taiga</guide> <guide href="minecraft:biomes">biomes</guide>, and can only be collected with a <guide href="minecraft:silkTouch">silk touch</guide> tool, otherwise it will drop <guide href="minecraft:dirt">dirt</guide>.
+
+Podzol allows <guide href="minecraft:mushroom">mushrooms</guide> to be placed on it no matter the <guide href="minecraft:light">light level</guide>, allowing the growing of <guide href="minecraft:huge_mushroom">huge mushrooms</guide>, like <guide href="minecraft:mycelium">mycelium</guide>. <guide href="minecraft:sapling">Saplings</guide>, all kind of <guide href="minecraft:flowers">flowers</guide> and <guide href="minecraft:suger_cane">sugar canes</guide> can be placed on it normally.
+
+Unlike <guide href="minecraft:grass">grass</guide>, Podzol will
+</content>

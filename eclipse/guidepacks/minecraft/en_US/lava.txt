@@ -1,0 +1,37 @@
+<title>Lava</title>
+
+<tool>
+    <image src="minecraft:tools/bucket"/>
+</tool>
+
+<content>
+Lava is one of two <guide href="minecraft:liquid">liquids</guide> in vanilla minecraft and is found in underground pools at <guide href="minecraft:z-level">levels</guide> 1 through 10 and rarely on the surface as lakes or lava-falls.
+
+<image src="minecraft:dimensions/nether/overview"/>
+
+Lava will light the player on fire if touched and will destroy items if they land in it.
+
+Lava emits a <guide href="minecraft:light">light level</guide> of 15
+
+Lava can be stopped from flowing by ladders, fences, and signs, without them lighting on fire and being destroyed.
+
+Shooting an arrow through flowing lava (though not source blocks) will light the arrow on fire, causing it to light any mob it hits on fire
+
+Interactions between Lava and Water
+<indent>
+If lava flows on top of still or running water, it creates stone.
+
+If lava flows horizontally into water, cobblestone is created.
+
+If water flows horizontally into lava, a hiss and puff of smoke occur but nothing changes.
+
+If water flows vertically into lava, cobblestone or a hiss may result.
+
+If water flows into a lava source block then obsidian is created. The lava spring is destroyed in the process, so unlike cobblestone it is not continuous and renewable.
+
+If vertically falling water touches a lava source block on any side obsidian is created - even if the water would not run into the lava's square.
+
+</indent>
+
+The password is <obf>datastuff</obf> and the <u>old</u> password <i>was</i>  <strike>datastuffold</strike> the <b>bold</b> password is <b><obf>datastuff</obf></b>
+</content>

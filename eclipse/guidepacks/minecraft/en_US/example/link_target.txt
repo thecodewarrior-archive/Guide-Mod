@@ -1,0 +1,9 @@
+<title>Link target</title>
+
+<tool>
+    <image src="" />
+</tool>
+
+<content>
+Here is a link <guide href="minecraft:example/main">back</guide>
+</content>

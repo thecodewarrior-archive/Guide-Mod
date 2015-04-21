@@ -1,0 +1,9 @@
+<title>
+Swords are used to fight and kill mobs and players. the materials used to craft the sword affect the damage delt by the sword.
+</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content></content>

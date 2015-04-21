@@ -1,0 +1,11 @@
+<title>
+Cobblestone Stair
+</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content>
+Cobblestone stairs are, well, <guide href="minecraft:stair">stairs</guide>, made out of cobblestone. Big surprise there.
+</content>

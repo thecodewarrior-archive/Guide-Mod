@@ -1,0 +1,11 @@
+<title>
+Block
+</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content>
+Blocks are the basic units of structure in Minecraft. Together, they build up the in-game environment and can be mined and utilized in various fashions. Each block is 1 meter in size, or roughly 3 feet 3 inches.
+</content>

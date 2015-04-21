@@ -49,7 +49,7 @@ public class GuideElementText extends GuideElement {
 		super(x,y, width);
 		if(fontRendererObj == null) { return; }
 		
-		parse(  String.join("", format) + 
+		parse(  StringUtils.join(format, "") + 
 				string);
 		
 		this.color = color;

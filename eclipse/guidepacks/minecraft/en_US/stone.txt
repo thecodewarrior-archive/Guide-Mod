@@ -1,0 +1,11 @@
+<title>
+Stone
+</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content>
+Stone is an extremely common material, found generally a few blocks below the surface, and filled with lovely ores.
+</content>

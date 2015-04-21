@@ -58,10 +58,10 @@ public class GuideMod {
 		tL.error("tmp");
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
-		GuideServerInterface.enabled = config.getBoolean("enabled", "guideserver", GuideServerInterface.enabled,           "Is Guide Server enabled?");		
-		GuideServerInterface.host    = config.getString ("host"   , "guideserver", GuideServerInterface.host   ,           "Guide Server Hostname");
-		GuideServerInterface.port    = config.getInt    ("port"   , "guideserver", GuideServerInterface.port   , 0, 65536, "Guide Server Port");
-		GuideServerInterface.dev     = true;
+		GuideServerInterface.enabled = config.getBoolean("enabled"    , "guideserver", GuideServerInterface.enabled,           "Is Guide Server enabled?");		
+		GuideServerInterface.host    = config.getString ("host"       , "guideserver", GuideServerInterface.host   ,           "Guide Server Hostname");
+		GuideServerInterface.port    = config.getInt    ("port"       , "guideserver", GuideServerInterface.port   , 0, 65536, "Guide Server Port");
+		GuideServerInterface.dev     = config.getBoolean("development", "guideserver", GuideServerInterface.dev    ,           "Should mod re-download all guides every launch? (development only)");
 		config.save();
 	}
 	

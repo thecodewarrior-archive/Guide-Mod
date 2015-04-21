@@ -1,0 +1,138 @@
+<title>
+Enchantments
+</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content>
+
+EID:
+<indent>
+Effect Identification Number, an internal code used in the software.
+</indent>
+
+Name:
+<indent>
+The enchantment's name will appear under the item's name when the player hovers the mouse over the item along with its level.
+</indent>
+
+Max Level:
+<indent>
+The maximum level that can be received legitimately. Higher levels are possible using commands.
+</indent>
+
+Primary Items:
+<indent>
+The items that can receive the enchantment legitimately in Survival mode, by any of the four possible enchanting methods. Items of any material can be enchanted (some more easily than others).
+</indent>
+
+Secondary Items
+<indent>
+Items which, in Survival mode, cannot receive the enchantment from an enchanting table, but can from an enchanted book with an anvil.
+</indent>
+
+Effect:
+<indent>
+A description of the capability improved or added by the enchantment.
+</indent>
+
+<table>
+    <tr>
+        <td>EID</td>
+        <td>Name</td>
+        <td>Max Level</td>
+        <td>Primary Items</td>
+        <td>Secondary Items</td>
+        <td>Effect</td>
+    </tr>
+    
+    <tr>
+        <td>0</td>
+        <td>Protection</td>
+        <td>IV</td>
+        <td><guide href="minecraft:armor">Armor</guide></td>
+        <td>-</td>
+        <td>Reduces most damage</td>
+    </tr>
+    
+    <tr>
+        <td>1</td>
+        <td>Fire Protection</td>
+        <td>IV</td>
+        <td><guide href="minecraft:armor">Armor</guide></td>
+        <td>-</td>
+        <td>Reduces fire damage</td>
+    </tr>
+    
+    <tr>
+        <td>2</td>
+        <td>Feather Falling</td>
+        <td>IV</td>
+        <td><guide href="minecraft:boots">Boots</guide></td>
+        <td>-</td>
+        <td>Reduces fall damage</td>
+    </tr>
+    
+    <tr>
+        <td>3</td>
+        <td>Blast Protection</td>
+        <td>IV</td>
+        <td><guide href="minecraft:armor">Armor</guide></td>
+        <td>-</td>
+        <td>Reduces explosion damage</td>
+    </tr>
+    
+    <tr>
+        <td>4</td>
+        <td>Projectile Protection</td>
+        <td>IV</td>
+        <td><guide href="minecraft:armor">Armor</guide></td>
+        <td>-</td>
+        <td>Reduces projectile damage</td>
+    </tr>
+    
+    <tr>
+        <td>5</td>
+        <td>Respiration</td>
+        <td>III</td>
+        <td><guide href="minecraft:helmet">Helmet</guide></td>
+        <td>-</td>
+        <td>Extends underwater breathing time
+• Increases underwater breathing time by +15 seconds per level
+• Increases time between suffocation damage by +1 second per level
+• Improves underwater vision</td>
+    </tr>
+    
+    <tr>
+        <td>6</td>
+        <td>Aqua Affinity</td>
+        <td>I</td>
+        <td><guide href="minecraft:helmet">Helmet</guide></td>
+        <td>-</td>
+        <td>Breaking blocks underwater is allowed at regular speed, though the player cannot be floating to get the full effect.</td>
+    </tr>
+
+    <tr>
+        <td>7</td>
+        <td>Thorns</td>
+        <td>III</td>
+        <td><guide href="minecraft:chestplate">Chestplate</guide></td>
+        <td><guide href="minecraft:helmet">Helmet</guide>
+<guide href="minecraft:leggings">Leggings</guide>
+<guide href="minecraft:boots">Boots</guide></td>
+        <td>Damages attackers</td>
+    </tr>
+
+    <tr>
+        <td>8</td>
+        <td>Depth Strider</td>
+        <td>III</td>
+        <td><guide href="minecraft:boots">Boots</guide></td>
+        <td>-</td>
+        <td>Increases underwater movement speed</td>
+    </tr>
+
+</table>
+</content>

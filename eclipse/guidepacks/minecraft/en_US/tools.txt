@@ -1,0 +1,69 @@
+<title>
+Tools
+</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content>
+Tools are, well, tools. They allow the player to mine more quickly, kill mobs more quickly, or do things the player normally can't.
+
+All tools have durability, which is used up when the tool is used, when the durability gets to zero the tool will break, playing a sound and disappearing.
+
+All tools can be combined in a crafting table with one tool of the same type and material to add their durabilities, plus a bonus 5%.
+
+Note: Pickaxes, Axes, Shovels, Swords, and Hoes can be made using any of the <guide href="minecraft:toolMaterial">tool materials</guide>
+
+Tools for mining:
+<indent>
+Mining tools allow the player to mine certain materials more quickly than by hand, and make certain materials drop when they normally wouldn't.
+</indent>
+
+<guide href="minecraft:pickaxe">Pickaxe</guide>
+<indent>
+Pickaxes are used to mine stone-like materials.
+</indent>
+
+<guide href="minecraft:axe">Axe</guide>
+<indent>
+Axes are used to mine wood-like materials.
+</indent>
+
+<guide href="minecraft:shovel">Shovel</guide>
+<indent>
+Shovels are used to mine dirt-like materials.
+</indent>
+
+Tools for killing mobs:
+<guide href="minecraft:sword">Sword</guide>
+<indent>
+Swords are used to kill mobs more effectively in close-quarter combat, and for blocking damage
+</indent>
+
+<guide href="minecraft:bow">Bow</guide>
+<indent>
+Bows are used to shoot mobs with arrows from the player's inventory, allowing for ranged combat.
+</indent>
+
+Other tools:
+<guide href="minecraft:hoe">Hoe</guide>
+<indent>
+The hoe is used for tilling dirt into <guide href="minecraft:farmland">farmland</guide>.
+</indent>
+
+<guide href="minecraft:shear">Shears</guide>
+<indent>
+Shears are used for taking the wool off of sheep
+</indent>
+
+<guide href="minecraft:flint_and_steel">Flint and steel</guide>
+<indent>
+Flint and steel has only one purpose, lighting things on fire.
+</indent>
+
+<guide href="minecraft:fishing_rod">Fishing rod</guide>
+<indent>
+The fishing rod is used for, well fishing. And yanking mobs towards you.
+</indent>
+</content>

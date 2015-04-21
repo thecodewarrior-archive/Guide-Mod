@@ -22,6 +22,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
+import com.thecodewarrior.guides.GuideMod;
 import com.thecodewarrior.guides.guides.elements.GuideElement;
 import com.thecodewarrior.guides.guides.elements.GuideElementImage;
 import com.thecodewarrior.guides.guides.elements.GuideElementText;
@@ -97,6 +98,7 @@ public class GuideText extends Guide {
 		if(builder == null) { return elements; }
 		
 		try {
+		    GuideMod.l.info(rawGuide);
 		    Document document = builder.parse( new ByteArrayInputStream(
 		    			( 
 		    				"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
@@ -105,6 +107,7 @@ public class GuideText extends Guide {
 		    				"\n</root>"
 		    			).getBytes( "UTF-8" )
 		    		) );
+		    
 		    
 		    int top = 0;
 		    
@@ -125,7 +128,7 @@ public class GuideText extends Guide {
 		    Node titlenode   = document.getElementsByTagName("title").item(0);
 		    if(titlenode != null) {
 		    	double scale = 1.4D;
-		    	GuideElement titleElement = new GuideElementText(0, 0, width, GuideElementText.BOLD + titlenode.getTextContent());
+		    	GuideElement titleElement = new GuideElementText(0, 0, width, GuideElementText.BOLD + titlenode.getTextContent().replace("\n", "").replace("\r", ""));
 		    	GuideElement scaleElement = new GuideElementScale(titleElement, scale);
 		    	int titleHeight = (int)( scaleElement.fontRendererObj.FONT_HEIGHT * scale );
 		    	if(titleHeight > top) {

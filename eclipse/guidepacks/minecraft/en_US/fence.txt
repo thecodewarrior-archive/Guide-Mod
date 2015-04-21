@@ -1,0 +1,17 @@
+<title>
+Fence
+</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content>
+Fences are wall blocks that cannot be jumped over.
+
+Fences come in two main varieties, wood, and <guide href="minecraft:nether_brick">nether brick</guide>.
+
+Wood fences are broken most quickly with an <guide href="minecraft:axe">axe</guide>, but will drop when broken with any tool. Nether brick fences require a <guide href="minecraft:pickaxe">pickaxe</guide> to get it back, mining it with anything else will drop nothing.
+
+In Minecraft version 1.8+ fences come in all the wood varieties: Oak, Spruce, Birch, Jungle, Dark Oak, and Acacia.
+</content>

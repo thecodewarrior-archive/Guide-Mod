@@ -1,0 +1,11 @@
+<title>
+Silk Touch
+</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content>
+Silk touch is an <guide href="minecraft:enchanting">enchantment</guide> that allows the tool to pick up blocks that normally wouldn't be dropped, such as ice, grass, stone, glass, glass panes, etc. The major thing that cannot be picked up using silk touch is <guide href="minecraft:spawner">monster spawners</guide>
+</content>

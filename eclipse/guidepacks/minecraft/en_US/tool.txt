@@ -1,0 +1,11 @@
+<title>
+Tool
+</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content>
+Tools are items used by the player while held to perform actions faster and more efficiently, to gather materials not obtainable by hand, to gain information, or to perform completely new actions. With the exception of the clock, compass and bucket, tools do not stack in the inventory. Tools can be repaired with an <guide href="minecraft:anvil">anvil</guide>.
+</content>

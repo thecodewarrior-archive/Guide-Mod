@@ -1,0 +1,15 @@
+<title>
+Netherrack
+</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content>
+Formerly known as Netherstone, Netherrack is a red and black rock-like block found in the nether. It can only be collected with a pickaxe, and if it is destroyed with any other tool no item will drop.
+
+Netherrack makes up most of the <guide href="minecraft:nether">Nether's</guide> terrain. 
+
+When a Netherrack's top is lit on fire, it burns infinitely.
+</content>

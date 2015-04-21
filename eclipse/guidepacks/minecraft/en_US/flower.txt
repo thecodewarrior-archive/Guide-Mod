@@ -1,0 +1,43 @@
+<title>
+Flower
+</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content>
+Flowers are a naturally occurring plant that come in a variety of shapes and colors.
+
+Flowers naturally generate on <guide href="minecraft:dirt">dirt</guide> or <guide href="minecraft:grass">grass</guide>blocks. Even in a biome covered with snow, flowers will naturally generate on dirt block with grass, despite the adjoining dirt blocks being covered in snow. 
+
+ 
+Flowers can be instantly broken with any item or no item
+
+<guide href="minecraft:iron_golems">Iron Golems</guide> drop 0 to 2 poppies upon death.
+
+When <guide href="minecraft:bone_meal">bone meal</guide> is applied to a grass block, flowers have a chance of spawning instead of <guide href="minecraft:tall_grass">tall grass</guide> on the targeted block and on adjacent grass blocks up to 8 blocks away. The spawned flower depends on the <guide href="minecraft:biome">biome</guide>. When bonemeal is applied to a double flower, a second double flower will spawn as an item.
+
+All flowers can be used as a decoratiom.
+
+Sunflowers always face east, so they can be used as a direction guide.
+
+Dandelions can be used to breed and lead <guide href="minecraft:rabbit">rabbits</guide> . 
+
+Here is a list of all the types of flowers. 
+
+- Dandelion, a small yellow flower with a dark green stem.
+- Poppy, a small dark red flower with a dark green stem.
+- Blue orchid, a medium-sized light blue flower with a dark green stem.
+- Allium, a medium-sized light purple flower with a light green stem.
+- Azure Bluet, a small bunch of cream white flowers on a dark green stem.
+- Red tulip, a medium-sized red flower with a light green stem.
+- Orange tulip, a medium-sized orange flower with a light green stem.
+- White tulip, a medium-sized white flower with a medium green stem.
+- Pink tulip, a medium-sized white tulip with a light green stem.
+- Oxeye daisy, a medium-sized white flower with a dark green stem. 
+- Sunflower, a large yellow flower with a dark green stem.
+- Lilac, a light large light purple flower with a light green stem.
+- Rose bush, a large bunch of red flowers with a dark green stem.
+- Peony, a large light pink flower with a dark green stem.
+</content>

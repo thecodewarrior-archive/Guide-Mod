@@ -1,0 +1,13 @@
+<title>
+Wood Planks
+</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content>
+Wood Planks are used for crafting and building, and come in six different varieties for each of the vanilla minecraft <guide href="minecraft:treeTypes">tree types</guide>, they are cheap and renewable to obtain, and are especially useful in early game, while still being useful all the way to late–end game.
+
+Wood is the first <guide href="minecraft:toolMaterial">tool material</guide> you will have access to, and is also probably the first fuel you will use in a <guide href="minecraft:furnace">furnace</guide>, although planks only will <guide href="minecraft:smelting">smelt</guide> 1.5 items.
+</content>

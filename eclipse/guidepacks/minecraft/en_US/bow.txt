@@ -1,0 +1,11 @@
+<title>
+Bow
+</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content>
+A bow is an incredible weapon. it can shoot <guide href="minecraft:arrow">arrows</guide> when they are in your inventory. just right click and hold for about one second, then let go.
+</content>

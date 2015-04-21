@@ -4,15 +4,15 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
@@ -95,16 +95,17 @@ public class ClientProxy extends CommonProxy{
 		if(didGuidePackPathLoad) {
 			FileFilter directoryFilter = new FileFilter() {
 				public boolean accept(File file) {
-					try {
-						if(!file.isFile()) { return false; }
-						ZipFile z = new ZipFile(file);
-						z.close();
-						return true;
-					} catch (ZipException e) {
-						return false;
-					} catch (IOException e) {
-						return false;
-					}
+					return !file.isFile();
+//					try {
+//						if(!file.isFile()) { return false; }
+//						ZipFile z = new ZipFile(file);
+//						z.close();
+//						return true;
+//					} catch (ZipException e) {
+//						return false;
+//					} catch (IOException e) {
+//						return false;
+//					}
 				}
 			};
 			
@@ -119,11 +120,12 @@ public class ClientProxy extends CommonProxy{
 	@Override
 	public void loadGuideFiles(File path) {
 		try {
-			ZipFile zipFile = new ZipFile(path);
-
-			InputStream stream = zipFile.getInputStream(new ZipEntry("register.txt"));
-			BufferedReader r = new BufferedReader(new InputStreamReader(stream));
-			
+//			ZipFile zipFile = new ZipFile(path);
+//
+//			InputStream stream = zipFile.getInputStream(new ZipEntry("register.txt"));
+//			BufferedReader r = new BufferedReader(new InputStreamReader(stream));
+			File file = new File(path, "register.txt");
+			BufferedReader r = new BufferedReader(new FileReader(file));
 			
 			String line;
 			HashMap<String, String> blocks = new HashMap<String, String>();
@@ -200,7 +202,7 @@ public class ClientProxy extends CommonProxy{
 				}
 			}
 
-	    zipFile.close();
+//	    zipFile.close();
 
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
@@ -230,21 +232,23 @@ public class ClientProxy extends CommonProxy{
 		return null;
 	}
 	
-	protected String getGuidePackText(String modid, String guideName, File packPath) {
+	protected String getGuidePackText(String modid, String guideName/*, File packPath*/) {
 		try {
 			
 			String lang = getLang();
 			
-			ZipFile zipFile = getZipFile(modid);
+//			ZipFile zipFile = getZipFile(modid);
 							
-				InputStream stream = zipFile.getInputStream(new ZipEntry(lang + "/" + guideName + ".txt"));
-				if(stream == null) {
-					zipFile.close();
-					return null;
-				}
-				String str = IOUtils.toString(stream);
-			zipFile.close();
-			
+//				InputStream stream = zipFile.getInputStream(new ZipEntry(lang + "/" + guideName + ".txt"));
+			File file = new File(guidePackPath, modid + "/" + lang + "/" + guideName + ".txt");
+			InputStream stream = new FileInputStream(file);
+//			if(stream == null) {
+//				zipFile.close();
+//				return null;
+//			}
+			String str = IOUtils.toString(stream);
+//			zipFile.close();
+			stream.close();
 			return str;
 			
 		} catch (IOException e1) {}
@@ -263,10 +267,11 @@ public class ClientProxy extends CommonProxy{
 			String str = null;
 			String errorText = modid + ":" + guideName + " not found. searched for\n";
 			errorText += "resource pack: " + modid + "/guides/" + lang + "/" + guideName + ".txt\n";
-			errorText += "guide pack :" + modid + ".zip/" + lang + "/" + guideName + ".txt";
+			errorText += "guide pack: " + modid + "/" + lang + "/" + guideName + ".txt";
 			
 			if(didGuidePackPathLoad) {
-				str = getGuidePackText(modid, guideName, guidePackPath);
+				str = getGuidePackText(modid, guideName/*, guidePackPath*/);
+				GuideMod.l.info("text: " + str);
 			}
 			if(str != null) {
 				return str;
@@ -303,16 +308,18 @@ public class ClientProxy extends CommonProxy{
 	}
 	
 	/**
-	 * Attempts to load the image. Returns whether it was successful or not.
+	 * Attempts to load the image.
 	 */
 	public void loadGuideImage(String modid, String name)
 	{
 		try {
 			String key = modid + ":" + name;
 			if(!textureLocations.containsKey(modid + ":" + name)) {
-	        	ZipFile file = getZipFile(modid);
-	    	    InputStream input = file.getInputStream(new ZipEntry("images/" + name + ".png"));
-	            BufferedImage buff = ImageIO.read(input);
+//	        	ZipFile file = getZipFile(modid);
+//	    	    InputStream input = file.getInputStream(new ZipEntry("images/" + name + ".png"));
+				File file = new File(guidePackPath, modid + "/images/" + name + ".png");
+				InputStream input = new FileInputStream(file);
+				BufferedImage buff = ImageIO.read(input);
 	            DynamicTexture previewTexture = new DynamicTexture(buff);
 	            ResourceLocation resourceLocation = Minecraft.getMinecraft().renderEngine.getDynamicTextureLocation(key, previewTexture);
 	            
@@ -320,7 +327,7 @@ public class ClientProxy extends CommonProxy{
 	            imageHeights.put(key, buff.getHeight());
 	            dynamicTextures.put(modid + ":" + name, previewTexture);
 	            textureLocations.put(modid + ":" + name, resourceLocation);
-	            file.close();
+	            input.close();
 	        }
 			
 			
