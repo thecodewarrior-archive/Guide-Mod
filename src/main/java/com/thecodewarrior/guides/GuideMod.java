@@ -21,6 +21,7 @@ import com.thecodewarrior.guides.guides.elements.GuideElementTextLink;
 import com.thecodewarrior.guides.guides.tags.Tag;
 import com.thecodewarrior.guides.proxy.CommonProxy;
 
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -47,15 +48,13 @@ public class GuideMod {
 	public static CommonProxy proxy;
 	
 	public static Logger logChild(String name) {
-		return LogManager.getLogger(loggerName + "] [" + name);
+		Logger log = LogManager.getLogger(loggerName + "] [" + name);
+		return log;
 	}
 	
 	@EventHandler 
 	public void preInit(FMLPreInitializationEvent event) {
 		l = LogManager.getLogger(loggerName);
-		Logger tL = logChild("Name");
-		l.error("root");
-		tL.error("tmp");
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
 		GuideServerInterface.enabled = config.getBoolean("enabled"    , "guideserver", GuideServerInterface.enabled,           "Is Guide Server enabled?");		
@@ -143,6 +142,8 @@ public class GuideMod {
 			}
 		});
 		*/
+	
+		
 	}
 	
 	@EventHandler

@@ -40,6 +40,77 @@ public class GuideRegistry {
 	
 	private static HashMap<String, View> views = new HashMap<String, View>();
 	
+	private static HashMap<String, List<GuideMatcher>> matchers = new HashMap<String, List<GuideMatcher>>();
+	
+	private static List<String> disabledPacks = new ArrayList<String>();
+	
+	private static List<GuideMatcher> getOrCreateGuidePack(String packID) {
+		if(!matchers.containsKey(packID)) {
+			matchers.put(packID, new ArrayList<GuideMatcher>());
+		}
+		return matchers.get(packID);
+	}
+	
+	public static void registerMatcher(String packID, GuideMatcher mat) {
+		List<GuideMatcher> matchList = getOrCreateGuidePack(packID);
+		matchList.add(mat);
+	}
+	
+	public static void wipeGuideRegistry() {
+		matchers = new HashMap<String, List<GuideMatcher>>();
+	}
+	
+	public static GuideGenerator findGuideFor(World w, int x, int y, int z) {
+		
+		GameRegistry.UniqueIdentifier idObj = GameRegistry.findUniqueIdentifierFor(w.getBlock(x,y,z));
+		String id = idObj.modId + ":" + idObj.name;
+		int meta  = w.getBlockMetadata(x, y, z);
+		
+		GuideMatcher.Match bestMatch = new GuideMatcher.Match();
+		for (List<GuideMatcher> matcherArray : matchers.values()) {
+			for(GuideMatcher matcher : matcherArray) {
+		    	GuideMatcher.Match match = matcher.match(id, meta);
+		    	if(
+		    			(match.hasMatch) &&
+		    			(match.typeSpecifity == bestMatch.typeSpecifity && match.itemSpecifity > bestMatch.itemSpecifity) ||
+		    			(match.typeSpecifity >  bestMatch.typeSpecifity)
+		    		) {
+		    		bestMatch = match;
+		    	}
+		    }
+		}
+		if(bestMatch.hasMatch) {
+			return new GuideGeneratorBasic(bestMatch.guideName);
+		} else {
+			return NULL_GUIDE;
+		}
+	}
+	
+	public static GuideGenerator findGuideFor(ItemStack stack) {
+		GameRegistry.UniqueIdentifier idObj = GameRegistry.findUniqueIdentifierFor(stack.getItem());
+		String id = idObj.modId + ":" + idObj.name;
+		int meta  = stack.getItemDamage();
+		
+		GuideMatcher.Match bestMatch = new GuideMatcher.Match();
+		for (List<GuideMatcher> matcherArray : matchers.values()) {
+			for(GuideMatcher matcher : matcherArray) {
+		    	GuideMatcher.Match match = matcher.match(id, meta);
+		    	if(
+		    			(match.hasMatch) &&
+		    			(match.typeSpecifity == bestMatch.typeSpecifity && match.itemSpecifity > bestMatch.itemSpecifity) ||
+		    			(match.typeSpecifity >  bestMatch.typeSpecifity)
+		    		) {
+		    		bestMatch = match;
+		    	}
+		    }
+		}
+		if(bestMatch.hasMatch) {
+			return new GuideGeneratorBasic(bestMatch.guideName);
+		} else {
+			return NULL_GUIDE;
+		}
+	}
+	
 	//{{ Items
 	
 	public static GuideGenerator findItemGuide(ItemStack stack) {

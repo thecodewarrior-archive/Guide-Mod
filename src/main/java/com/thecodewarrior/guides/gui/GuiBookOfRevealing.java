@@ -12,21 +12,24 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.MouseEvent;
 
+import org.apache.logging.log4j.Logger;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
+import com.thecodewarrior.guides.GuideMod;
 import com.thecodewarrior.guides.Reference;
 import com.thecodewarrior.guides.api.GuideGenerator;
 import com.thecodewarrior.guides.api.GuideRegistry;
+import com.thecodewarrior.guides.api.GuideRegistry.GuideGeneratorBasic;
 import com.thecodewarrior.guides.views.View;
 
 import cpw.mods.fml.client.config.GuiButtonExt;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class GuiBookOfRevealing extends GuiContainer {
+	public static final Logger l = GuideMod.logChild("GUI");
+	
 	public static final int GUI_ID = 100;
 
 	public static final ResourceLocation texture = new ResourceLocation(Reference.MODID, "textures/gui/book_of_revealing_gui.png");
@@ -48,6 +51,7 @@ public class GuiBookOfRevealing extends GuiContainer {
 	private int viewHeight;
 	
 	private GuiButtonExt backButton;
+	private GuiButtonExt reloadButton;
 	
 	private GuideGenerator guideGen;
 
@@ -86,11 +90,12 @@ public class GuiBookOfRevealing extends GuiContainer {
 			refreshGuide(GuideRegistry.NULL_GUIDE);
 			return;
 		}
-		if(stack.getItem() instanceof ItemBlock) {
-			guide = GuideRegistry.findBlockGuide(stack);
-		} else {
-			guide = GuideRegistry.findItemGuide(stack);
-		}
+		guide = GuideRegistry.findGuideFor(stack);
+//		if(stack.getItem() instanceof ItemBlock) {
+//			guide = GuideRegistry.findBlockGuide(stack);
+//		} else {
+//			guide = GuideRegistry.findItemGuide(stack);
+//		}
 		refreshGuide(guide);
 	}
 
@@ -179,7 +184,8 @@ public class GuiBookOfRevealing extends GuiContainer {
 	
 	private void refreshGuide(World w, int x, int y, int z) {
 		GuideGenerator guide = GuideRegistry.findBlockGuide(w, x, y, z);
-		refreshGuide(guide);
+		GuideGenerator otherGuide = GuideRegistry.findGuideFor(w, x, y, z);
+		refreshGuide(otherGuide);
 	}
 	
 	public void refreshGuide(GuideGenerator gen) {
@@ -198,6 +204,9 @@ public class GuiBookOfRevealing extends GuiContainer {
 		this.backButton = new GuiButtonExt(1, left+215, top+124, 40, 20, "Back");
 		this.backButton.enabled = false;
 		this.buttonList.add(this.backButton);
+		
+		this.reloadButton = new GuiButtonExt(1, left+215, top+144, 40, 20, "Reload");
+		this.buttonList.add(this.reloadButton);
 	}
 	
 	
@@ -207,6 +216,9 @@ public class GuiBookOfRevealing extends GuiContainer {
         switch(guibutton.id) {
         case 1:
         	this.back();
+        case 2:
+        	GuideRegistry.wipeGuideRegistry();
+        	GuideMod.proxy.loadGuidePacks();
         }
         //Packet code here
         //PacketDispatcher.sendPacketToServer(packet); //send packet

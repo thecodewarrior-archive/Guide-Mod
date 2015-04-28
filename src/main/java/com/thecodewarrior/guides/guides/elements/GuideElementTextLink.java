@@ -3,6 +3,7 @@ package com.thecodewarrior.guides.guides.elements;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
@@ -13,6 +14,8 @@ import com.thecodewarrior.guides.api.GuideRegistry;
 
 public class GuideElementTextLink extends GuideElementText {
 
+	public static final Logger l = GuideMod.logChild("GuideElementTextLink");
+	
 	protected List<GuideElementText> elements;
 	protected int defaultColor;
 	protected int hoverColor;
@@ -43,7 +46,7 @@ public class GuideElementTextLink extends GuideElementText {
 		NamedNodeMap map = node.getAttributes();
 		Node attrNode = map.getNamedItem("href");
 		this.link = attrNode.getNodeValue();//.getAttributes().getNamedItem("href").getNodeValue();//this.data.split("\\|", 2)[1];
-		GuideMod.l.info(text + "=" + this.link);
+		l.info(text + " => " + this.link);
 		this.defaultColor = color;
 		this.hoverColor = hoverColor;
 		// TODO Auto-generated constructor stub

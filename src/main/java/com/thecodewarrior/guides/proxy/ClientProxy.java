@@ -32,6 +32,8 @@ import org.lwjgl.opengl.GL12;
 import com.thecodewarrior.guides.GuideMod;
 import com.thecodewarrior.guides.GuideServerInterface;
 import com.thecodewarrior.guides.api.GuideRegistry;
+import com.thecodewarrior.guides.guides.GuidePackLoader;
+import com.thecodewarrior.guides.guides.GuidePackUpdater;
 import com.thecodewarrior.guides.guides.GuideText;
 
 import cpw.mods.fml.common.Loader;
@@ -81,17 +83,20 @@ public class ClientProxy extends CommonProxy{
 		
 		String[] mcVersionSplit = Loader.instance().getMCVersionString().split(" ");
 		
-		GuideServerInterface.updateMod("minecraft", mcVersionSplit[mcVersionSplit.length-1] , new File(guidePackPath, "minecraft.zip"));
+		//GuideServerInterface.updateMod("minecraft", mcVersionSplit[mcVersionSplit.length-1] , new File(guidePackPath, "minecraft.zip"));
+		
+		GuidePackUpdater.updatePack(new File(guidePackPath, "minecraft"), "minecraft", mcVersionSplit[mcVersionSplit.length-1]);
 		
 		for(ModContainer mod : mods) {
-			File file = new File(guidePackPath, mod.getModId() + ".zip");
-			GuideServerInterface.updateMod(mod.getModId(), mod.getVersion(), file);
+			File file = new File(guidePackPath, mod.getModId());// + ".zip"
+			GuidePackUpdater.updatePack(file, mod.getModId(), mod.getVersion());
+			//GuideServerInterface.updateMod(mod.getModId(), mod.getVersion(), file);
 		}
 	}
 	
 	@Override
 	public void loadGuidePacks() {
-		
+				
 		if(didGuidePackPathLoad) {
 			FileFilter directoryFilter = new FileFilter() {
 				public boolean accept(File file) {
@@ -112,6 +117,7 @@ public class ClientProxy extends CommonProxy{
 			File[] folders = guidePackPath.listFiles(directoryFilter);
 			for(File folder : folders) {
 				loadGuideFiles(folder);
+				GuidePackLoader.loadPack(folder);
 			}
 		}
 		
@@ -271,7 +277,7 @@ public class ClientProxy extends CommonProxy{
 			
 			if(didGuidePackPathLoad) {
 				str = getGuidePackText(modid, guideName/*, guidePackPath*/);
-				GuideMod.l.info("text: " + str);
+				//GuideMod.l.info("text: " + str);
 			}
 			if(str != null) {
 				return str;

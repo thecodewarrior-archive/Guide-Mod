@@ -1,0 +1,6 @@
+<title>
+Arrow
+</title>
+<content>
+Arrows are ammunition for <guide href="minecraft:bow">bows</guide> and <guide href="minecraft:dispenser">dispensers</guide>, any that hit blocks will stay there for exactly a minute and can be collected by walking near them, and <guide href="minecraft:skeleton">Skeletons</guide> may drop between 0 to 2 arrows upon death, and the maximum amount dropped can be increased by 1 per level of <guide href="minecraft:enchant_looting">looting</guide> used. However, arrows shot by a skeleton cannot be picked up.
+</content>

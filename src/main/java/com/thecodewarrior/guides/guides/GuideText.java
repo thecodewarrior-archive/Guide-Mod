@@ -10,13 +10,12 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import net.minecraft.client.gui.FontRenderer;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -29,6 +28,8 @@ import com.thecodewarrior.guides.guides.elements.GuideElementText;
 
 public class GuideText extends Guide {
 
+	public static final Logger l = GuideMod.logChild("GuideText");
+	
 	public static DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
 	
 	public static XPathFactory xPathfactory = XPathFactory.newInstance();
@@ -98,7 +99,7 @@ public class GuideText extends Guide {
 		if(builder == null) { return elements; }
 		
 		try {
-		    GuideMod.l.info(rawGuide);
+		    l.info(rawGuide);
 		    Document document = builder.parse( new ByteArrayInputStream(
 		    			( 
 		    				"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 

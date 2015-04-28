@@ -71,11 +71,11 @@ public class GuideServerInterface {
 			}
 		    
 		} catch (MalformedURLException e) {
-			l.error("Malformed URL when checking for update:");
-			l.catching(e);
+			//l.error("Malformed URL when checking for update:");
+			//l.catching(e);
 		} catch (IOException e) {
-			l.error("IOException when checking for update:");
-			l.catching(e);
+			//l.error("IOException when checking for update:");
+			//l.catching(e);
 		}
 //		ReadableByteChannel rbc = Channels.newChannel(website.openStream());
 //		FileOutputStream fos = new FileOutputStream("information.html");
@@ -91,11 +91,11 @@ public class GuideServerInterface {
 			fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
 			fos.close();
 		} catch (MalformedURLException e) {
-			l.error("Malformed URL trying to download update:");
-			l.catching(e);
+			//l.error("Malformed URL trying to download update:" + e.toString());
+			//l.catching(e);
 		} catch (IOException e) {
-			l.error("IOException trying to download update:");
-			l.catching(e);
+			//l.error("IOException trying to download update: " + e.toString());
+			//l.catching(e);
 		}
 		
 	}
@@ -144,7 +144,7 @@ public class GuideServerInterface {
 			}
 		} catch (IOException e) {
 			l.error("IOException trying to read guidepack pack.info file");
-			l.catching(e);
+			//l.catching(e);
 		}
 		return null;
 	}

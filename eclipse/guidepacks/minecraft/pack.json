@@ -1,0 +1,93 @@
+{
+    "idmaps": {
+        "minecraft:lava": [
+            {
+                "id": "minecraft:lava"
+            },
+            {
+                "id": "minecraft:wool",
+                "meta": "<3,4,6-8,>10"
+            }
+        ],
+        
+        "minecraft:cobblestone_wall": [
+            {
+                "id": "minecraft:wool",
+                "meta": "2"
+            }
+        ],
+        
+        "minecraft:podzol": [
+            {
+                "id": "minecraft:dirt",
+                "meta": "2"
+            }
+        ],
+        "minecraft:example/main": [
+            {
+                "id":"minecraft:grass"
+            }
+        ],
+        "minecraft:stone": [
+            {
+                "id":"minecraft:stone"
+            }
+        ],
+        "minecraft:cobblestone": [
+            {
+                "id":"minecraft:cobblestone"
+            }
+        ],
+        "minecraft:planks": [
+            {
+                "id":"minecraft:planks"
+            }
+        ],
+        "minecraft:bedrock": [
+            {
+                "id":"minecraft:bedrock"
+            }
+        ],
+        "minecraft:sand": [
+            {
+                "id":"minecraft:sand"
+            }
+        ],
+        "minecraft:redsand": [
+            {
+                "id":"minecraft:sand",
+                "meta": "1"
+            }
+        ],
+        "minecraft:bedrock": [
+            {
+                "id":"minecraft:red_flower"
+            }
+        ],
+        "minecraft:planks": [
+            {
+                "id":"minecraft:yellow_flower"
+            }
+        ]
+    },
+    "browse": {
+        "en_US": {
+            "Nameofthing": {
+                "format": "1l",
+                "icon": "mod: path/to/image",
+                "guide": "mod: path/to/guide"
+            },
+            "Tutorialsorsomething": {
+                "format": "1l",
+                "icon": "mod: path/to/image",
+                "subitems": {
+                    "Cobblestonegeneratorsorsomethingelse": {
+                        "format": "1l",
+                        "icon": "mod: path/to/image",
+                        "guide": "mod: path/to/guide"
+                    }
+                }
+            }
+        }
+    }
+}
