@@ -47,6 +47,13 @@ public class GuideMod {
 	@SidedProxy(clientSide="com.thecodewarrior.guides.proxy.ClientProxy", serverSide="com.thecodewarrior.guides.proxy.CommonProxy")
 	public static CommonProxy proxy;
 	
+	Configuration config;
+	
+	public static void updateEnabled(boolean value) {
+		instance.config.get("guideserver", "enabled", false, "Is Guide Server enabled?").set(value);
+		instance.config.save();
+	}
+	
 	public static Logger logChild(String name) {
 		Logger log = LogManager.getLogger(loggerName + "] [" + name);
 		return log;
@@ -55,7 +62,7 @@ public class GuideMod {
 	@EventHandler 
 	public void preInit(FMLPreInitializationEvent event) {
 		l = LogManager.getLogger(loggerName);
-		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
+		config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
 		GuideServerInterface.enabled = config.getBoolean("enabled"    , "guideserver", GuideServerInterface.enabled,           "Is Guide Server enabled?");		
 		GuideServerInterface.host    = config.getString ("host"       , "guideserver", GuideServerInterface.host   ,           "Guide Server Hostname");

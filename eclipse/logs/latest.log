@@ -1,32 +1,38 @@
-[14:10:39] [main/INFO]: Setting user: Player925
-[14:10:41] [Client thread/INFO]: LWJGL Version: 2.9.1
-[14:10:50] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:In-game guides
-[14:10:51] [Sound Library Loader/INFO]: Sound engine started
-[14:10:55] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
-[14:10:56] [Client thread/INFO]: Created: 256x256 textures/items-atlas
-[14:10:57] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:In-game guides
-[14:10:59] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
-[14:11:00] [Client thread/INFO]: Created: 256x256 textures/items-atlas
-[14:11:01] [Sound Library Loader/INFO]: Sound engine started
-[14:11:05] [Client thread/ERROR]: ########## GL ERROR ##########
-[14:11:05] [Client thread/ERROR]: @ Post startup
-[14:11:05] [Client thread/ERROR]: 1281: Invalid value
-[14:11:20] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
-[14:11:20] [Server thread/INFO]: Generating keypair
-[14:11:22] [Server thread/INFO]: Preparing start region for level 0
-[14:11:23] [Server thread/INFO]: Preparing spawn area: 13%
-[14:11:24] [Server thread/INFO]: Preparing spawn area: 97%
-[14:11:24] [Server thread/INFO]: Changing view distance to 12, from 10
-[14:11:25] [Server thread/INFO]: Player925[local:E:9a5b38d1] logged in with entity id 157 at (1080.1192825136472, 5.033033619784379, -1731.3826963119825)
-[14:11:25] [Server thread/INFO]: Player925 joined the game
-[14:11:29] [Server thread/INFO]: Saving and pausing game...
-[14:11:29] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
-[14:11:29] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
-[14:11:29] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End
-[14:14:12] [Client thread/INFO]: Stopping!
-[14:14:12] [Server thread/INFO]: Stopping server
-[14:14:12] [Server thread/INFO]: Saving players
-[14:14:12] [Server thread/INFO]: Saving worlds
-[14:14:12] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
-[14:14:12] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
-[14:14:12] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End
+[15:26:03] [main/INFO]: Setting user: Player354
+[15:26:05] [Client thread/INFO]: LWJGL Version: 2.9.1
+[15:26:12] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:In-game guides
+[15:26:13] [Sound Library Loader/INFO]: Sound engine started
+[15:26:15] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+[15:26:16] [Client thread/INFO]: Created: 256x256 textures/items-atlas
+[15:26:16] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:In-game guides
+[15:26:17] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+[15:26:17] [Client thread/INFO]: Created: 256x256 textures/items-atlas
+[15:26:18] [Sound Library Loader/INFO]: Sound engine started
+[15:26:20] [Client thread/ERROR]: ########## GL ERROR ##########
+[15:26:20] [Client thread/ERROR]: @ Post startup
+[15:26:20] [Client thread/ERROR]: 1281: Invalid value
+[15:26:33] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
+[15:26:33] [Server thread/INFO]: Generating keypair
+[15:26:34] [Server thread/INFO]: Preparing start region for level 0
+[15:26:35] [Server thread/INFO]: Changing view distance to 12, from 10
+[15:26:35] [Server thread/INFO]: Player354[local:E:155dd027] logged in with entity id 157 at (1080.1192825136472, 5.033033619784379, -1731.3826963119825)
+[15:26:35] [Server thread/INFO]: Player354 joined the game
+[15:26:38] [Server thread/INFO]: Saving and pausing game...
+[15:26:38] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
+[15:26:38] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
+[15:26:38] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End
+[15:27:59] [Server thread/INFO]: Saving and pausing game...
+[15:27:59] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
+[15:27:59] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
+[15:27:59] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End
+[15:29:06] [Server thread/INFO]: Saving and pausing game...
+[15:29:06] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
+[15:29:06] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
+[15:29:06] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End
+[15:29:25] [Client thread/INFO]: Stopping!
+[15:29:25] [Server thread/INFO]: Stopping server
+[15:29:25] [Server thread/INFO]: Saving players
+[15:29:25] [Server thread/INFO]: Saving worlds
+[15:29:25] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
+[15:29:26] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
+[15:29:26] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End

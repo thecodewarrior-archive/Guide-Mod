@@ -72,6 +72,8 @@ public class GuiBookOfRevealing extends GuiScreen {
 	
 	private GuideGenerator guideGen;
 
+	private GuiUtils gu;
+	
 	private int viewIndex;
 	
 	private ViewSettings settingsView;
@@ -212,6 +214,8 @@ public class GuiBookOfRevealing extends GuiScreen {
 		super.initGui();
 		refreshTopLeft();
 		
+		this.gu = new GuiUtils(this.zLevel);
+		
 		this.detailsButton = new GuiButtonTransparent(3,
 				left-detailsRibbon.getIconWidth(), top+10,
 				detailsRibbon.getIconWidth(), detailsRibbon.getIconHeight());
@@ -312,26 +316,6 @@ public class GuiBookOfRevealing extends GuiScreen {
         }
 	}
 	
-	public void drawIcon(int x, int y, IIcon i)
-    {
-		drawIconWH(x, y, i, i.getIconWidth(), i.getIconHeight());
-    }
-	
-	public void drawIconW(int x, int y, IIcon i, int w)
-    {
-		drawIconWH(x, y, i, w, i.getIconHeight());
-    }
-	public void drawIconH(int x, int y, IIcon i, int h)
-    {
-		drawIconWH(x, y, i, i.getIconWidth(), h);
-    }
-	
-	// just for ease of use
-	public void drawIconWH(int x, int y, IIcon i, int w, int h)
-    {
-		drawTexturedModelRectFromIcon(x, y, i, w, h);
-    }
-
 	static final int rollHeight = 10;
 	static final int ribbonHeight = 11;
 	
@@ -375,9 +359,9 @@ public class GuiBookOfRevealing extends GuiScreen {
 		
 		drawLeftSideButtons();
 
-		drawIcon(left, top, page); /* main page */
-		drawIcon(left, top, rollTop); /* top wrap */
-		drawIcon(left-2, top+guiHeight-rollHeight, rollBottom); /* bottom wrap */
+		gu.drawIcon(left, top, page); /* main page */
+		gu.drawIcon(left, top, rollTop); /* top wrap */
+		gu.drawIcon(left-2, top+guiHeight-rollHeight, rollBottom); /* bottom wrap */
 		
 		
 		if(this.view != null) {
@@ -406,7 +390,9 @@ public class GuiBookOfRevealing extends GuiScreen {
 			
 			
 			GL11.glTranslated(viewLeft, viewTop, 0);
-			this.view.draw(mouseX-viewLeft, mouseY-viewTop);
+			GL11.glPushMatrix();
+				this.view.draw(mouseX-viewLeft, mouseY-viewTop);
+			GL11.glPopMatrix();
 			GL11.glTranslated(-viewLeft, -viewTop, 0);
 
 			// disable the clip to draw anything else.
@@ -428,30 +414,30 @@ public class GuiBookOfRevealing extends GuiScreen {
 		if(detailsButton.hovering()) {
 			detailsHoverOffset = 0;
 		}
-		drawIcon(left-detailsRibbon.getIconWidth()+detailsHoverOffset, top+10, detailsRibbon);
+		gu.drawIcon(left-detailsRibbon.getIconWidth()+detailsHoverOffset, top+10, detailsRibbon);
 		
 		int browseHoverOffset = 1;
 		if(browseButton.hovering()) {
 			browseHoverOffset = 0;
 		}
-		drawIcon(left-browseRibbon.getIconWidth()+browseHoverOffset, top+22, browseRibbon);
+		gu.drawIcon(left-browseRibbon.getIconWidth()+browseHoverOffset, top+22, browseRibbon);
 		
 		int settingsHoverOffset = 1;
 		if(settingsButton.hovering()) {
 			settingsHoverOffset = 0;
 		}
-		drawIcon(left-settingsRibbon.getIconWidth()+settingsHoverOffset, top+34, settingsRibbon);
+		gu.drawIcon(left-settingsRibbon.getIconWidth()+settingsHoverOffset, top+34, settingsRibbon);
 		
 	}
 	
 	private void drawSearchBar() {
-		drawIcon(left-2, top+189, searchLeft);
+		gu.drawIcon(left-2, top+189, searchLeft);
 		
 		int textWidth = 6+ mc.fontRenderer.getStringWidth(searchBar.getText());
 		
-		drawIconW(left+7, top+192, searchMiddle, textWidth);
+		gu.drawIconW(left+7, top+192, searchMiddle, textWidth);
 		
-		drawIcon(left+7+textWidth, top+192, searchRight);
+		gu.drawIcon(left+7+textWidth, top+192, searchRight);
 		
 		if(!searchBar.isFocused()) {
 			
