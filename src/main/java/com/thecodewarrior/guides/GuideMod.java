@@ -35,7 +35,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 @Mod(modid=Reference.MODID, version=Reference.VERSION)
 public class GuideMod {
 
-	public static final String loggerName = "Guides";
+	public static final String loggerName = "In-Game Guides";
 	
 	@Instance(Reference.MODID)
 	public static GuideMod instance;
@@ -69,7 +69,7 @@ public class GuideMod {
 		
 		bookOfRevealing = new BookOfRevealing();
 		GameRegistry.registerItem(bookOfRevealing, bookOfRevealing.getUnlocalizedName().substring(5));
-		
+
 		GameRegistry.addShapelessRecipe(new ItemStack( bookOfRevealing ), new ItemStack( Items.book ) , new ItemStack( Items.spider_eye ));
 		
 		GuideRegistry.registerTag(new Tag("guide") {

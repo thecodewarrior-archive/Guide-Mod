@@ -19,6 +19,7 @@ import com.thecodewarrior.guides.guides.GuideText;
 import com.thecodewarrior.guides.guides.tags.Tag;
 import com.thecodewarrior.guides.views.View;
 import com.thecodewarrior.guides.views.ViewGuide;
+import com.thecodewarrior.guides.views.ViewNoMatch;
 import com.thecodewarrior.guides.views.ViewNull;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -82,7 +83,7 @@ public class GuideRegistry {
 		if(bestMatch.hasMatch) {
 			return new GuideGeneratorBasic(bestMatch.guideName);
 		} else {
-			return NULL_GUIDE;
+			return NO_MATCH_GUIDE;
 		}
 	}
 	
@@ -107,7 +108,7 @@ public class GuideRegistry {
 		if(bestMatch.hasMatch) {
 			return new GuideGeneratorBasic(bestMatch.guideName);
 		} else {
-			return NULL_GUIDE;
+			return NO_MATCH_GUIDE;
 		}
 	}
 	
@@ -305,6 +306,15 @@ public class GuideRegistry {
 		@Override
 		public View generate(int width, int height, GuiBookOfRevealing gui) {
 			return new ViewNull(width,height,gui);
+		}
+		
+	};
+	
+	public static GuideGenerator NO_MATCH_GUIDE = new GuideGenerator() {
+
+		@Override
+		public View generate(int width, int height, GuiBookOfRevealing gui) {
+			return new ViewNoMatch(width,height,gui);
 		}
 		
 	};

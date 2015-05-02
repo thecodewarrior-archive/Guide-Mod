@@ -22,7 +22,7 @@ group= "com.thecodewarrior.guidemod" // http://maven.apache.org/guides/mini/guid
 archivesBaseName = "guidemod"
 
 minecraft {
-    version = "1.7.10-10.13.0.1205"
+    version = "1.7.10-10.13.3.1388-1.7.10"
     assetDir = "eclipse/assets"
 }
 

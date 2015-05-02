@@ -82,6 +82,8 @@ public abstract class View extends Gui {
 	public abstract boolean onClick(int mX, int mY, int button);
 
 	public void actionPerformed(GuiButton guibutton) {
-		
+	}
+
+	public void keyTyped(char par1, int par2) {
 	}
 }

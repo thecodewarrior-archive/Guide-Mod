@@ -21,8 +21,8 @@ public class CommonProxy implements IGuiHandler{
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
 			int x, int y, int z) {
-		if ( ID == GuiBookOfRevealing.GUI_ID )
-            return new GuiContainerBookOfRevealing(player);
+//		if ( ID == GuiBookOfRevealing.GUI_ID )
+//            return new GuiContainerBookOfRevealing(player);
 		return null;
 	}
 	@Override
@@ -36,72 +36,28 @@ public class CommonProxy implements IGuiHandler{
 			int clickY = tag.getInteger("guide_click_y");
 			int clickZ = tag.getInteger("guide_click_z");
 			if(tag.getBoolean("guide_is_picking")) {
-				return new GuiBookOfRevealing(player, player.getHeldItem(), world, clickX, clickY, clickZ);
+				return new GuiBookOfRevealing(player, world, clickX, clickY, clickZ);
 			} else {
-				return new GuiBookOfRevealing(player);
+				return new GuiBookOfRevealing(player, player.getHeldItem());
 			}
 		}
 		
 		return null;
 	}
 	
-	public String getLang() {
-		return "";
-	}
-	
-	public boolean isClient() {
-		return false;
-	}
-	public String getFileText(ResourceLocation guideLoc) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public FontRenderer getFontRenderer() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public Minecraft getMC() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public String getGuideText(String modid, String guideName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public void loadGuidePacks() {
-		// TODO Auto-generated method stub
-		
-	}
-	public void loadGuideFiles(File path) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void registerPack(File f) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void downloadGuides() {
-		// TODO Auto-generated method stub
-		
-	}
-	public void bindGuideImage(String modid, String name) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void loadGuideImage(String modid, String name) {
-		// TODO Auto-generated method stub
-		
-	}
-	public int imageWidth(String modid, String name) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	public int imageHeight(String modid, String name) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	public void registerLoggers() {
-		// TODO Auto-generated method stub
-		
-	}
+	public String getLang() { return ""; }
+	public boolean isClient() { return false; }
+	public String getFileText(ResourceLocation guideLoc) { return null; }
+	public FontRenderer getFontRenderer() { return null; }
+	public Minecraft getMC() { return null; }
+	public String getGuideText(String modid, String guideName) { return null; }
+	public void loadGuidePacks() {}
+	public void loadGuideFiles(File path) {}
+	public void registerPack(File f) {}
+	public void downloadGuides() {}
+	public void bindGuideImage(String modid, String name) {}
+	public void loadGuideImage(String modid, String name) {}
+	public int imageWidth(String modid, String name) { return 0; }
+	public int imageHeight(String modid, String name) { return 0; }
+	public void registerLoggers() { }
 }
