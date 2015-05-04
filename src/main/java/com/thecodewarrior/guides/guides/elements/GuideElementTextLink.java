@@ -46,7 +46,7 @@ public class GuideElementTextLink extends GuideElementText {
 		NamedNodeMap map = node.getAttributes();
 		Node attrNode = map.getNamedItem("href");
 		this.link = attrNode.getNodeValue();//.getAttributes().getNamedItem("href").getNodeValue();//this.data.split("\\|", 2)[1];
-		l.info(text + " => " + this.link);
+//		l.info(text + " => " + this.link);
 		this.defaultColor = color;
 		this.hoverColor = hoverColor;
 		// TODO Auto-generated constructor stub

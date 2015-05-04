@@ -5,6 +5,7 @@ import java.util.List;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
 
+import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
 
 import com.thecodewarrior.guides.GuideMod;
@@ -16,6 +17,8 @@ import com.thecodewarrior.guides.guides.elements.GuideElement;
 
 public class ViewGuide extends View {
 
+	public static final Logger l = GuideMod.logChild("ViewGuide");
+	
 	public static final ResourceLocation tex = new ResourceLocation(Reference.MODID, "textures/gui/view/view_guide.png");
 	
 	public int scroll=0;
@@ -98,7 +101,6 @@ public class ViewGuide extends View {
 	
 	@Override
 	public boolean onClick(int mX, int mY, int button) {
-		
 		if(elements != null) {
 			int scrollPx = getScrollPx();
 			for(GuideElement element: elements) {

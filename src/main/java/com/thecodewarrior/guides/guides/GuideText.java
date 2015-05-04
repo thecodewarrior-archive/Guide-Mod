@@ -99,7 +99,7 @@ public class GuideText extends Guide {
 		if(builder == null) { return elements; }
 		
 		try {
-		    l.info(rawGuide);
+		    //l.info(rawGuide);
 		    Document document = builder.parse( new ByteArrayInputStream(
 		    			( 
 		    				"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 

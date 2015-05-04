@@ -61,9 +61,9 @@ public class GuiBookOfRevealing extends GuiScreen {
 
 	private View view;
 	
-	private GuiButtonExt backButton;
 	private GuiButtonExt reloadButton;
-	
+
+	private GuiButtonTransparent backButton;
 	private GuiButtonTransparent detailsButton;
 	private GuiButtonTransparent browseButton;
 	private GuiButtonTransparent settingsButton;
@@ -98,7 +98,6 @@ public class GuiBookOfRevealing extends GuiScreen {
 	}
 	
 	protected void init() {
-		this.settingsView = new ViewSettings(guiWidth, guiHeight, this);
 		this.refreshGuide(GuideRegistry.NULL_GUIDE);
 	}
 	
@@ -112,7 +111,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 	public void back() {
 		this.view = this.viewHistory.pop();
 		if(this.viewHistory.size() == 0) {
-			//this.backButton.enabled = false;
+			this.backButton.enabled = false;
 		}
 	}
 	
@@ -137,6 +136,9 @@ public class GuiBookOfRevealing extends GuiScreen {
     {
 		super.mouseClicked(x,y,button);
 		refreshTopLeft();
+		
+		
+		l.info("mouse clicked");
 		
 		if(this.view == null) { return; }
 		this.view.onClick(x-(left+5), y-(top+5), button);
@@ -202,10 +204,12 @@ public class GuiBookOfRevealing extends GuiScreen {
 		refreshGuide();
 	}
 	
+	
+	
 	public void goToView(View v) {
 		if(this.view != null) {
 			this.viewHistory.add(this.view);
-			//this.backButton.enabled = true;
+			this.backButton.enabled = true;
 		}
 		this.view = v;
 	}
@@ -214,30 +218,37 @@ public class GuiBookOfRevealing extends GuiScreen {
 		super.initGui();
 		refreshTopLeft();
 		
+		this.settingsView = new ViewSettings(guiWidth, guiHeight, this);
+		
 		this.gu = new GuiUtils(this.zLevel);
 		
+		this.backButton = new GuiButtonTransparent(1,
+				left-backRibbon.getIconWidth(), top+10,
+				backRibbon.getIconWidth(), backRibbon.getIconHeight());
+		this.backButton.enabled = false;
+
 		this.detailsButton = new GuiButtonTransparent(3,
-				left-detailsRibbon.getIconWidth(), top+10,
+				left-detailsRibbon.getIconWidth(), top+24,
 				detailsRibbon.getIconWidth(), detailsRibbon.getIconHeight());
 		this.browseButton = new GuiButtonTransparent(4,
-				left-browseRibbon.getIconWidth(), top+22,
+				left-browseRibbon.getIconWidth(), top+36,
 				browseRibbon.getIconWidth(), browseRibbon.getIconHeight());
 		this.settingsButton = new GuiButtonTransparent(5,
-				left-settingsRibbon.getIconWidth(), top+34,
+				left-settingsRibbon.getIconWidth(), top+48,
 				settingsRibbon.getIconWidth(), settingsRibbon.getIconHeight());
 		
 		this.buttonList.add(this.detailsButton);
 		this.buttonList.add(this.browseButton);
 		this.buttonList.add(this.settingsButton);
+		this.buttonList.add(this.backButton);
+		
 		
 		this.searchBar = new GuiTextField(mc.fontRenderer, left+8, 207, guiWidth-7, 9);
 		this.searchBar.setCanLoseFocus(true);
 		this.searchBar.setEnableBackgroundDrawing(false);
 		this.searchBar.setFocused(false);
 		
-		//this.backButton = new GuiButtonExt(1, left+215, top+124, 40, 20, "Back");
-		//this.backButton.enabled = false;
-		//this.buttonList.add(this.backButton);
+		
 		
 		//this.reloadButton = new GuiButtonExt(1, left+215, top+144, 40, 20, "Reload");
 		//this.buttonList.add(this.reloadButton);
@@ -262,11 +273,16 @@ public class GuiBookOfRevealing extends GuiScreen {
         switch(guibutton.id) {
         case 1:
         	this.back();
+        	break;
         case 2:
         	GuideRegistry.wipeGuideRegistry();
         	GuideMod.proxy.loadGuidePacks();
+        	break;
         case 5:
-        	this.goToView(this.settingsView);
+        	if(this.view != this.settingsView) {
+        		this.goToView(this.settingsView);
+        	}
+        	break;
     	default:
     		l.info("unknown action: " + guibutton.id);
         }
@@ -326,9 +342,12 @@ public class GuiBookOfRevealing extends GuiScreen {
 	static final BasicIcon	rollTop				= f.create(0, guiHeight, guiWidth + 2, rollHeight);
 	static final BasicIcon	rollBottom			= f.create(0, guiHeight + rollHeight, guiWidth + 2, rollHeight);
 
-	static final BasicIcon	detailsRibbon		= f.create(0, guiHeight + (rollHeight*2), 26, ribbonHeight);
-	static final BasicIcon	browseRibbon		= f.create(26, guiHeight + (rollHeight*2), 26, ribbonHeight);
-	static final BasicIcon	settingsRibbon		= f.create(52, guiHeight + (rollHeight*2), 26, ribbonHeight);
+	static final BasicIcon	backRibbon			= f.create(227, guiHeight + (rollHeight*2), 29, ribbonHeight);
+	static final BasicIcon	backRibbonDisabled	= f.create(227, guiHeight + (rollHeight*3) + 1, 29, ribbonHeight);
+	
+	static final BasicIcon	detailsRibbon		= f.create(0,   guiHeight + (rollHeight*2), 26, ribbonHeight);
+	static final BasicIcon	browseRibbon		= f.create(26,  guiHeight + (rollHeight*2), 26, ribbonHeight);
+	static final BasicIcon	settingsRibbon		= f.create(52,  guiHeight + (rollHeight*2), 26, ribbonHeight);
 
 	static final BasicIcon	addBookmark			= f.create(0, 0, guiWidth, guiHeight);
 	static final BasicIcon	bookmarkFadeTop		= f.create(0, 0, guiWidth, guiHeight);
@@ -410,23 +429,33 @@ public class GuiBookOfRevealing extends GuiScreen {
 	}
 
 	private void drawLeftSideButtons() {
+		
+		if(backButton.enabled) {
+			int backHoverOffset = 1;
+			if(backButton.hovering()) {
+				backHoverOffset = 0;
+			}
+			gu.drawIcon(left-backRibbon.getIconWidth()+backHoverOffset, top+10, backRibbon);
+		} else {
+			gu.drawIcon(left-backRibbonDisabled.getIconWidth()+1, top+10, backRibbonDisabled);
+		}
 		int detailsHoverOffset = 1;
 		if(detailsButton.hovering()) {
 			detailsHoverOffset = 0;
 		}
-		gu.drawIcon(left-detailsRibbon.getIconWidth()+detailsHoverOffset, top+10, detailsRibbon);
+		gu.drawIcon(left-detailsRibbon.getIconWidth()+detailsHoverOffset, top+24, detailsRibbon);
 		
 		int browseHoverOffset = 1;
 		if(browseButton.hovering()) {
 			browseHoverOffset = 0;
 		}
-		gu.drawIcon(left-browseRibbon.getIconWidth()+browseHoverOffset, top+22, browseRibbon);
+		gu.drawIcon(left-browseRibbon.getIconWidth()+browseHoverOffset, top+36, browseRibbon);
 		
 		int settingsHoverOffset = 1;
-		if(settingsButton.hovering()) {
+		if(settingsButton.hovering() || this.view == this.settingsView) {
 			settingsHoverOffset = 0;
 		}
-		gu.drawIcon(left-settingsRibbon.getIconWidth()+settingsHoverOffset, top+34, settingsRibbon);
+		gu.drawIcon(left-settingsRibbon.getIconWidth()+settingsHoverOffset, top+48, settingsRibbon);
 		
 	}
 	
