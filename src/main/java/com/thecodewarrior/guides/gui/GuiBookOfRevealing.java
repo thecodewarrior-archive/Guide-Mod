@@ -141,7 +141,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 		l.info("mouse clicked");
 		
 		if(this.view == null) { return; }
-		this.view.onClick(x-(left+5), y-(top+5), button);
+		this.view.onClick(x-(viewLeft), y-(viewTop), button);
 		
 		/* minecraft button code */
 		if (button == 0)
