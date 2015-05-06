@@ -54,6 +54,11 @@ public class ViewSettings extends View {
 		} else {
 			gu.drawIcon(0, 3, checkOff);
 		}
+		mc.renderEngine.bindTexture(gui.texture);
+		GL11.glScaled(0.5, 0.5, 0.5);
+			
+			drawTexturedModalRect(12*2, 30*2, 0, 0, 256, 256);
+		GL11.glScaled(2  ,   2,   2);
 	}
 
 	@Override

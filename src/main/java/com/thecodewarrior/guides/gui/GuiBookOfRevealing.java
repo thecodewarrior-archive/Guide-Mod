@@ -71,7 +71,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 	private GuiButtonTransparent newBookmarkButton;
 	private GuiButtonCustomTexture bookmarkScrollDownButton;
 	private GuiButtonCustomTexture bookmarkScrollUpButton;
-	
+	private GuiButtonCustomTexture helpButton;
 	
 	private GuiTextField searchBar;
 	
@@ -295,7 +295,10 @@ public class GuiBookOfRevealing extends GuiScreen {
 		this.bookmarkScrollDownButton = new GuiButtonCustomTexture(8,
 				left+guiWidth+12, top+ribbonHeight+( (ribbonHeight+1)*bookmarkRowCount ) + 24,
 				151, guiHeight+20, 9, 9, texture);
-		 
+		
+		this.helpButton = new GuiButtonCustomTexture(9,
+				left+guiWidth-5, top+1,
+				169, guiHeight+20, 5, 8, texture);
 		
 		this.buttonList.add(this.detailsButton);
 		this.buttonList.add(this.browseButton);
@@ -304,6 +307,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 		this.buttonList.add(this.newBookmarkButton);
 		this.buttonList.add(this.bookmarkScrollUpButton);
 		this.buttonList.add(this.bookmarkScrollDownButton);
+		this.buttonList.add(this.helpButton);
 		
 		this.searchBar = new GuiTextField(mc.fontRenderer, left+9, top+194, guiWidth-7, 9);
 		this.searchBar.setCanLoseFocus(true);
@@ -458,7 +462,6 @@ public class GuiBookOfRevealing extends GuiScreen {
 	{
 		
 		super.drawScreen(mX, mY, partialTicks);
-		this.drawButtons(mX, mY);
 		
 		refreshTopLeft();
 
@@ -520,6 +523,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		// re-bind the texture, as the view will likely have bound a different one
 		mc.renderEngine.bindTexture(texture);
+		this.drawButtons(mX, mY);
 
 		drawSearchBar();
 		
