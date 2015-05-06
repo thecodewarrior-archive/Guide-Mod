@@ -9,7 +9,6 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
@@ -23,6 +22,7 @@ import com.thecodewarrior.guides.Reference;
 import com.thecodewarrior.guides.api.GuideGenerator;
 import com.thecodewarrior.guides.api.GuideRegistry;
 import com.thecodewarrior.guides.views.View;
+import com.thecodewarrior.guides.views.ViewGuide;
 import com.thecodewarrior.guides.views.ViewSettings;
 
 import cpw.mods.fml.client.config.GuiButtonExt;
@@ -37,7 +37,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 	
 	public static final String seperator = "\u0380";// some random unused code point with size=0 in glyph_sizes.bin
 	
-	public static final int guiWidth  = 254;
+	public static final int guiWidth  = 252;
 	public static final int guiHeight = 214;
 	
 	public static final int viewWidth = 250;
@@ -68,6 +68,11 @@ public class GuiBookOfRevealing extends GuiScreen {
 	private GuiButtonTransparent browseButton;
 	private GuiButtonTransparent settingsButton;
 	
+	private GuiButtonTransparent newBookmarkButton;
+	private GuiButtonCustomTexture bookmarkScrollDownButton;
+	private GuiButtonCustomTexture bookmarkScrollUpButton;
+	
+	
 	private GuiTextField searchBar;
 	
 	private GuideGenerator guideGen;
@@ -77,6 +82,15 @@ public class GuiBookOfRevealing extends GuiScreen {
 	private int viewIndex;
 	
 	private ViewSettings settingsView;
+	
+	public boolean	isClickingOnBookmark;
+	public int		bookmarkClickStartX;
+	public int		bookmarkClickStartY;
+	public boolean	isDraggingBookmark;
+	public int		bookmarkIndex;
+	public int		dragStartThreshold = 5;
+	public int		bookmarkDragAmount;
+	public double	bookmarkDragVelocity;
 	
 	public GuiBookOfRevealing(EntityPlayer player, World w, int x, int y, int z) {
 		super();
@@ -137,7 +151,6 @@ public class GuiBookOfRevealing extends GuiScreen {
 		super.mouseClicked(x,y,button);
 		refreshTopLeft();
 		
-		
 		l.info("mouse clicked");
 		
 		if(this.view == null) { return; }
@@ -164,8 +177,29 @@ public class GuiBookOfRevealing extends GuiScreen {
 		} else {
 			this.searchBar.setFocused(false);
 		}
+		
+		int hoverIndex = this.bookmarkHoverIndex(x, y);
+		
+		if(hoverIndex != -1) {
+			this.isClickingOnBookmark = true;
+			this.bookmarkIndex = hoverIndex;
+			this.bookmarkClickStartX = x;
+			this.bookmarkClickStartY = y;
+		}
 	}
 
+	protected void mouseClickMove(int x, int y, int lastButton, long timeSinceClick) {
+		if (this.isClickingOnBookmark) {
+			boolean i = Math.abs(x - this.bookmarkClickStartX) > dragStartThreshold;
+			if(this.isDraggingBookmark) {
+				this.bookmarkDragAmount = x - this.bookmarkClickStartX;
+				this.bookmarkDragVelocity = bookmarkDragAmount / (double)timeSinceClick;
+			} else if(i && !this.isDraggingBookmark) {
+				this.isDraggingBookmark = true;
+			} 
+		}
+	}
+	
 	protected void mouseMovedOrUp(int x, int y, int button) {
 		super.mouseMovedOrUp(x, y, button);
 		refreshTopLeft();
@@ -177,6 +211,21 @@ public class GuiBookOfRevealing extends GuiScreen {
             this.view.selectedButton.mouseReleased(x-viewLeft, y-viewTop);
             this.view.selectedButton = null;
         }
+		
+		if(button != -1 && this.isClickingOnBookmark) {
+			if(this.isDraggingBookmark) {
+				this.isDraggingBookmark = false;
+				if(this.bookmarkDragAmount > (0.75 * left) || this.bookmarkDragVelocity > 0.2) {
+					this.startDelete(this.bookmarkIndex);;
+				}
+				l.info(bookmarkDragVelocity); 
+				this.bookmarkDragAmount = 0;
+			} else {
+				this.goToBookmark(this.bookmarkIndex);
+			}
+			this.isClickingOnBookmark = false;
+		}
+		
 	}
 	
 	public void refreshGuide() {
@@ -237,13 +286,26 @@ public class GuiBookOfRevealing extends GuiScreen {
 				left-settingsRibbon.getIconWidth(), top+48,
 				settingsRibbon.getIconWidth(), settingsRibbon.getIconHeight());
 		
+		this.newBookmarkButton = new GuiButtonTransparent(6,
+				left+guiWidth, top+10,
+				addBookmark.getIconWidth(), addBookmark.getIconHeight());
+		this.bookmarkScrollUpButton = new GuiButtonCustomTexture(7,
+				left+guiWidth+2, top+ribbonHeight+( (ribbonHeight+1)*bookmarkRowCount ) + 24,
+				133, guiHeight+20, 9, 9, texture);
+		this.bookmarkScrollDownButton = new GuiButtonCustomTexture(8,
+				left+guiWidth+12, top+ribbonHeight+( (ribbonHeight+1)*bookmarkRowCount ) + 24,
+				151, guiHeight+20, 9, 9, texture);
+		 
+		
 		this.buttonList.add(this.detailsButton);
 		this.buttonList.add(this.browseButton);
 		this.buttonList.add(this.settingsButton);
 		this.buttonList.add(this.backButton);
+		this.buttonList.add(this.newBookmarkButton);
+		this.buttonList.add(this.bookmarkScrollUpButton);
+		this.buttonList.add(this.bookmarkScrollDownButton);
 		
-		
-		this.searchBar = new GuiTextField(mc.fontRenderer, left+8, 207, guiWidth-7, 9);
+		this.searchBar = new GuiTextField(mc.fontRenderer, left+9, top+194, guiWidth-7, 9);
 		this.searchBar.setCanLoseFocus(true);
 		this.searchBar.setEnableBackgroundDrawing(false);
 		this.searchBar.setFocused(false);
@@ -257,7 +319,11 @@ public class GuiBookOfRevealing extends GuiScreen {
 	protected void keyTyped(char par1, int par2)
     {
         super.keyTyped(par1, par2);
+        String oldstr = this.searchBar.getText();
         this.searchBar.textboxKeyTyped(par1, par2);
+        if(oldstr != this.searchBar.getText()) {
+        	this.view.updateSearch(this.searchBar.getText());
+        }
         this.view.keyTyped(par1, par2);
     }
 	
@@ -281,6 +347,23 @@ public class GuiBookOfRevealing extends GuiScreen {
         case 5:
         	if(this.view != this.settingsView) {
         		this.goToView(this.settingsView);
+        	}
+        	break;
+        case 6:
+        	if(this.view instanceof ViewGuide) {
+        		ViewGuide v = (ViewGuide)this.view;
+        		GuideMod.bookmarkManager.addBookmark(v.guideName());
+        	}
+        	break;
+        case 7:
+        	if(this.bookmarkScrollAmount > 0) {
+        		this.bookmarkScrollAmount--;
+        	}
+        	break;
+        case 8:
+        	int c = GuideMod.bookmarkManager.getBookmarkCount();
+        	if(this.bookmarkScrollAmount+this.bookmarkRowCount < c) {
+        		this.bookmarkScrollAmount++;
         	}
         	break;
     	default:
@@ -339,29 +422,42 @@ public class GuiBookOfRevealing extends GuiScreen {
 	
 	static final BasicIcon	page				= f.create(0, 0, guiWidth, guiHeight);
 
-	static final BasicIcon	rollTop				= f.create(0, guiHeight, guiWidth + 2, rollHeight);
-	static final BasicIcon	rollBottom			= f.create(0, guiHeight + rollHeight, guiWidth + 2, rollHeight);
+	static final BasicIcon	rollTop				= f.create(0, guiHeight, 256, rollHeight);
+	static final BasicIcon	rollBottom			= f.create(0, guiHeight + rollHeight, 256, rollHeight);
 
-	static final BasicIcon	backRibbon			= f.create(227, guiHeight + (rollHeight*2), 29, ribbonHeight);
-	static final BasicIcon	backRibbonDisabled	= f.create(227, guiHeight + (rollHeight*3) + 1, 29, ribbonHeight);
+	static final int guiRollBottom = guiHeight + (rollHeight*2);
 	
-	static final BasicIcon	detailsRibbon		= f.create(0,   guiHeight + (rollHeight*2), 26, ribbonHeight);
-	static final BasicIcon	browseRibbon		= f.create(26,  guiHeight + (rollHeight*2), 26, ribbonHeight);
-	static final BasicIcon	settingsRibbon		= f.create(52,  guiHeight + (rollHeight*2), 26, ribbonHeight);
+	static final BasicIcon	backRibbon			= f.create(227, guiRollBottom, 29, ribbonHeight);
+	static final BasicIcon	backRibbonDisabled	= f.create(227, guiRollBottom + rollHeight + 1, 29, ribbonHeight);
+	
+	static final BasicIcon	detailsRibbon		= f.create(0,   guiRollBottom, 26, ribbonHeight);
+	static final BasicIcon	browseRibbon		= f.create(26,  guiRollBottom, 26, ribbonHeight);
+	static final BasicIcon	settingsRibbon		= f.create(52,  guiRollBottom, 26, ribbonHeight);
 
-	static final BasicIcon	addBookmark			= f.create(0, 0, guiWidth, guiHeight);
-	static final BasicIcon	bookmarkFadeTop		= f.create(0, 0, guiWidth, guiHeight);
-	static final BasicIcon	bookmarkFadeBottom	= f.create(0, 0, guiWidth, guiHeight);
-	static final BasicIcon	bookmark			= f.create(0, 0, guiWidth, guiHeight);
-	static final BasicIcon	bookmarkScroll		= f.create(0, 0, guiWidth, guiHeight);
+	static final BasicIcon	addBookmark			= f.create(113, guiRollBottom, 20, ribbonHeight);
+	static final BasicIcon	bookmarkFadeTop		= f.create(78, guiRollBottom, 35, 4);
+	static final BasicIcon	bookmarkFadeBottom	= f.create(78, guiRollBottom+7, 35, 4);
+	
+	static final BasicIcon  bookmarkMiddle		= f.create(16, guiRollBottom+ribbonHeight, 8, ribbonHeight);
+	static       BasicIcon  bookmarkMiddleFrac	= f.create(16, guiRollBottom+ribbonHeight, 8, ribbonHeight);
+	static final BasicIcon	bookmarkEnd			= f.create(24, guiRollBottom+ribbonHeight, 6, ribbonHeight);
+	static final BasicIcon	bookmarkTear		= f.create(0,  guiRollBottom+ribbonHeight, 16, ribbonHeight);
+	
+	static final BasicIcon	bookmarkScroll		= f.create(134, guiRollBottom+9, 29, 13);
 
-	static final BasicIcon	searchLeft			= f.create(205, guiHeight+28, 9, 14);
-	static final BasicIcon	searchMiddle		= f.create(214, guiHeight+31, 1, 11);
+	static final BasicIcon	searchLeft			= f.create(198, guiHeight+28, 9, 14);
+	static final BasicIcon	searchMiddle		= f.create(207, guiHeight+31, 8, 11);
+	static       BasicIcon	searchMiddleFrac	= f.create(207, guiHeight+31, 8, 11);
 	static final BasicIcon	searchRight			= f.create(215, guiHeight+31, 6, 11);
 	
-	public void drawScreen(int mX, int mY, float par3)
+	public float lastTime     = 0F;
+	public float partialTicks = 0F;
+	public float timeDelta    = 0F;
+	
+	public void drawScreen(int mX, int mY, float partialTicks)
 	{
-		super.drawScreen(mX, mY, par3);
+		
+		super.drawScreen(mX, mY, partialTicks);
 		this.drawButtons(mX, mY);
 		
 		refreshTopLeft();
@@ -377,9 +473,10 @@ public class GuiBookOfRevealing extends GuiScreen {
 		mc.renderEngine.bindTexture(texture);
 		
 		drawLeftSideButtons();
-
+		drawBookmarks();
+		
 		gu.drawIcon(left, top, page); /* main page */
-		gu.drawIcon(left, top, rollTop); /* top wrap */
+		gu.drawIcon(left-2, top, rollTop); /* top wrap */
 		gu.drawIcon(left-2, top+guiHeight-rollHeight, rollBottom); /* bottom wrap */
 		
 		
@@ -464,9 +561,25 @@ public class GuiBookOfRevealing extends GuiScreen {
 		
 		int textWidth = 6+ mc.fontRenderer.getStringWidth(searchBar.getText());
 		
-		gu.drawIconW(left+7, top+192, searchMiddle, textWidth);
+		double numOfTiles = (double)textWidth/(double)searchMiddle.getIconWidth();
+		int numOfWholeTiles = (int) Math.floor(numOfTiles);
+		int fracTileWidth = (int)( searchMiddle.getIconWidth() * ( numOfTiles - numOfWholeTiles ) );
 		
-		gu.drawIcon(left+7+textWidth, top+192, searchRight);
+		int curX = 7;
+		
+		if(searchMiddleFrac.getIconWidth() != fracTileWidth) {
+			searchMiddleFrac = f.create(searchMiddle.getMinPxU(), searchMiddle.getMinPxV(), fracTileWidth, searchMiddle.getIconHeight());
+		}
+		
+		gu.drawIcon(left+curX, top+192, searchMiddleFrac);
+		curX += fracTileWidth;
+		
+		for(int i = 0; i < numOfWholeTiles; i++) {
+			gu.drawIcon(left+curX, top+192, searchMiddle);
+			curX+=searchMiddle.getIconWidth();
+		}
+		
+		gu.drawIcon(left+curX, top+192, searchRight);
 		
 		if(!searchBar.isFocused()) {
 			
@@ -476,6 +589,139 @@ public class GuiBookOfRevealing extends GuiScreen {
 		}
 		
 		searchBar.drawTextBox();
+		
+	}
+	
+	private int bookmarkScrollAmount=0;
+	private int bookmarkRowCount = 13;
+	private int bookmarkY;
+	
+	private void drawBookmarks() {
+		
+		bookmarkY = top+10 + ribbonHeight + 2 + 4/*fading scroll indicator*/ + 1;
+		
+		if(newBookmarkButton.hovering()) {
+			gu.drawIcon(left+guiWidth, top+10, addBookmark);
+		} else {
+			gu.drawIcon(left+guiWidth-1, top+10, addBookmark);
+		}
+		
+		if(bookmarkScrollAmount > 0) {
+			gu.drawIcon(left+guiWidth, top+10+ribbonHeight+1, bookmarkFadeTop);
+		}
+		
+		int max = GuideMod.bookmarkManager.getBookmarkCount()-bookmarkScrollAmount;
+		if(bookmarkRowCount < max) {
+			max = bookmarkRowCount;
+			gu.drawIcon(left+guiWidth, bookmarkY+ ( (ribbonHeight+1)*bookmarkRowCount ), bookmarkFadeBottom);
+		}
+		
+		gu.drawIcon(left+guiWidth, bookmarkY+ ( (ribbonHeight+1)*bookmarkRowCount ) +5, bookmarkScroll);
+		
+		int curY = bookmarkY;
+		
+		int hoverIndex = -1;
+		
+		if(!this.isClickingOnBookmark) {
+			hoverIndex = bookmarkHoverIndex(this.mouseX, this.mouseY);
+		}
+		
+		int deleteQueueIndex = -1;
+		
+		for(int i = bookmarkScrollAmount; i < bookmarkScrollAmount + max; i++) {
+			if(this.deletingBookmarkIndex == i) {
+				curY += (ribbonHeight+1)* ((double)deletingCollapseAmount/(double)deletingCollapseMax);
+				this.deletingCollapseAmount--;
+				if(this.deletingCollapseAmount == 0) {
+					this.deletingBookmarkIndex = -1;
+					deleteQueueIndex = i;
+				}
+			} else {
+				int offset = 0;
+				if(bookmarkIndex == i && bookmarkDragAmount != 0) {
+					offset = bookmarkDragAmount;
+				} else if (i == hoverIndex) {
+					offset = 1;
+				}
+				drawBookmark(i, curY, offset);
+				mc.renderEngine.bindTexture(texture);
+				GL11.glColor4f(1,1,1,1);
+				curY += ribbonHeight + 1;
+			}
+		}
+		if(deleteQueueIndex != -1) {
+			GuideMod.bookmarkManager.deleteBookmark(deleteQueueIndex);
+		}
+		
+	}
+
+	private int bookmarkHoverIndex(int mX, int mY) {
+		int max = Math.min(GuideMod.bookmarkManager.getBookmarkCount()-bookmarkScrollAmount, bookmarkRowCount);
+		
+		int curY = bookmarkY ;
+		
+		for(int i = bookmarkScrollAmount; i < bookmarkScrollAmount + max; i++) {
+			String text = GuideMod.bookmarkManager.getBookmarkName(i);
+			int rightEdge = left+guiWidth;
+			int textWidth = 3+mc.fontRenderer.getStringWidth(text);
+			int drag = (this.bookmarkIndex == i) ? bookmarkDragAmount : 0;
+			if(mX > rightEdge + drag &&
+			   mX < rightEdge + textWidth + bookmarkEnd.getIconWidth() + drag &&
+			   mY > curY &&
+			   mY < curY + ribbonHeight) {
+				return i;
+			}
+			if(this.deletingBookmarkIndex == i) {
+				curY += (ribbonHeight+1)* ((double)deletingCollapseAmount/(double)deletingCollapseMax);
+			} else {
+				curY += ribbonHeight + 1;
+			}
+		}
+		
+		return -1;
+	}
+	
+	private void drawBookmark(int num, int y, int xOffset) {
+		String text = GuideMod.bookmarkManager.getBookmarkName(num);
+		int rightEdge = left+guiWidth + xOffset;
+		
+		int textWidth = 3+ mc.fontRenderer.getStringWidth(text);
+		
+		double numOfTiles = (double)textWidth/(double)bookmarkMiddle.getIconWidth();
+		int numOfWholeTiles = (int) Math.floor(numOfTiles);
+		int fracTileWidth = (int)( bookmarkMiddle.getIconWidth() * ( numOfTiles - numOfWholeTiles ) );
+		
+		int curX = rightEdge;
+		
+		if(bookmarkMiddleFrac.getIconWidth() != fracTileWidth) {
+			bookmarkMiddleFrac = f.create(bookmarkMiddle.getMinPxU(), bookmarkMiddle.getMinPxV(), fracTileWidth, bookmarkMiddle.getIconHeight());
+		}
+		
+		gu.drawIcon(curX, y, bookmarkMiddleFrac);
+		curX += fracTileWidth;
+		
+		for(int i = 0; i < numOfWholeTiles; i++) {
+			gu.drawIcon(curX, y, bookmarkMiddle);
+			curX+=bookmarkMiddle.getIconWidth();
+		}
+		
+		gu.drawIcon(curX, y, bookmarkEnd);
+		gu.drawIcon(rightEdge-bookmarkTear.getIconWidth(), y, bookmarkTear);
+		
+		mc.fontRenderer.drawString(text, rightEdge+1, y+2, 14737632);
+	}
+	
+	private void goToBookmark(int i) {
+		this.refreshGuide(GuideMod.bookmarkManager.getBookmarkGuide(i));
+	}
+	
+	int deletingBookmarkIndex = -1;
+	int deletingCollapseAmount;
+	int deletingCollapseMax = 2;
+	
+	private void startDelete(int i) {
+		this.deletingBookmarkIndex = i;
+		this.deletingCollapseAmount = this.deletingCollapseMax;
 		
 	}
 	

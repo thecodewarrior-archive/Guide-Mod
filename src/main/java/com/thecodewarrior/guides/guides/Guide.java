@@ -18,9 +18,11 @@ public abstract class Guide {
 	public FontRenderer fontRendererObj = GuideMod.proxy.getFontRenderer();
 	public Minecraft mc = GuideMod.proxy.getMC();
 	public GuiBookOfRevealing gui;
+	public String guideName;
 	
-	public Guide(String guideText) {
+	public Guide(String guideText, String guideName) {
 		rawGuide = guideText;
+		this.guideName = guideName;
 		parse();
 	}
 	

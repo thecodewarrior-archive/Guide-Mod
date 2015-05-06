@@ -38,12 +38,12 @@ public class GuideRegistry {
 	private static HashMap<String, Tag> tags = new HashMap<String, Tag>();
 	
 	private static List<File> guidePacks = new ArrayList<File>();
-	
-	private static HashMap<String, View> views = new HashMap<String, View>();
-	
+		
 	private static HashMap<String, List<GuideMatcher>> matchers = new HashMap<String, List<GuideMatcher>>();
 	
 	private static List<String> disabledPacks = new ArrayList<String>();
+	
+	private static HashMap<String, String> guideNames = new HashMap<String, String>();
 	
 	private static List<GuideMatcher> getOrCreateGuidePack(String packID) {
 		if(!matchers.containsKey(packID)) {
@@ -59,6 +59,22 @@ public class GuideRegistry {
 	
 	public static void wipeGuideRegistry() {
 		matchers = new HashMap<String, List<GuideMatcher>>();
+		guideNames = new HashMap<String, String>();
+	}
+	
+	public static void addGuideName(String guide, String name) {
+		guideNames.put(guide, name);
+	}
+	public static String getGuideName(String guide) {
+		if(guideNames.containsKey(guide)) {
+			return guideNames.get(guide);
+		} else {
+			return guide;
+		}
+	}
+	
+	public static GuideGenerator guideFromName(String name) {
+		return new GuideGeneratorBasic(name);
 	}
 	
 	public static GuideGenerator findGuideFor(World w, int x, int y, int z) {
@@ -81,7 +97,7 @@ public class GuideRegistry {
 		    }
 		}
 		if(bestMatch.hasMatch) {
-			return new GuideGeneratorBasic(bestMatch.guideName);
+			return guideFromName(bestMatch.guideName);
 		} else {
 			return NO_MATCH_GUIDE;
 		}
@@ -106,7 +122,7 @@ public class GuideRegistry {
 		    }
 		}
 		if(bestMatch.hasMatch) {
-			return new GuideGeneratorBasic(bestMatch.guideName);
+			return guideFromName(bestMatch.guideName);
 		} else {
 			return NO_MATCH_GUIDE;
 		}
@@ -239,13 +255,6 @@ public class GuideRegistry {
 		
 		return null;
 	}
-	
-	public static View findView(String name) {
-		if(GuideRegistry.views.containsKey(name)) {
-			return GuideRegistry.views.get(name);
-		}
-		return null;
-	}
 
 	//}}
 	
@@ -355,7 +364,8 @@ public class GuideRegistry {
 			public View generate(int width, int height, GuiBookOfRevealing gui) {
 				
 				return new ViewGuide(new GuideText(
-							GuideMod.proxy.getGuideText(guideName.split(":")[0], guideName.split(":")[1])
+							GuideMod.proxy.getGuideText(guideName.split(":")[0], guideName.split(":")[1]),
+							guideName
 						),
 						width, height, gui);
 			}

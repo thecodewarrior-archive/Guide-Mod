@@ -27,6 +27,10 @@ public class ViewGuide extends View {
 		super(guide, width, height, gui);
 	}
 
+	public String guideName() {
+		return this.guide.guideName;
+	}
+	
 	private List<GuideElement> elements;
 
 	public int contentHeight;

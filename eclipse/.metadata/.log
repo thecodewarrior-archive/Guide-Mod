@@ -6482,3 +6482,283 @@ java.lang.NullPointerException
 !MESSAGE Exception occurred in listener of Java element change notification
 !STACK 0
 java.lang.NullPointerException
+!SESSION 2015-05-04 17:27:58.448 -----------------------------------------------
+eclipse.buildId=4.4.1.M20140925-0400
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product -keyring /Users/piercecorcoran/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.standard.product -keyring /Users/piercecorcoran/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2015-05-04 17:28:17.495
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.jdt.core 4 2 2015-05-04 19:41:15.699
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
+!STACK 0
+java.lang.NullPointerException
+	at com.cb.eclipse.folding.java.calculation.ProjectionChangeReconciler.filterAndNormalizePositions(ProjectionChangeReconciler.java:267)
+	at com.cb.eclipse.folding.java.calculation.ProjectionChangeReconciler.reconstructAnnotations(ProjectionChangeReconciler.java:175)
+	at com.cb.eclipse.folding.java.calculation.ProjectionChangeReconciler.reconcile(ProjectionChangeReconciler.java:148)
+	at com.cb.eclipse.folding.java.EnhancedJavaFoldingStructureProvider$ElementChangedListener.elementChanged(EnhancedJavaFoldingStructureProvider.java:158)
+	at org.eclipse.jdt.internal.core.DeltaProcessor$4.run(DeltaProcessor.java:1695)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.notifyListeners(DeltaProcessor.java:1685)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.fireReconcileDelta(DeltaProcessor.java:1537)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.fire(DeltaProcessor.java:1496)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:770)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:789)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1247)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:126)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:108)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:89)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:87)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:151)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:86)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:104)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:77)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:206)
+
+!ENTRY org.eclipse.jdt.core 4 4 2015-05-04 19:41:15.710
+!MESSAGE Exception occurred in listener of Java element change notification
+!STACK 0
+java.lang.NullPointerException
+	at com.cb.eclipse.folding.java.calculation.ProjectionChangeReconciler.filterAndNormalizePositions(ProjectionChangeReconciler.java:267)
+	at com.cb.eclipse.folding.java.calculation.ProjectionChangeReconciler.reconstructAnnotations(ProjectionChangeReconciler.java:175)
+	at com.cb.eclipse.folding.java.calculation.ProjectionChangeReconciler.reconcile(ProjectionChangeReconciler.java:148)
+	at com.cb.eclipse.folding.java.EnhancedJavaFoldingStructureProvider$ElementChangedListener.elementChanged(EnhancedJavaFoldingStructureProvider.java:158)
+	at org.eclipse.jdt.internal.core.DeltaProcessor$4.run(DeltaProcessor.java:1695)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.notifyListeners(DeltaProcessor.java:1685)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.fireReconcileDelta(DeltaProcessor.java:1537)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.fire(DeltaProcessor.java:1496)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:770)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:789)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1247)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:126)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:108)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:89)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:87)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:151)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:86)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:104)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:77)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:206)
+
+!ENTRY org.eclipse.jdt.core 4 2 2015-05-04 19:53:28.145
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
+!STACK 0
+java.lang.NullPointerException
+	at com.cb.eclipse.folding.java.calculation.ProjectionChangeReconciler.filterAndNormalizePositions(ProjectionChangeReconciler.java:267)
+	at com.cb.eclipse.folding.java.calculation.ProjectionChangeReconciler.reconstructAnnotations(ProjectionChangeReconciler.java:175)
+	at com.cb.eclipse.folding.java.calculation.ProjectionChangeReconciler.reconcile(ProjectionChangeReconciler.java:148)
+	at com.cb.eclipse.folding.java.EnhancedJavaFoldingStructureProvider$ElementChangedListener.elementChanged(EnhancedJavaFoldingStructureProvider.java:158)
+	at org.eclipse.jdt.internal.core.DeltaProcessor$4.run(DeltaProcessor.java:1695)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.notifyListeners(DeltaProcessor.java:1685)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.fireReconcileDelta(DeltaProcessor.java:1537)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.fire(DeltaProcessor.java:1496)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:770)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:789)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1247)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:126)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:108)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:89)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:87)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:151)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:86)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:104)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:77)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:206)
+
+!ENTRY org.eclipse.jdt.core 4 4 2015-05-04 19:53:28.147
+!MESSAGE Exception occurred in listener of Java element change notification
+!STACK 0
+java.lang.NullPointerException
+	at com.cb.eclipse.folding.java.calculation.ProjectionChangeReconciler.filterAndNormalizePositions(ProjectionChangeReconciler.java:267)
+	at com.cb.eclipse.folding.java.calculation.ProjectionChangeReconciler.reconstructAnnotations(ProjectionChangeReconciler.java:175)
+	at com.cb.eclipse.folding.java.calculation.ProjectionChangeReconciler.reconcile(ProjectionChangeReconciler.java:148)
+	at com.cb.eclipse.folding.java.EnhancedJavaFoldingStructureProvider$ElementChangedListener.elementChanged(EnhancedJavaFoldingStructureProvider.java:158)
+	at org.eclipse.jdt.internal.core.DeltaProcessor$4.run(DeltaProcessor.java:1695)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.notifyListeners(DeltaProcessor.java:1685)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.fireReconcileDelta(DeltaProcessor.java:1537)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.fire(DeltaProcessor.java:1496)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:770)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:789)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1247)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:126)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:108)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:89)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:87)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:151)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:86)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:104)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:77)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:206)
+
+!ENTRY org.eclipse.jdt.core 4 2 2015-05-04 19:53:31.721
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
+!STACK 0
+java.lang.NullPointerException
+	at com.cb.eclipse.folding.java.calculation.ProjectionChangeReconciler.filterAndNormalizePositions(ProjectionChangeReconciler.java:267)
+	at com.cb.eclipse.folding.java.calculation.ProjectionChangeReconciler.reconstructAnnotations(ProjectionChangeReconciler.java:175)
+	at com.cb.eclipse.folding.java.calculation.ProjectionChangeReconciler.reconcile(ProjectionChangeReconciler.java:148)
+	at com.cb.eclipse.folding.java.EnhancedJavaFoldingStructureProvider$ElementChangedListener.elementChanged(EnhancedJavaFoldingStructureProvider.java:158)
+	at org.eclipse.jdt.internal.core.DeltaProcessor$4.run(DeltaProcessor.java:1695)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.notifyListeners(DeltaProcessor.java:1685)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.fireReconcileDelta(DeltaProcessor.java:1537)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.fire(DeltaProcessor.java:1496)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:770)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:789)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1247)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:126)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:108)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:89)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:87)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:151)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:86)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:104)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:77)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:206)
+
+!ENTRY org.eclipse.jdt.core 4 4 2015-05-04 19:53:31.722
+!MESSAGE Exception occurred in listener of Java element change notification
+!STACK 0
+java.lang.NullPointerException
+	at com.cb.eclipse.folding.java.calculation.ProjectionChangeReconciler.filterAndNormalizePositions(ProjectionChangeReconciler.java:267)
+	at com.cb.eclipse.folding.java.calculation.ProjectionChangeReconciler.reconstructAnnotations(ProjectionChangeReconciler.java:175)
+	at com.cb.eclipse.folding.java.calculation.ProjectionChangeReconciler.reconcile(ProjectionChangeReconciler.java:148)
+	at com.cb.eclipse.folding.java.EnhancedJavaFoldingStructureProvider$ElementChangedListener.elementChanged(EnhancedJavaFoldingStructureProvider.java:158)
+	at org.eclipse.jdt.internal.core.DeltaProcessor$4.run(DeltaProcessor.java:1695)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.notifyListeners(DeltaProcessor.java:1685)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.fireReconcileDelta(DeltaProcessor.java:1537)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.fire(DeltaProcessor.java:1496)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:770)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:789)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1247)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:126)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:108)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:89)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:87)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:151)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:86)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:104)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:77)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:206)
+
+!ENTRY org.eclipse.jdt.core 4 2 2015-05-04 22:24:33.402
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
+!STACK 0
+java.lang.NullPointerException
+
+!ENTRY org.eclipse.jdt.core 4 4 2015-05-04 22:24:33.415
+!MESSAGE Exception occurred in listener of Java element change notification
+!STACK 0
+java.lang.NullPointerException
+
+!ENTRY org.eclipse.jdt.core 4 2 2015-05-04 22:24:37.845
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
+!STACK 0
+java.lang.NullPointerException
+
+!ENTRY org.eclipse.jdt.core 4 4 2015-05-04 22:24:37.847
+!MESSAGE Exception occurred in listener of Java element change notification
+!STACK 0
+java.lang.NullPointerException
+
+!ENTRY org.eclipse.jdt.core 4 2 2015-05-04 23:10:38.164
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
+!STACK 0
+java.lang.NullPointerException
+
+!ENTRY org.eclipse.jdt.core 4 4 2015-05-04 23:10:38.176
+!MESSAGE Exception occurred in listener of Java element change notification
+!STACK 0
+java.lang.NullPointerException
+
+!ENTRY org.eclipse.jdt.core 4 2 2015-05-05 17:42:20.167
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 1570
+	at java.lang.String.charAt(String.java:646)
+	at com.cb.eclipse.folding.java.calculation.UserDefinedRegionHelper.isSentinel(UserDefinedRegionHelper.java:53)
+	at com.cb.eclipse.folding.java.calculation.UserDefinedRegionHelper.isOpeningSentinel(UserDefinedRegionHelper.java:29)
+	at com.cb.eclipse.folding.java.calculation.CommentHelper.isUserDefinedSentinel(CommentHelper.java:90)
+	at com.cb.eclipse.folding.java.calculation.CommentHelper.handle(CommentHelper.java:67)
+	at com.cb.eclipse.folding.java.calculation.AbstractBlockStrategy.handle(AbstractBlockStrategy.java:93)
+	at com.cb.eclipse.folding.java.calculation.CompositeCalculationStrategy.handle(CompositeCalculationStrategy.java:24)
+	at com.cb.eclipse.folding.java.calculation.CommentPrefixStrategy.handle(CommentPrefixStrategy.java:64)
+	at com.cb.eclipse.folding.java.calculation.JavaProjectionCalculator.computeProjections(JavaProjectionCalculator.java:230)
+	at com.cb.eclipse.folding.java.calculation.JavaProjectionCalculator.findAnnotations(JavaProjectionCalculator.java:96)
+	at com.cb.eclipse.folding.java.calculation.JavaProjectionCalculator.findAnnotations(JavaProjectionCalculator.java:108)
+	at com.cb.eclipse.folding.java.calculation.JavaProjectionCalculator.findAnnotations(JavaProjectionCalculator.java:108)
+	at com.cb.eclipse.folding.java.calculation.JavaProjectionCalculator.findAnnotations(JavaProjectionCalculator.java:68)
+	at com.cb.eclipse.folding.java.calculation.ProjectionChangeReconciler.reconstructAnnotations(ProjectionChangeReconciler.java:173)
+	at com.cb.eclipse.folding.java.calculation.ProjectionChangeReconciler.reconcile(ProjectionChangeReconciler.java:148)
+	at com.cb.eclipse.folding.java.EnhancedJavaFoldingStructureProvider$ElementChangedListener.elementChanged(EnhancedJavaFoldingStructureProvider.java:158)
+	at org.eclipse.jdt.internal.core.DeltaProcessor$4.run(DeltaProcessor.java:1695)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.notifyListeners(DeltaProcessor.java:1685)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.fireReconcileDelta(DeltaProcessor.java:1537)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.fire(DeltaProcessor.java:1496)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:770)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:789)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1247)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:126)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:108)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:89)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:87)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:151)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:86)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:104)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:77)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:206)
+
+!ENTRY org.eclipse.jdt.core 4 4 2015-05-05 17:42:20.178
+!MESSAGE Exception occurred in listener of Java element change notification
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: 1570
+	at java.lang.String.charAt(String.java:646)
+	at com.cb.eclipse.folding.java.calculation.UserDefinedRegionHelper.isSentinel(UserDefinedRegionHelper.java:53)
+	at com.cb.eclipse.folding.java.calculation.UserDefinedRegionHelper.isOpeningSentinel(UserDefinedRegionHelper.java:29)
+	at com.cb.eclipse.folding.java.calculation.CommentHelper.isUserDefinedSentinel(CommentHelper.java:90)
+	at com.cb.eclipse.folding.java.calculation.CommentHelper.handle(CommentHelper.java:67)
+	at com.cb.eclipse.folding.java.calculation.AbstractBlockStrategy.handle(AbstractBlockStrategy.java:93)
+	at com.cb.eclipse.folding.java.calculation.CompositeCalculationStrategy.handle(CompositeCalculationStrategy.java:24)
+	at com.cb.eclipse.folding.java.calculation.CommentPrefixStrategy.handle(CommentPrefixStrategy.java:64)
+	at com.cb.eclipse.folding.java.calculation.JavaProjectionCalculator.computeProjections(JavaProjectionCalculator.java:230)
+	at com.cb.eclipse.folding.java.calculation.JavaProjectionCalculator.findAnnotations(JavaProjectionCalculator.java:96)
+	at com.cb.eclipse.folding.java.calculation.JavaProjectionCalculator.findAnnotations(JavaProjectionCalculator.java:108)
+	at com.cb.eclipse.folding.java.calculation.JavaProjectionCalculator.findAnnotations(JavaProjectionCalculator.java:108)
+	at com.cb.eclipse.folding.java.calculation.JavaProjectionCalculator.findAnnotations(JavaProjectionCalculator.java:68)
+	at com.cb.eclipse.folding.java.calculation.ProjectionChangeReconciler.reconstructAnnotations(ProjectionChangeReconciler.java:173)
+	at com.cb.eclipse.folding.java.calculation.ProjectionChangeReconciler.reconcile(ProjectionChangeReconciler.java:148)
+	at com.cb.eclipse.folding.java.EnhancedJavaFoldingStructureProvider$ElementChangedListener.elementChanged(EnhancedJavaFoldingStructureProvider.java:158)
+	at org.eclipse.jdt.internal.core.DeltaProcessor$4.run(DeltaProcessor.java:1695)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.notifyListeners(DeltaProcessor.java:1685)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.fireReconcileDelta(DeltaProcessor.java:1537)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.fire(DeltaProcessor.java:1496)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:770)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:789)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1247)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:126)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:108)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:89)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:87)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:151)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:86)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:104)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:77)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:206)

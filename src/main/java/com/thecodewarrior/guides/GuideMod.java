@@ -1,7 +1,9 @@
 package com.thecodewarrior.guides;
 
+import java.io.File;
 import java.util.List;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -11,6 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Node;
 
+import com.thecodewarrior.guides.api.BookmarkManager;
 import com.thecodewarrior.guides.api.GuideRegistry;
 import com.thecodewarrior.guides.guides.elements.GuideElement;
 import com.thecodewarrior.guides.guides.elements.GuideElementFormat;
@@ -21,7 +24,6 @@ import com.thecodewarrior.guides.guides.elements.GuideElementTextLink;
 import com.thecodewarrior.guides.guides.tags.Tag;
 import com.thecodewarrior.guides.proxy.CommonProxy;
 
-import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -48,6 +50,7 @@ public class GuideMod {
 	public static CommonProxy proxy;
 	
 	Configuration config;
+	public static BookmarkManager bookmarkManager;
 	
 	public static void updateEnabled(boolean value) {
 		instance.config.get("guideserver", "enabled", false, "Is Guide Server enabled?").set(value);
@@ -63,6 +66,8 @@ public class GuideMod {
 	public void preInit(FMLPreInitializationEvent event) {
 		l = LogManager.getLogger(loggerName);
 		config = new Configuration(event.getSuggestedConfigurationFile());
+		bookmarkManager = new BookmarkManager();
+		bookmarkManager.loadConfig();
 		config.load();
 		GuideServerInterface.enabled = config.getBoolean("enabled"    , "guideserver", GuideServerInterface.enabled,           "Is Guide Server enabled?");		
 		GuideServerInterface.host    = config.getString ("host"       , "guideserver", GuideServerInterface.host   ,           "Guide Server Hostname");

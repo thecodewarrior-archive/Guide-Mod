@@ -58,8 +58,8 @@ public class GuideText extends Guide {
 	protected int lineCount = 0;
 	protected int topLine   = 0;
 	
-	public GuideText(String guideText) {
-		super(guideText);
+	public GuideText(String guideText, String guideName) {
+		super(guideText, guideName);
 	}
 
 	private String subsetJoin(String[] arr, int start, String joinWith) {
