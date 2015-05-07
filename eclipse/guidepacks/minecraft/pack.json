@@ -89,5 +89,11 @@
                 }
             }
         }
+    },
+    "names": {
+        "en_US": {
+            "minecraft:planks": "Planks",
+            "minecraft:lava": "Lava"
+        }
     }
 }

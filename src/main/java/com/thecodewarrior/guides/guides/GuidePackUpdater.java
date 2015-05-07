@@ -57,29 +57,31 @@ public class GuidePackUpdater {
 		}
 		
 		int updated = 0;
-		
-		for(String i : currentVersions.keySet()) {
-			int cv = currentVersions.get(i);
-			if(serverVersions.containsKey(i)) {
-				int sv = serverVersions.get(i);
-				if(cv < sv) {
-					l.info("updating file " + i);
-					downloadGuide(modid, version, new File(packPath, i), i);
+		if(serverVersions != null) {
+			for(String i : currentVersions.keySet()) {
+				int cv = currentVersions.get(i);
+				if( serverVersions.containsKey(i)) {
+					int sv = serverVersions.get(i);
+					if(cv < sv) {
+						l.info("updating file " + i);
+						downloadGuide(modid, version, new File(packPath, i), i);
+						updated++;
+					}
+					serverVersions.remove(i);
+				} else {
+					l.info("removing file " + i);
+					removeGuide(new File(packPath, i));
 					updated++;
 				}
-				serverVersions.remove(i);
-			} else {
-				l.info("removing file " + i);
-				removeGuide(new File(packPath, i));
+			}
+		
+			for(String i : serverVersions.keySet()) {
+				l.info("downloading new file " + i);
+				downloadGuide(modid, version, new File(packPath, i), i);
 				updated++;
 			}
 		}
-		
-		for(String i : serverVersions.keySet()) {
-			l.info("downloading new file " + i);
-			downloadGuide(modid, version, new File(packPath, i), i);
-			updated++;
-		}
+			
 		
 		downloadGuide(modid, version, new File(packPath, "manifest.txt"), "manifest.txt");
 		

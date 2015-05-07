@@ -17,6 +17,7 @@ import com.google.gson.JsonSyntaxException;
 import com.thecodewarrior.guides.GuideMod;
 import com.thecodewarrior.guides.api.GuideMatcher;
 import com.thecodewarrior.guides.api.GuideRegistry;
+import com.thecodewarrior.guides.proxy.ClientProxy;
 
 public class GuidePackLoader {
 	
@@ -59,6 +60,22 @@ public class GuidePackLoader {
 				GuideRegistry.registerMatcher(packID, new GuideMatcher(id, meta, guideName));
 			}
 		}
+		
+		JsonObject namesMapObj = rootObj.getAsJsonObject("names");
+		if(namesMapObj != null) {
+			JsonObject namesMapLangObj = namesMapObj.getAsJsonObject(GuideMod.proxy.getLang());
+			if(namesMapObj != null) {
+				for(Iterator<Entry<String, JsonElement>> iter = namesMapLangObj.entrySet().iterator(); iter.hasNext(); ) {
+					Entry<String, JsonElement> entry = iter.next();
+					String guideId = entry.getKey();
+					String guideName = entry.getValue().getAsString();
+					
+					GuideRegistry.addGuideName(guideId, guideName);
+				}
+			}
+		}
+		
+		
 		
 		/*
 		 * 

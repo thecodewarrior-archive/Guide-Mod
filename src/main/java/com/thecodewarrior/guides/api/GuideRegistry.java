@@ -72,6 +72,9 @@ public class GuideRegistry {
 			return guide;
 		}
 	}
+	public static boolean guideNameExists(String guide) {
+		return guideNames.containsKey(guide);
+	}
 	
 	public static GuideGenerator guideFromName(String name) {
 		return new GuideGeneratorBasic(name);
