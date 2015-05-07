@@ -1,3 +1,27 @@
-eclipse/.metadata/.plugins/*
-eclipse/saves
-/bin/
+## gradle
+/.gradle
+/build
+
+## ForgeGradle
+/run
+
+## eclipse
+/.settings
+/.metadata
+/.classpath
+/.project
+/bin
+/eclipse/*
+!/eclipse/guidepacks
+
+## intellij
+/out
+/.idea
+/atlassian-ide-plugin.xml
+
+## Jars
+*.jar
+!/gradle/wrapper/gradle-wrapper.jar
+
+## Mac stuff
+.DS_Store
