@@ -51,6 +51,7 @@ public class GuideMod {
 	
 	Configuration config;
 	public static BookmarkManager bookmarkManager;
+	public static boolean dev;
 	
 	public static void updateEnabled(boolean value) {
 		instance.config.get("guideserver", "enabled", false, "Is Guide Server enabled?").set(value);
@@ -73,6 +74,7 @@ public class GuideMod {
 		GuideServerInterface.host    = config.getString ("host"       , "guideserver", GuideServerInterface.host   ,           "Guide Server Hostname");
 		GuideServerInterface.port    = config.getInt    ("port"       , "guideserver", GuideServerInterface.port   , 0, 65536, "Guide Server Port");
 		GuideServerInterface.dev     = config.getBoolean("development", "guideserver", GuideServerInterface.dev    ,           "Should mod re-download all guides every launch? (development only)");
+		this.dev = GuideServerInterface.dev;
 		config.save();
 	}
 	

@@ -30,7 +30,11 @@ public class GuideElementImage extends GuideElement {
 		String[] src = srcString.split(":", 2);
 		if(src.length < 2) {
 			srcMod  = "minecraft";
-			srcName = "MISSING";
+			if(GuideMod.dev) {
+				srcName = "MISSING_DEV";
+			} else {
+				srcName = "MISSING";
+			}
 		} else {
 			srcMod  = src[0];
 			srcName = src[1];
