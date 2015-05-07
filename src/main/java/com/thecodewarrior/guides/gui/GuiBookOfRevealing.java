@@ -314,6 +314,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 		this.searchBar.setEnableBackgroundDrawing(false);
 		this.searchBar.setFocused(false);
 		
+		this.deletingBookmark = new Animation<Integer>(3, -1);
 		
 		
 		//this.reloadButton = new GuiButtonExt(1, left+215, top+144, 40, 20, "Reload");
@@ -633,11 +634,11 @@ public class GuiBookOfRevealing extends GuiScreen {
 		int deleteQueueIndex = -1;
 		
 		for(int i = bookmarkScrollAmount; i < bookmarkScrollAmount + max; i++) {
-			if(this.deletingBookmarkIndex == i) {
-				curY += (ribbonHeight+1)* ((double)deletingCollapseAmount/(double)deletingCollapseMax);
-				this.deletingCollapseAmount--;
-				if(this.deletingCollapseAmount == 0) {
-					this.deletingBookmarkIndex = -1;
+			if(this.deletingBookmark.param == i) {
+				curY += (ribbonHeight+1)* this.deletingBookmark.amtLeft();
+				this.deletingBookmark.frame();
+				if(this.deletingBookmark.isDone()) {
+					this.deletingBookmark.param = -1;
 					deleteQueueIndex = i;
 				}
 			} else {
@@ -675,8 +676,8 @@ public class GuiBookOfRevealing extends GuiScreen {
 			   mY < curY + ribbonHeight) {
 				return i;
 			}
-			if(this.deletingBookmarkIndex == i) {
-				curY += (ribbonHeight+1)* ((double)deletingCollapseAmount/(double)deletingCollapseMax);
+			if(this.deletingBookmark.param == i) {
+				curY += (ribbonHeight+1)* this.deletingBookmark.amtLeft();
 			} else {
 				curY += ribbonHeight + 1;
 			}
@@ -719,13 +720,11 @@ public class GuiBookOfRevealing extends GuiScreen {
 		this.refreshGuide(GuideMod.bookmarkManager.getBookmarkGuide(i));
 	}
 	
-	int deletingBookmarkIndex = -1;
-	int deletingCollapseAmount;
-	int deletingCollapseMax = 2;
+	Animation<Integer> deletingBookmark;
 	
 	private void startDelete(int i) {
-		this.deletingBookmarkIndex = i;
-		this.deletingCollapseAmount = this.deletingCollapseMax;
+		this.deletingBookmark.param = i;
+		this.deletingBookmark.reset();
 		
 	}
 	
