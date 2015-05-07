@@ -1,64 +1,34 @@
-[18:38:57] [main/INFO]: Setting user: Player461
-[18:38:59] [Client thread/INFO]: LWJGL Version: 2.9.1
-[18:39:05] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:In-game guides
-[18:39:06] [Sound Library Loader/INFO]: Sound engine started
-[18:39:08] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
-[18:39:09] [Client thread/INFO]: Created: 256x256 textures/items-atlas
-[18:39:09] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:In-game guides
-[18:39:10] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
-[18:39:10] [Client thread/INFO]: Created: 256x256 textures/items-atlas
-[18:39:11] [Sound Library Loader/INFO]: Sound engine started
-[18:39:12] [Client thread/ERROR]: ########## GL ERROR ##########
-[18:39:12] [Client thread/ERROR]: @ Post startup
-[18:39:12] [Client thread/ERROR]: 1281: Invalid value
-[18:39:17] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
-[18:39:17] [Server thread/INFO]: Generating keypair
-[18:39:18] [Server thread/INFO]: Preparing start region for level 0
-[18:39:19] [Server thread/INFO]: Changing view distance to 12, from 10
-[18:39:20] [Server thread/INFO]: Player461[local:E:0e4648a6] logged in with entity id 157 at (1085.097960167107, 5.276007370703976, -1724.9645442580393)
-[18:39:20] [Server thread/INFO]: Player461 joined the game
-[18:39:22] [Server thread/INFO]: Saving and pausing game...
-[18:39:23] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
-[18:39:23] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
-[18:39:23] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End
-[18:39:31] [Server thread/INFO]: Saving and pausing game...
-[18:39:31] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
-[18:39:31] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
-[18:39:31] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End
-[18:40:22] [Server thread/INFO]: [Player461: Teleported Player461 to 1081.8003270633144,1253.0655522076836,-1723.1649868119866]
-[18:40:22] [Client thread/INFO]: [CHAT] Teleported Player461 to 1081.8003270633144,1253.0655522076836,-1723.1649868119866
-[18:40:35] [Server thread/INFO]: [Player461: Teleported Player461 to 1081.8003270633144,1484.3157655558057,-1723.1649868119866]
-[18:40:35] [Client thread/INFO]: [CHAT] Teleported Player461 to 1081.8003270633144,1484.3157655558057,-1723.1649868119866
-[18:40:36] [Server thread/INFO]: [Player461: Teleported Player461 to 1081.8003270633144,2464.0366753543676,-1723.1649868119866]
-[18:40:36] [Client thread/INFO]: [CHAT] Teleported Player461 to 1081.8003270633144,2464.0366753543676,-1723.1649868119866
-[18:40:37] [Server thread/INFO]: [Player461: Teleported Player461 to 1081.8003270633144,3457.4428542090627,-1723.1649868119866]
-[18:40:37] [Client thread/INFO]: [CHAT] Teleported Player461 to 1081.8003270633144,3457.4428542090627,-1723.1649868119866
-[18:40:38] [Server thread/INFO]: [Player461: Teleported Player461 to 1081.8003270633144,4451.754465416236,-1723.1649868119866]
-[18:40:38] [Client thread/INFO]: [CHAT] Teleported Player461 to 1081.8003270633144,4451.754465416236,-1723.1649868119866
-[18:40:50] [Server thread/INFO]: Saving and pausing game...
-[18:40:50] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
-[18:40:50] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
-[18:40:50] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End
-[18:41:13] [Server thread/INFO]: Player461 has just earned the achievement [Taking Inventory]
-[18:41:13] [Client thread/INFO]: [CHAT] Player461 has just earned the achievement [Taking Inventory]
-[18:41:41] [Server thread/INFO]: Saving and pausing game...
-[18:41:41] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
-[18:41:41] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
-[18:41:41] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End
-[18:41:56] [Server thread/INFO]: Player461 has just earned the achievement [Getting Wood]
-[18:41:56] [Client thread/INFO]: [CHAT] Player461 has just earned the achievement [Getting Wood]
-[18:42:05] [Server thread/INFO]: Saving and pausing game...
-[18:42:05] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
-[18:42:05] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
-[18:42:05] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End
-[18:42:56] [Server thread/INFO]: Saving and pausing game...
-[18:42:56] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
-[18:42:56] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
-[18:42:56] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End
-[18:43:19] [Client thread/INFO]: Stopping!
-[18:43:19] [Server thread/INFO]: Stopping server
-[18:43:19] [Server thread/INFO]: Saving players
-[18:43:19] [Server thread/INFO]: Saving worlds
-[18:43:19] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
-[18:43:19] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
-[18:43:19] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End
+[17:36:11] [main/INFO]: Setting user: Player888
+[17:36:13] [Client thread/INFO]: LWJGL Version: 2.9.1
+[17:36:19] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:In-game guides
+[17:36:21] [Sound Library Loader/INFO]: Sound engine started
+[17:36:23] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+[17:36:24] [Client thread/INFO]: Created: 256x256 textures/items-atlas
+[17:36:24] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:In-game guides
+[17:36:25] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+[17:36:25] [Client thread/INFO]: Created: 256x256 textures/items-atlas
+[17:36:26] [Sound Library Loader/INFO]: Sound engine started
+[17:36:27] [Client thread/ERROR]: ########## GL ERROR ##########
+[17:36:27] [Client thread/ERROR]: @ Post startup
+[17:36:27] [Client thread/ERROR]: 1281: Invalid value
+[17:36:30] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
+[17:36:30] [Server thread/INFO]: Generating keypair
+[17:36:31] [Server thread/INFO]: Preparing start region for level 0
+[17:36:32] [Server thread/INFO]: Changing view distance to 12, from 10
+[17:36:33] [Server thread/INFO]: Player888[local:E:86b0b953] logged in with entity id 165 at (1082.4033214971716, 5.24534620293549, -1725.2073683772637)
+[17:36:33] [Server thread/INFO]: Player888 joined the game
+[17:36:36] [Server thread/INFO]: Saving and pausing game...
+[17:36:36] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
+[17:36:36] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
+[17:36:36] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End
+[17:36:38] [Server thread/INFO]: Saving and pausing game...
+[17:36:38] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
+[17:36:38] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
+[17:36:38] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End
+[17:36:39] [Server thread/INFO]: Stopping server
+[17:36:39] [Server thread/INFO]: Saving players
+[17:36:39] [Server thread/INFO]: Saving worlds
+[17:36:39] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Overworld
+[17:36:39] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/Nether
+[17:36:39] [Server thread/INFO]: Saving chunks for level 'Test:TheCodeWarrior'/The End
+[17:36:40] [Client thread/INFO]: Stopping!
