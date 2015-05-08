@@ -66,7 +66,7 @@ public class ViewGuide extends View {
 	}
 	
 	public void scroll(int amt) {
-		tryScroll(amt);
+		tryScroll(amt/120 * mc.fontRenderer.FONT_HEIGHT);
 	}
 	
 	public double getScrollFraction() {
@@ -95,7 +95,7 @@ public class ViewGuide extends View {
 			return 0;
 		}
 		int overflow = (this.contentHeight - this.height);
-		int px = -(int)(this.scroll/(double)scrollTickSize)*mc.fontRenderer.FONT_HEIGHT;
+		int px = -(int)(this.scroll);
 		if(px > overflow && overflow > 0) {
 			return -overflow;
 		} else {
@@ -123,10 +123,10 @@ public class ViewGuide extends View {
 	public void actionPerformed(GuiButton guibutton) {
 		switch(guibutton.id) {
 		case 1:
-			tryScroll( this.scrollTickSize);
+			tryScroll(mc.fontRenderer.FONT_HEIGHT);
 			break;
 		case 2:
-			tryScroll(-this.scrollTickSize);
+			tryScroll(-mc.fontRenderer.FONT_HEIGHT);
 			break;
 		}
 	}
@@ -150,5 +150,26 @@ public class ViewGuide extends View {
 			}
 		}
 		GL11.glTranslated(0, -scrollPx, 0);
+	}
+	
+	public void scrollTo(int x) {
+		tryScroll( -x - scroll );
+	}
+	
+	public void updateSearch(String search) {
+		if(elements != null) {
+			int xValue = -1;
+			for(GuideElement e : elements) {
+				xValue = e.getSearchMatchX(search);
+				if(xValue != -1) {
+					break;
+				}
+			}
+			l.info("found match at " + xValue);
+			if(xValue != -1) {
+//				xValue += mc.fontRenderer.FONT_HEIGHT*1.4;
+				scrollTo(xValue);
+			}
+		}
 	}
 }

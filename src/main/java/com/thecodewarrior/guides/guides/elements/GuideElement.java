@@ -28,6 +28,10 @@ public class GuideElement extends Gui {
 		this.newY = y;
 	}
 	
+	public int getSearchMatchX(String search) {
+		return -1;
+	}
+	
 	public int getX() {
 		return x;
 	}

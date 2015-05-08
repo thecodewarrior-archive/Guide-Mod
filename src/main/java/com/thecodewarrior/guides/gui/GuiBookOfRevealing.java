@@ -14,6 +14,7 @@ import net.minecraft.world.World;
 
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.BufferUtils;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
@@ -326,7 +327,7 @@ public class GuiBookOfRevealing extends GuiScreen {
         super.keyTyped(par1, par2);
         String oldstr = this.searchBar.getText();
         this.searchBar.textboxKeyTyped(par1, par2);
-        if(oldstr != this.searchBar.getText()) {
+        if(this.searchBar.isFocused() && par2 == Keyboard.KEY_RETURN) {
         	this.view.updateSearch(this.searchBar.getText());
         }
         this.view.keyTyped(par1, par2);
@@ -348,6 +349,11 @@ public class GuiBookOfRevealing extends GuiScreen {
         case 2:
         	GuideRegistry.wipeGuideRegistry();
         	GuideMod.proxy.loadGuidePacks();
+        	break;
+        case 4:
+        	if(this.view instanceof ViewGuide) {
+        		((ViewGuide)this.view).scrollTo(20);
+        	}
         	break;
         case 5:
         	if(this.view != this.settingsView) {
@@ -564,7 +570,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 	private void drawSearchBar() {
 		gu.drawIcon(left-2, top+189, searchLeft);
 		
-		int textWidth = 6+ mc.fontRenderer.getStringWidth(searchBar.getText());
+		int textWidth = 6+ mc.fontRenderer.getStringWidth(searchBar.getText()) + (this.searchBar.isFocused() ? mc.fontRenderer.getStringWidth("_") : 0);
 		
 		double numOfTiles = (double)textWidth/(double)searchMiddle.getIconWidth();
 		int numOfWholeTiles = (int) Math.floor(numOfTiles);

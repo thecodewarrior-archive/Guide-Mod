@@ -49,7 +49,6 @@ public class GuideElementTextLink extends GuideElementText {
 //		l.info(text + " => " + this.link);
 		this.defaultColor = color;
 		this.hoverColor = hoverColor;
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void clickInside(int mX, int mY, int button) {
@@ -77,5 +76,5 @@ public class GuideElementTextLink extends GuideElementText {
 //				      this.newX(), this.newY()+fontRendererObj.FONT_HEIGHT,
 //				      0xFF000000 + color);
 	}
-
+	
 }

@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.thecodewarrior.guides.GuideMod;
 import com.thecodewarrior.guides.gui.MultiRect;
 import com.thecodewarrior.guides.gui.Rect;
 import com.thecodewarrior.guides.guides.GuideText;
@@ -135,4 +136,13 @@ public class GuideElementText extends GuideElement {
 		this.drawString(this.color);
 	}
 
+	public int getSearchMatchX(String str) {
+		for(int i = 0; i < lines.size(); i++) {
+			String line = lines.get(i);
+			if(line.contains(str)) {
+				return this.getY() + ( GuideMod.proxy.getFontRenderer().FONT_HEIGHT * i);
+			}
+		}
+		return -1;
+	}
 }

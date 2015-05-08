@@ -86,4 +86,18 @@ public class GuideElementContainer extends GuideElement {
 		}
 	}
 	
+	public int getSearchMatchX(String search) {
+		if(elements != null) {
+			int xValue = -1;
+			for(GuideElement e : elements) {
+				xValue = e.getSearchMatchX(search);
+				if(xValue != -1) {
+					break;
+				}
+			}
+			return xValue;
+		}
+		return -1;
+	}
+	
 }
