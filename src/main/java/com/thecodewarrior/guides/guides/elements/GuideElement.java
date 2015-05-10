@@ -1,5 +1,7 @@
 package com.thecodewarrior.guides.guides.elements;
 
+import java.util.ArrayList;
+
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 
@@ -28,8 +30,16 @@ public class GuideElement extends Gui {
 		this.newY = y;
 	}
 	
-	public int getSearchMatchX(String search) {
-		return -1;
+	/**
+	 * Searches this element for a match
+	 * 
+	 * x value calculation: Search for occurances, for each occurance decrement occurance counter, if occurance counter reaches 0 return the last occurance
+	 * @param search Search term.
+	 * @param occurance Occurances left until desired result.
+	 * @return Tuple containing the search X coordinate, or -1 if there is none, and the occurance
+	 */
+	public ArrayList<Integer> getSearches(String search) {
+		return new ArrayList<Integer>();
 	}
 	
 	public int getX() {

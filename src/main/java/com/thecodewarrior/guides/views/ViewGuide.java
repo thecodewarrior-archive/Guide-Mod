@@ -1,5 +1,6 @@
 package com.thecodewarrior.guides.views;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.client.gui.GuiButton;
@@ -156,16 +157,32 @@ public class ViewGuide extends View {
 		tryScroll( -x - scroll );
 	}
 	
-	public void updateSearch(String search) {
+	private ArrayList<Integer> searchResults = null;
+	private String searchResultQuery = "";
+	
+	public void updateSearchResults(String search) {
+		searchResults = new ArrayList<Integer>();
+		for(GuideElement e : elements) {
+			searchResults.addAll(e.getSearches(search));
+		}
+	}
+	
+	public void updateSearch(String search, int occurance) {
 		if(elements != null) {
-			int xValue = -1;
-			for(GuideElement e : elements) {
-				xValue = e.getSearchMatchX(search);
-				if(xValue != -1) {
-					break;
-				}
+//			if(occurance == 0)
+//				occurance = 1;
+			
+			if(!search.equals(searchResultQuery)) {
+				updateSearchResults(search);
+				searchResultQuery = search;
 			}
-			l.info("found match at " + xValue);
+			l.info("occurance = " + occurance);
+			l.info("length = " + searchResults.size());
+			int xValue = -1;
+			if(searchResults.size() > 0) {
+				xValue = searchResults.get(occurance % searchResults.size());
+			}
+			
 			if(xValue != -1) {
 //				xValue += mc.fontRenderer.FONT_HEIGHT*1.4;
 				scrollTo(xValue);

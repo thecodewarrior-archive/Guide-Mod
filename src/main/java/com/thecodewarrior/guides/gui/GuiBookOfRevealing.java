@@ -322,13 +322,19 @@ public class GuiBookOfRevealing extends GuiScreen {
 		//this.buttonList.add(this.reloadButton);
 	}
 	
+	public int searchOccurance = 0;
+	
 	protected void keyTyped(char par1, int par2)
     {
         super.keyTyped(par1, par2);
         String oldstr = this.searchBar.getText();
         this.searchBar.textboxKeyTyped(par1, par2);
-        if(this.searchBar.isFocused() && par2 == Keyboard.KEY_RETURN) {
-        	this.view.updateSearch(this.searchBar.getText());
+        if(this.searchBar.isFocused()) {
+        	if(par2 == Keyboard.KEY_RETURN) {
+        		this.view.updateSearch(this.searchBar.getText(), this.searchOccurance++);
+        	} else {
+        		this.searchOccurance = 0;
+        	}
         }
         this.view.keyTyped(par1, par2);
     }

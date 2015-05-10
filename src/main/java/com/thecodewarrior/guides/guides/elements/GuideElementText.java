@@ -136,13 +136,14 @@ public class GuideElementText extends GuideElement {
 		this.drawString(this.color);
 	}
 
-	public int getSearchMatchX(String str) {
+	public ArrayList<Integer> getSearches(String str) {
+		ArrayList<Integer> matches = new ArrayList<Integer>();
 		for(int i = 0; i < lines.size(); i++) {
 			String line = lines.get(i);
 			if(line.contains(str)) {
-				return this.getY() + ( GuideMod.proxy.getFontRenderer().FONT_HEIGHT * i);
+				matches.add( this.getY() + ( GuideMod.proxy.getFontRenderer().FONT_HEIGHT * i ) );
 			}
 		}
-		return -1;
+		return matches;
 	}
 }

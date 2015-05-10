@@ -1,5 +1,6 @@
 package com.thecodewarrior.guides.guides.elements;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.thecodewarrior.guides.GuideMod;
@@ -86,18 +87,14 @@ public class GuideElementContainer extends GuideElement {
 		}
 	}
 	
-	public int getSearchMatchX(String search) {
+	public ArrayList<Integer> getSearches(String search) {
+		ArrayList<Integer> matches = new ArrayList<Integer>();
 		if(elements != null) {
-			int xValue = -1;
 			for(GuideElement e : elements) {
-				xValue = e.getSearchMatchX(search);
-				if(xValue != -1) {
-					break;
-				}
+				matches.addAll( e.getSearches(search) );
 			}
-			return xValue;
 		}
-		return -1;
+		return matches;
 	}
 	
 }

@@ -63,7 +63,7 @@ public abstract class View extends Gui {
 		
 	}
 	
-	public void updateSearch(String search) {};
+	public void updateSearch(String search, int occurance) {};
 	
 	/**
 	 * Called to draw the view, draw relative to top left of the view
