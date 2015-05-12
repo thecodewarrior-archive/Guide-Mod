@@ -86,7 +86,9 @@ public class ViewScrollable extends View {
 			this.scrollAmount = 0;
 		}
 	}
-	public void scrollTo(int scroll) {}
+	public void scrollTo(int scroll) {
+		scrollBy( -scroll - currentScroll() );
+	}
 	
 	public boolean scrollActionPerformed(GuiButton guibutton) {
 		switch(guibutton.id) {
