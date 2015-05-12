@@ -66,7 +66,7 @@ public class ViewGuide extends View {
 							11, buttonHeight, tex));
 	}
 	
-	public void scroll(int amt) {
+	public void scroll(int mX, int mY, int amt) {
 		tryScroll(amt/120 * mc.fontRenderer.FONT_HEIGHT);
 	}
 	

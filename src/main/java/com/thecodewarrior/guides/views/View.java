@@ -59,7 +59,7 @@ public abstract class View extends Gui {
         }
 	}
 	
-	public void scroll(int amt) {
+	public void scroll(int mX, int mY, int amt) {
 		
 	}
 	

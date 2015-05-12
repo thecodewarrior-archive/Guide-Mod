@@ -25,6 +25,7 @@ import com.thecodewarrior.guides.api.GuideRegistry;
 import com.thecodewarrior.guides.views.View;
 import com.thecodewarrior.guides.views.ViewBrowse;
 import com.thecodewarrior.guides.views.ViewGuide;
+import com.thecodewarrior.guides.views.ViewScrollable;
 import com.thecodewarrior.guides.views.ViewSettings;
 
 import cpw.mods.fml.client.config.GuiButtonExt;
@@ -144,7 +145,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 		int wheel = Mouse.getDWheel();
 		
 		if(this.view != null) {
-			this.view.scroll(wheel);
+			this.view.scroll(mouseX, mouseY, wheel);
 		}
 	}
 	

@@ -2,6 +2,8 @@ package com.thecodewarrior.guides.views;
 
 import java.util.ArrayList;
 
+import net.minecraft.client.gui.GuiButton;
+
 import org.lwjgl.opengl.GL11;
 
 import com.thecodewarrior.guides.GuideMod;
@@ -11,7 +13,7 @@ import com.thecodewarrior.guides.api.browse.BrowseItemDirectory;
 import com.thecodewarrior.guides.api.browse.BrowseItemGuide;
 import com.thecodewarrior.guides.gui.GuiBookOfRevealing;
 
-public class ViewBrowse extends View {
+public class ViewBrowse extends ViewScrollable {
 
 	ArrayList<String> path;
 	ArrayList<BrowseItem> items;
@@ -28,6 +30,7 @@ public class ViewBrowse extends View {
 
 	@Override
 	public void init() {
+		super.init();
 		rowHeight = mc.fontRenderer.FONT_HEIGHT;
 	}
 
@@ -38,9 +41,10 @@ public class ViewBrowse extends View {
 	
 	@Override
 	public void draw(int mX, int mY) {
+		super.draw(mX, mY);
 		int hover = hoverIndex(mX, mY);
 		GL11.glPushMatrix();
-			GL11.glTranslated(left, top, 0);
+			GL11.glTranslated(left, top+getScrollPx(), 0);
 			for(int i = 0; i < items.size(); i++) {
 				items.get(i).draw(hover == i);
 				GL11.glTranslated(0, rowHeight + buffer, 0);
@@ -56,7 +60,7 @@ public class ViewBrowse extends View {
 			if(item instanceof BrowseItemDirectory) {
 				ArrayList<String> list = new ArrayList<String>(path);
 				list.add(item.getText());
-				this.gui.goToView(new ViewBrowse(this.width, this.height, this.gui, list));
+				this.gui.goToView(new ViewBrowse(this.actualWidth, this.height, this.gui, list));
 				return true;
 			}
 			if(item instanceof BrowseItemGuide) {
@@ -69,12 +73,22 @@ public class ViewBrowse extends View {
 	public int hoverIndex(int mX, int mY) {
 		for(int i = 0; i < items.size(); i++) {
 			if(mX > left &&
+			   mX < width-left &&
 			   mY > ( top + ( i*(rowHeight+buffer) ) ) &&
 			   mY < ( top + ( i*(rowHeight+buffer) ) + rowHeight ) ) {
 				return i;
 			}
 		}
 		return -1;
+	}
+	
+	public int totalHeight() {
+		return top + (items.size()*rowHeight+buffer) + rowHeight;
+	}
+	
+	public void actionPerformed(GuiButton guibutton) {
+		if(scrollActionPerformed(guibutton))
+			return;
 	}
 
 }
