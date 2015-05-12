@@ -13,11 +13,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSyntaxException;
 import com.thecodewarrior.guides.GuideMod;
 import com.thecodewarrior.guides.api.GuideMatcher;
 import com.thecodewarrior.guides.api.GuideRegistry;
-import com.thecodewarrior.guides.proxy.ClientProxy;
+import com.thecodewarrior.guides.api.browse.BrowseItemDirectory;
+import com.thecodewarrior.guides.api.browse.BrowseItemGuide;
 
 public class GuidePackLoader {
 	
@@ -43,6 +45,26 @@ public class GuidePackLoader {
 		}
 		if(rootObj == null)
 			return;
+		
+		loadIdMaps(rootObj, packID);
+		
+		loadNameMap(rootObj);
+		
+		loadBrowse(rootObj, packID, GuideMod.proxy.getLang());
+		
+		/*
+		 * 
+JsonObject locObj = rootObj.getAsJsonObject("result").getAsJsonObject("geometry").getAsJsonObject("location");
+
+String status = rootObj.get("status").getAsString();
+String lat = locObj.get("lat").getAsString();
+String lng = locObj.get("lng").getAsString();
+
+System.out.printf("Status: %s, Latitude: %s, Longitude: %s\n", status, lat, lng);
+		 * */
+	}
+	
+	static void loadIdMaps(JsonObject rootObj, String packID) {
 		JsonObject idmapsObj = rootObj.getAsJsonObject("idmaps");
 		
 		for(Iterator<Entry<String, JsonElement>> iter = idmapsObj.entrySet().iterator(); iter.hasNext(); ) {
@@ -60,7 +82,9 @@ public class GuidePackLoader {
 				GuideRegistry.registerMatcher(packID, new GuideMatcher(id, meta, guideName));
 			}
 		}
-		
+	}
+
+	static void loadNameMap(JsonObject rootObj) {
 		JsonObject namesMapObj = rootObj.getAsJsonObject("names");
 		if(namesMapObj != null) {
 			JsonObject namesMapLangObj = namesMapObj.getAsJsonObject(GuideMod.proxy.getLang());
@@ -74,18 +98,33 @@ public class GuidePackLoader {
 				}
 			}
 		}
-		
-		
-		
-		/*
-		 * 
-JsonObject locObj = rootObj.getAsJsonObject("result").getAsJsonObject("geometry").getAsJsonObject("location");
+	}
 
-String status = rootObj.get("status").getAsString();
-String lat = locObj.get("lat").getAsString();
-String lng = locObj.get("lng").getAsString();
-
-System.out.printf("Status: %s, Latitude: %s, Longitude: %s\n", status, lat, lng);
-		 * */
+	static void loadBrowse(JsonObject rootObj, String packID, String lang) {
+		JsonObject browse = (JsonObject) rootObj.get("browse");
+		JsonArray  mod    = (JsonArray) browse.get(lang);
+		
+		BrowseItemDirectory m = GuideMod.browseManager.getMod(packID, mod.get(0).getAsString());
+		
+		loadBrowseIntoDirectory(mod, m, true);
+	}
+	
+	static void loadBrowseDirectory(JsonArray json, BrowseItemDirectory parent) {
+		BrowseItemDirectory dir = new BrowseItemDirectory(json.get(0).getAsString());
+		loadBrowseIntoDirectory(json, dir, true);
+		parent.addChild(dir);
+	}
+	
+	static void loadBrowseIntoDirectory(JsonArray json, BrowseItemDirectory dir, boolean ignoreZeroth) {
+		for(int i = (ignoreZeroth ? 1 : 0); i < json.size(); i++) {
+			JsonElement e = json.get(i);
+			if(e instanceof JsonArray) {
+				loadBrowseDirectory((JsonArray)e, dir);
+			} else if (e instanceof JsonPrimitive) {
+				dir.addChild(new BrowseItemGuide(e.getAsString()));
+			} else {
+				l.warn("ERROR: non primitive, non array element in browse map");
+			}
+		}
 	}
 }

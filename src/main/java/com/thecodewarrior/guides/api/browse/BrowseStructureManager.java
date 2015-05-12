@@ -10,17 +10,20 @@ public class BrowseStructureManager {
 	BrowseItemDirectoryRoot root = new BrowseItemDirectoryRoot("/");
 	
 	public BrowseStructureManager() {
-		BrowseItemDirectoryMod mc = getMod("minecraft", "Vanilla minecraft");
-		mc.addChild(new BrowseItemGuide("minecraft:planks"));
-		mc.addChild(new BrowseItemGuide("minecraft:lava"));
-		root.addChild(mc);
+//		BrowseItemDirectoryMod mc = getMod("minecraft", "Vanilla minecraft");
+//		mc.addChild(new BrowseItemGuide("minecraft:planks"));
+//		mc.addChild(new BrowseItemGuide("minecraft:lava"));
+//		root.addChild(mc);
 	}
 	
 	public BrowseItemDirectoryMod getMod(String modid, String name) {
+		BrowseItemDirectoryMod m = null;
 		if(!modItems.containsKey(modid)) {
-			modItems.put(modid, new BrowseItemDirectoryMod(modid, name));
+			m = new BrowseItemDirectoryMod(modid, name);
+			modItems.put(modid, m);
+			root.addChild(m);
 		}
-		return modItems.get(modid);
+		return m;
 	}
 	
 	public BrowseItemDirectoryRoot getRoot() {

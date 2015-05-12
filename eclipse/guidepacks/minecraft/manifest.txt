@@ -79,7 +79,7 @@ images/tools/sword/wood.png:1
 images/wood-ish_stone-ish_tools.png:1
 manifest.txt:1
 pack.info:1
-pack.json:1
+pack.json:2
 parser test.txt:1
 reference.txt:1
 register.txt:1
