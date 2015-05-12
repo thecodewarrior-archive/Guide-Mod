@@ -23,6 +23,7 @@ import com.thecodewarrior.guides.Reference;
 import com.thecodewarrior.guides.api.GuideGenerator;
 import com.thecodewarrior.guides.api.GuideRegistry;
 import com.thecodewarrior.guides.views.View;
+import com.thecodewarrior.guides.views.ViewBrowse;
 import com.thecodewarrior.guides.views.ViewGuide;
 import com.thecodewarrior.guides.views.ViewSettings;
 
@@ -349,35 +350,35 @@ public class GuiBookOfRevealing extends GuiScreen {
 	protected void actionPerformed(GuiButton guibutton) {
         //id is the id you give your button
         switch(guibutton.id) {
-        case 1:
+        case 1: // back
         	this.back();
         	break;
-        case 2:
+        case 2: // reload
         	GuideRegistry.wipeGuideRegistry();
         	GuideMod.proxy.loadGuidePacks();
         	break;
-        case 4:
-        	if(this.view instanceof ViewGuide) {
-        		((ViewGuide)this.view).scrollTo(20);
+        case 4: // browse
+        	if(!( this.view instanceof ViewBrowse ) ) {
+        		this.goToView(new ViewBrowse(viewWidth, viewHeight, this));
         	}
         	break;
-        case 5:
+        case 5: // settings
         	if(this.view != this.settingsView) {
         		this.goToView(this.settingsView);
         	}
         	break;
-        case 6:
+        case 6: // add bookmark
         	if(this.view instanceof ViewGuide) {
         		ViewGuide v = (ViewGuide)this.view;
         		GuideMod.bookmarkManager.addBookmark(v.guideName());
         	}
         	break;
-        case 7:
+        case 7: // bookmark scroll (bookmarks move down)
         	if(this.bookmarkScrollAmount > 0) {
         		this.bookmarkScrollAmount--;
         	}
         	break;
-        case 8:
+        case 8: // bookmark scroll (bookmarks move up)
         	int c = GuideMod.bookmarkManager.getBookmarkCount();
         	if(this.bookmarkScrollAmount+this.bookmarkRowCount < c) {
         		this.bookmarkScrollAmount++;

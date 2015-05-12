@@ -15,6 +15,7 @@ import org.w3c.dom.Node;
 
 import com.thecodewarrior.guides.api.BookmarkManager;
 import com.thecodewarrior.guides.api.GuideRegistry;
+import com.thecodewarrior.guides.api.browse.BrowseStructureManager;
 import com.thecodewarrior.guides.guides.elements.GuideElement;
 import com.thecodewarrior.guides.guides.elements.GuideElementFormat;
 import com.thecodewarrior.guides.guides.elements.GuideElementImage;
@@ -51,6 +52,8 @@ public class GuideMod {
 	
 	Configuration config;
 	public static BookmarkManager bookmarkManager;
+	public static BrowseStructureManager browseManager;
+	
 	public static boolean dev;
 	
 	public static void updateEnabled(boolean value) {
@@ -69,6 +72,7 @@ public class GuideMod {
 		config = new Configuration(event.getSuggestedConfigurationFile());
 		bookmarkManager = new BookmarkManager();
 		bookmarkManager.loadConfig();
+		browseManager = new BrowseStructureManager();
 		config.load();
 		GuideServerInterface.enabled = config.getBoolean("enabled"    , "guideserver", GuideServerInterface.enabled,           "Is Guide Server enabled?");		
 		GuideServerInterface.host    = config.getString ("host"       , "guideserver", GuideServerInterface.host   ,           "Guide Server Hostname");
