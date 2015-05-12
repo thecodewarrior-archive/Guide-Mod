@@ -18,23 +18,25 @@ public class ViewScrollable extends View {
 	public static int buttonHeight = 13;
 	public static int scrollbarHeight = 188-(2*buttonHeight);
 	public static int scrollbarWidth = 11;
+	public static int scrollbarBuffer = 2;
 	public static int scrollTickSize = 120; // distance one "click" of mouse moves
 	
 	public int actualWidth;
 	
 	public ViewScrollable(Guide guide, int width, int height, GuiBookOfRevealing gui) {
-		super(guide, width-scrollbarWidth, height, gui);
+		super(guide, width-scrollbarWidth-(2*scrollbarBuffer), height, gui);
 		this.actualWidth = width;
 	}
 	
 	@Override
-	public void init() {	
+	public void init() {
+		contentHeight = 1;
 		this.buttonList.add(new GuiButtonCustomTexture(100,
-				this.width-1, 1,
+				this.width+scrollbarBuffer-1, 1,
 				11, 0,
 				11, buttonHeight, scrollTexture));
 		this.buttonList.add(new GuiButtonCustomTexture(101,
-				this.width-1, 1+scrollbarHeight+buttonHeight,
+				this.width+scrollbarBuffer-1, 1+scrollbarHeight+buttonHeight,
 				11, buttonHeight,
 				11, buttonHeight, scrollTexture));
 	}
@@ -42,10 +44,10 @@ public class ViewScrollable extends View {
 	@Override
 	public void draw(int mX, int mY) {
 		mc.renderEngine.bindTexture(scrollTexture);
-		drawTexturedModalRect(this.width-1, scrollbarTop, 0, 0, 11, scrollbarHeight);
+		drawTexturedModalRect(this.width+scrollbarBuffer-1, scrollbarTop, 0, 0, 11, scrollbarHeight);
 		super.drawButtons(mX, mY);
 		double frac = scrollBarFrac();
-		drawTexturedModalRect(this.width, scrollbarTop + (int)(frac*(scrollbarHeight-5) ), 11, 26, 9, 5);
+		drawTexturedModalRect(this.width+scrollbarBuffer, scrollbarTop + (int)(frac*(scrollbarHeight-5) ), 11, 26, 9, 5);
 		
 	}
 	
@@ -55,7 +57,7 @@ public class ViewScrollable extends View {
 	}
 	
 	int scrollAmount = 0;
-	int contentHeight = 1;
+	protected int contentHeight;
 	
 	public int totalHeight() { return contentHeight; }
 	public int currentScroll() { return scrollAmount; }
