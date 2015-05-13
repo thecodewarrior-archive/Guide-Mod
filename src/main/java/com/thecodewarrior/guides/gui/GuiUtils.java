@@ -1,7 +1,11 @@
 package com.thecodewarrior.guides.gui;
 
+import java.nio.DoubleBuffer;
+
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
+
+import org.lwjgl.BufferUtils;
 
 public class GuiUtils {
 
@@ -41,5 +45,44 @@ public class GuiUtils {
         tessellator.addVertexWithUV((double)(p_94065_1_ + 0), (double)(p_94065_2_ + 0), (double)this.zLevel, (double)p_94065_3_.getMinU(), (double)p_94065_3_.getMinV());
         tessellator.draw();
     }
+	
+	
+	public static DoubleBuffer clipEqMinY(int val) {
+		double[] topMask = new double[4];
+		topMask[1] = 1; // it's masking everything not in the +Y direction
+		topMask[3] = -val;
+		DoubleBuffer buf = BufferUtils.createDoubleBuffer(4);
+		buf.put(topMask);
+		buf.flip();
+		return buf;
+	}
+	public static DoubleBuffer clipEqMaxY(int val) {
+		double[] bottomMask = new double[4];
+		bottomMask[1] = -1; // it's masking everything not in the -Y direction
+		bottomMask[3] = val; // 
+		DoubleBuffer buf = BufferUtils.createDoubleBuffer(4);
+		buf.put(bottomMask);
+		buf.flip();
+		return buf;
+	}
+	
+	public static DoubleBuffer clipEqMinX(int val) {
+		double[] bottomMask = new double[4];
+		bottomMask[0] = 1; // it's masking everything not in the +X direction
+		bottomMask[3] = -val;
+		DoubleBuffer buf = BufferUtils.createDoubleBuffer(4);
+		buf.put(bottomMask);
+		buf.flip();
+		return buf;
+	}
+	public static DoubleBuffer clipEqMaxX(int val) {
+		double[] bottomMask = new double[4];
+		bottomMask[0] = -1; // it's masking everything not in the -X direction
+		bottomMask[3] = val;
+		DoubleBuffer buf = BufferUtils.createDoubleBuffer(4);
+		buf.put(bottomMask);
+		buf.flip();
+		return buf;
+	}
 
 }

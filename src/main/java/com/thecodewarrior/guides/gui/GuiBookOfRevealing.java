@@ -156,8 +156,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 		
 		l.info("mouse clicked");
 		
-		if(this.view == null) { return; }
-		this.view.onClick(x-(viewLeft), y-(viewTop), button);
+		
 		
 		/* minecraft button code */
 		if (button == 0)
@@ -171,12 +170,14 @@ public class GuiBookOfRevealing extends GuiScreen {
                     this.view.selectedButton = guibutton;
                     guibutton.func_146113_a(this.mc.getSoundHandler());
                     this.view.actionPerformed(guibutton);
+                    return;
                 }
             }
         }
 		
 		if(x < this.searchBar.xPosition + mc.fontRenderer.getStringWidth(this.searchBar.getText()) + 6) {
 			this.searchBar.mouseClicked(x, y, button);
+			return;
 		} else {
 			this.searchBar.setFocused(false);
 		}
@@ -188,8 +189,12 @@ public class GuiBookOfRevealing extends GuiScreen {
 			this.bookmarkIndex = hoverIndex;
 			this.bookmarkClickStartX = x;
 			this.bookmarkClickStartY = y;
+			return;
 		}
-	}
+	
+		if(this.view == null) { return; }
+		this.view.onClick(x-(viewLeft), y-(viewTop), button);
+    }
 
 	protected void mouseClickMove(int x, int y, int lastButton, long timeSinceClick) {
 		if (this.isClickingOnBookmark) {
@@ -504,22 +509,10 @@ public class GuiBookOfRevealing extends GuiScreen {
 			int topClip = viewTop;
 			int bottomClip = viewTop+viewHeight;
 			
-			double[] topMask = new double[4];
-			topMask[1] = 1; // it's masking outside the +Y axis 
-			topMask[3] = -topClip;
-			DoubleBuffer buf = BufferUtils.createDoubleBuffer(4);
-			buf.put(topMask);
-			buf.flip();
-			GL11.glClipPlane(GL11.GL_CLIP_PLANE0, buf);
+			GL11.glClipPlane(GL11.GL_CLIP_PLANE0, GuiUtils.clipEqMinY(viewTop));
 			GL11.glEnable(GL11.GL_CLIP_PLANE0);
 
-			double[] bottomMask = new double[4];
-			bottomMask[1] = -1; // it's masking outside the -Y axis
-			bottomMask[3] = bottomClip; // 
-			buf = BufferUtils.createDoubleBuffer(4);
-			buf.put(bottomMask);
-			buf.flip();
-			GL11.glClipPlane(GL11.GL_CLIP_PLANE1, buf);
+			GL11.glClipPlane(GL11.GL_CLIP_PLANE1, GuiUtils.clipEqMaxY(viewTop+viewHeight));
 			GL11.glEnable(GL11.GL_CLIP_PLANE1);
 			
 			
@@ -539,7 +532,6 @@ public class GuiBookOfRevealing extends GuiScreen {
 		// re-bind the texture, as the view will likely have bound a different one
 		mc.renderEngine.bindTexture(texture);
 		this.drawButtons(mX, mY);
-
 		drawSearchBar();
 		
 	}
@@ -576,6 +568,9 @@ public class GuiBookOfRevealing extends GuiScreen {
 	}
 	
 	private void drawSearchBar() {
+		if(!searchBar.isFocused()) {
+			GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.75F);
+		}
 		gu.drawIcon(left-2, top+189, searchLeft);
 		
 		int textWidth = 6+ mc.fontRenderer.getStringWidth(searchBar.getText()) + (this.searchBar.isFocused() ? mc.fontRenderer.getStringWidth("_") : 0);
@@ -599,7 +594,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 		}
 		
 		gu.drawIcon(left+curX, top+192, searchRight);
-		
+
 		if(!searchBar.isFocused()) {
 			
 			mc.fontRenderer.drawStringWithShadow("_", this.searchBar.xPosition+textWidth-6, this.searchBar.yPosition, 14737632);
@@ -649,7 +644,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 		
 		for(int i = bookmarkScrollAmount; i < bookmarkScrollAmount + max; i++) {
 			if(this.deletingBookmark.param == i) {
-				curY += (ribbonHeight+1)* this.deletingBookmark.amtLeft();
+				curY += (ribbonHeight+1)* this.deletingBookmark.fracLeft();
 				this.deletingBookmark.frame();
 				if(this.deletingBookmark.isDone()) {
 					this.deletingBookmark.param = -1;
@@ -691,7 +686,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 				return i;
 			}
 			if(this.deletingBookmark.param == i) {
-				curY += (ribbonHeight+1)* this.deletingBookmark.amtLeft();
+				curY += (ribbonHeight+1)* this.deletingBookmark.fracLeft();
 			} else {
 				curY += ribbonHeight + 1;
 			}

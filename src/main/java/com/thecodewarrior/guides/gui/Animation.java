@@ -17,15 +17,15 @@ public class Animation<T> {
 		}
 	}
 	
-	public double progress() {
+	public double fracDone() {
 		return progressFrames/(double)length;
 	}
 	
-	public double amtLeft() {
+	public double fracLeft() {
 		if(progressFrames == length) {
 			return 0;
 		} else {
-			return 1.0 - progress();
+			return 1.0 - fracDone();
 		}
 	}
 	
@@ -33,6 +33,21 @@ public class Animation<T> {
 		progressFrames = 0;
 	}
 	
+	public void setProgress(int i) {
+		if(i > length) {
+			progressFrames = length;
+		} else {
+			progressFrames = i;
+		}
+	}
+	
+	public int getProgress() {
+		return progressFrames;
+	}
+	
+	public int getLength() {
+		return length;
+	}
 	public boolean isDone() {
 		return progressFrames == length;
 	}
