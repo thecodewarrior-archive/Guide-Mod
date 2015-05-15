@@ -1,28 +1,39 @@
 package com.thecodewarrior.guides.gui;
 
+import com.thecodewarrior.guides.ClientTickHandler;
+
 public class Animation<T> {
 
-	int length;
-	int progressFrames;
+	float length;
+	float progressTicks;
+	float lastTime;
 	public T param;
 	
-	public Animation(int length, T param) {
+	public Animation(float length, T param) {
 		this.length = length;
 		this.param  = param;
 	}
 	
-	public void frame() {
+	public void start() {
+		lastTime = ClientTickHandler.getTotalTicks();
+	}
+	
+	public void tick() {
 		if(!isDone()) {
-			progressFrames++;
+			progressTicks += ClientTickHandler.getTotalTicks() - lastTime;
+			if(progressTicks > length) {
+				progressTicks = length;
+			}
+			lastTime = ClientTickHandler.getTotalTicks();
 		}
 	}
 	
 	public double fracDone() {
-		return progressFrames/(double)length;
+		return progressTicks/(double)length;
 	}
 	
 	public double fracLeft() {
-		if(progressFrames == length) {
+		if(progressTicks >= length) {
 			return 0;
 		} else {
 			return 1.0 - fracDone();
@@ -30,25 +41,34 @@ public class Animation<T> {
 	}
 	
 	public void reset() {
-		progressFrames = 0;
+		progressTicks = 0;
+		start();
 	}
 	
-	public void setProgress(int i) {
+	public void setProgress(float i) {
 		if(i > length) {
-			progressFrames = length;
+			progressTicks = length;
 		} else {
-			progressFrames = i;
+			progressTicks = i;
 		}
 	}
 	
-	public int getProgress() {
-		return progressFrames;
+	public float getProgress() {
+		return progressTicks;
 	}
 	
-	public int getLength() {
+	public float progressTicksMaxed() {
+		if(progressTicks > length) {
+			return length;
+		} else {
+			return progressTicks;
+		}
+	}
+	
+	public float getLength() {
 		return length;
 	}
 	public boolean isDone() {
-		return progressFrames == length;
+		return progressTicks >= length;
 	}
 }

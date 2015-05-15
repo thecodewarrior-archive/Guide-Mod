@@ -18,6 +18,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
+import com.thecodewarrior.guides.ClientTickHandler;
 import com.thecodewarrior.guides.GuideMod;
 import com.thecodewarrior.guides.Reference;
 import com.thecodewarrior.guides.api.GuideGenerator;
@@ -116,6 +117,10 @@ public class GuiBookOfRevealing extends GuiScreen {
 	
 	protected void init() {
 		this.refreshGuide(GuideRegistry.NULL_GUIDE);
+	}
+	
+	public boolean doesGuiPauseGame() {
+		return false;
 	}
 	
 	public void refreshTopLeft() {
@@ -322,7 +327,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 		this.searchBar.setEnableBackgroundDrawing(false);
 		this.searchBar.setFocused(false);
 		
-		this.deletingBookmark = new Animation<Integer>(3, -1);
+		this.deletingBookmark = new Animation<Integer>(2, -1);
 		
 		
 		//this.reloadButton = new GuiButtonExt(1, left+215, top+144, 40, 20, "Reload");
@@ -395,23 +400,6 @@ public class GuiBookOfRevealing extends GuiScreen {
         }
 	}
 	
-//	double[] planeEquation( float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3)
-//	{
-//		double[] eq = new double[4];
-//		eq[0] = (y1*(z2 - z3)) + (y2*(z3 - z1)) + (y3*(z1 - z2));
-//		eq[1] = (z1*(x2 - x3)) + (z2*(x3 - x1)) + (z3*(x1 - x2));
-//		eq[2] = (x1*(y2 - y3)) + (x2*(y3 - y1)) + (x3*(y1 - y2));
-//		eq[3] = -((x1*((y2*z3) - (y3*z2))) + (x2*((y3*z1) - (y1*z3))) + (x3*((y1*z2) - (y2*z1))));
-//		return eq;
-//	}
-	
-	
-//	@Override
-//	public void drawBackground(int p_146278_1_) {
-//		
-//		
-//	}
-	
 //********************************DRAWING CODE**********************************
 	
 	
@@ -474,15 +462,12 @@ public class GuiBookOfRevealing extends GuiScreen {
 	static       BasicIcon	searchMiddleFrac	= f.create(207, guiHeight+31, 8, 11);
 	static final BasicIcon	searchRight			= f.create(215, guiHeight+31, 6, 11);
 	
-	public float lastTime     = 0F;
-	public float partialTicks = 0F;
-	public float timeDelta    = 0F;
-	
 	public void drawScreen(int mX, int mY, float partialTicks)
 	{
-		
 		super.drawScreen(mX, mY, partialTicks);
 		
+		ClientTickHandler.partialTicks = partialTicks;
+				
 		refreshTopLeft();
 
 		this.mouseX = mX;
@@ -645,7 +630,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 		for(int i = bookmarkScrollAmount; i < bookmarkScrollAmount + max; i++) {
 			if(this.deletingBookmark.param == i) {
 				curY += (ribbonHeight+1)* this.deletingBookmark.fracLeft();
-				this.deletingBookmark.frame();
+				this.deletingBookmark.tick();
 				if(this.deletingBookmark.isDone()) {
 					this.deletingBookmark.param = -1;
 					deleteQueueIndex = i;
@@ -732,6 +717,10 @@ public class GuiBookOfRevealing extends GuiScreen {
 	Animation<Integer> deletingBookmark;
 	
 	private void startDelete(int i) {
+		if(this.deletingBookmark.param != -1) {
+			GuideMod.bookmarkManager.deleteBookmark(this.deletingBookmark.param);
+		}
+		
 		this.deletingBookmark.param = i;
 		this.deletingBookmark.reset();
 		

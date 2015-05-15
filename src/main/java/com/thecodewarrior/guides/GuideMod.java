@@ -1,9 +1,7 @@
 package com.thecodewarrior.guides;
 
-import java.io.File;
 import java.util.List;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -25,6 +23,7 @@ import com.thecodewarrior.guides.guides.elements.GuideElementTextLink;
 import com.thecodewarrior.guides.guides.tags.Tag;
 import com.thecodewarrior.guides.proxy.CommonProxy;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -84,6 +83,8 @@ public class GuideMod {
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
+		
+		FMLCommonHandler.instance().bus().register(new ClientTickHandler());
 		
 		bookOfRevealing = new BookOfRevealing();
 		GameRegistry.registerItem(bookOfRevealing, bookOfRevealing.getUnlocalizedName().substring(5));

@@ -56,8 +56,8 @@ public class ViewBrowse extends ViewScrollable {
 		super.init();
 		rowHeight = mc.fontRenderer.FONT_HEIGHT;
 		listTop = mc.fontRenderer.FONT_HEIGHT + 2 + 3;
-		bgOpen = new Animation<Integer>(6, -1);
-		bgClose = new Animation<Integer>(6, -1);
+		bgOpen = new Animation<Integer>(2, -1);
+		bgClose = new Animation<Integer>(2, -1);
 		entryBG = new BasicIcon(0,0,1,1, 256);
 	}
 
@@ -77,12 +77,14 @@ public class ViewBrowse extends ViewScrollable {
 		drawBreadcrumb(mX, mY);
 		if(hover != bgOpen.param && bgOpen.param != -1) { // hover exit
 				bgClose.param = bgOpen.param; // move over the id
+				bgClose.start();
 				bgClose.setProgress(bgOpen.getLength() - bgOpen.getProgress());
 				// set the progress to however much is left on the open animation
 				// (the close animation is reversed, it's the empty space on the right of the box)
 		} if(hover != bgOpen.param && hover != -1) { // hover enter
 			if(bgClose.param == hover) { // entering into one that's closing
 				bgOpen.param = bgClose.param; // move over the id
+				bgOpen.start();
 				bgOpen.setProgress(bgClose.getLength() - bgClose.getProgress());
 			} else {
 				bgOpen.reset();
@@ -90,8 +92,8 @@ public class ViewBrowse extends ViewScrollable {
 		}
 		bgOpen.param = hover;
 
-		bgOpen.frame();
-		bgClose.frame();
+		bgOpen.tick();
+		bgClose.tick();
 		
 		GL11.glClipPlane(GL11.GL_CLIP_PLANE2, GuiUtils.clipEqMinY(listTop-1));
 		GL11.glEnable(GL11.GL_CLIP_PLANE2);
