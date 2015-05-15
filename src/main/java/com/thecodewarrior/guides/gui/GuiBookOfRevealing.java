@@ -610,12 +610,19 @@ public class GuiBookOfRevealing extends GuiScreen {
 		}
 		
 		int max = GuideMod.bookmarkManager.getBookmarkCount()-bookmarkScrollAmount;
+		boolean hasOverflow = ( bookmarkRowCount < max || bookmarkScrollAmount > 0 );
 		if(bookmarkRowCount < max) {
 			max = bookmarkRowCount;
 			gu.drawIcon(left+guiWidth, bookmarkY+ ( (ribbonHeight+1)*bookmarkRowCount ), bookmarkFadeBottom);
 		}
 		
-		gu.drawIcon(left+guiWidth, bookmarkY+ ( (ribbonHeight+1)*bookmarkRowCount ) +5, bookmarkScroll);
+		
+		bookmarkScrollUpButton.visible   = hasOverflow;
+		bookmarkScrollDownButton.visible = hasOverflow;
+		
+		if(hasOverflow) {
+			gu.drawIcon(left+guiWidth, bookmarkY+ ( (ribbonHeight+1)*bookmarkRowCount ) +5, bookmarkScroll);
+		}
 		
 		int curY = bookmarkY;
 		
