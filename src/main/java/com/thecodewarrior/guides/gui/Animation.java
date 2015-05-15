@@ -1,6 +1,6 @@
 package com.thecodewarrior.guides.gui;
 
-import com.thecodewarrior.guides.ClientTickHandler;
+import com.thecodewarrior.guides.EventHandlers;
 
 public class Animation<T> {
 
@@ -15,16 +15,16 @@ public class Animation<T> {
 	}
 	
 	public void start() {
-		lastTime = ClientTickHandler.getTotalTicks();
+		lastTime = EventHandlers.getTotalTicks();
 	}
 	
 	public void tick() {
 		if(!isDone()) {
-			progressTicks += ClientTickHandler.getTotalTicks() - lastTime;
+			progressTicks += EventHandlers.getTotalTicks() - lastTime;
 			if(progressTicks > length) {
 				progressTicks = length;
 			}
-			lastTime = ClientTickHandler.getTotalTicks();
+			lastTime = EventHandlers.getTotalTicks();
 		}
 	}
 	

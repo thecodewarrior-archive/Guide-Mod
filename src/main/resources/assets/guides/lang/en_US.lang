@@ -1,4 +1,6 @@
 
+key.guidemod.openGuideKey=Open Guide
+
 # Main GUI - not used yet
 guidemod.gui.backButtonTooltip=Back
 guidemod.gui.IBNGDButtonTooltip=Itty-Bitty-Nitty-Gritty Details

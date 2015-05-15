@@ -46,8 +46,13 @@ public class BookmarkManager {
 		updateConfigFile();
 	}
 	
-	public void addBookmark(String s) {
-		bookmarks.add(s);
+	public void addBookmark(String id) {
+		bookmarks.add(id);
+		updateConfigFile();
+	}
+	
+	public void addBookmarkAtIndex(int i, String id) {
+		bookmarks.add(i, id);
 		updateConfigFile();
 	}
 	

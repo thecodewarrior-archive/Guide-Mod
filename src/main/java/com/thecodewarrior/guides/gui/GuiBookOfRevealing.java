@@ -18,7 +18,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
-import com.thecodewarrior.guides.ClientTickHandler;
+import com.thecodewarrior.guides.EventHandlers;
 import com.thecodewarrior.guides.GuideMod;
 import com.thecodewarrior.guides.Reference;
 import com.thecodewarrior.guides.api.GuideGenerator;
@@ -466,7 +466,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 	{
 		super.drawScreen(mX, mY, partialTicks);
 		
-		ClientTickHandler.partialTicks = partialTicks;
+		EventHandlers.partialTicks = partialTicks;
 				
 		refreshTopLeft();
 

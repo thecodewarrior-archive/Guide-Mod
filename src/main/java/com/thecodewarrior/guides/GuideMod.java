@@ -48,7 +48,8 @@ public class GuideMod {
 	
 	@SidedProxy(clientSide="com.thecodewarrior.guides.proxy.ClientProxy", serverSide="com.thecodewarrior.guides.proxy.CommonProxy")
 	public static CommonProxy proxy;
-	
+	public static GuiHandler guiHandler;
+	public static EventHandlers eventHandlers;
 	Configuration config;
 	public static BookmarkManager bookmarkManager;
 	public static BrowseStructureManager browseManager;
@@ -68,10 +69,13 @@ public class GuideMod {
 	@EventHandler 
 	public void preInit(FMLPreInitializationEvent event) {
 		l = LogManager.getLogger(loggerName);
-		config = new Configuration(event.getSuggestedConfigurationFile());
+
 		bookmarkManager = new BookmarkManager();
 		bookmarkManager.loadConfig();
 		browseManager = new BrowseStructureManager();
+		guiHandler = new GuiHandler();
+		
+		config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
 		GuideServerInterface.enabled = config.getBoolean("enabled"    , "guideserver", GuideServerInterface.enabled,           "Is Guide Server enabled?");		
 		GuideServerInterface.host    = config.getString ("host"       , "guideserver", GuideServerInterface.host   ,           "Guide Server Hostname");
@@ -83,8 +87,9 @@ public class GuideMod {
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		
-		FMLCommonHandler.instance().bus().register(new ClientTickHandler());
+		eventHandlers = new EventHandlers();
+		eventHandlers.init();
+		FMLCommonHandler.instance().bus().register(eventHandlers);
 		
 		bookOfRevealing = new BookOfRevealing();
 		GameRegistry.registerItem(bookOfRevealing, bookOfRevealing.getUnlocalizedName().substring(5));
@@ -173,6 +178,6 @@ public class GuideMod {
 		
 		proxy.downloadGuides();
 		proxy.loadGuidePacks();
-		NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
+		NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandler);
 	}
 }
