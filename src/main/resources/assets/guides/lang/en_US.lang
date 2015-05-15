@@ -1,0 +1,26 @@
+
+# Main GUI - not used yet
+guidemod.gui.backButtonTooltip=Back
+guidemod.gui.IBNGDButtonTooltip=Itty-Bitty-Nitty-Gritty Details
+guidemod.gui.browseButtonTooltip=Browse All Guides
+guidemod.gui.settingsButtonTooltip=Settings
+guidemod.gui.addBookmarkTooltip=Add a bookmark
+guidemod.gui.bookmarkTooltip=Click to go to guide, drag to the right to delete
+guidemod.gui.bookmarkScrollUpTooltip=Scroll
+
+# Browse view
+guidemod.view.browse.searchAllBreadcrumb=All
+
+# Settings view
+guidemod.view.settings.guideServerEnable=Automatically download guide packs for installed mods
+guidemod.view.settings.reloadPacksButton=Reload Guide Packs
+
+# Error views
+guidemod.view.error.nomatch.title=No Match
+guidemod.view.error.nomatch.desc.0=No matching guide found
+
+guidemod.view.error.missing.title=Guide not found
+guidemod.view.error.missing.descNoName.0=Couldn't find guide file for guide
+guidemod.view.error.missing.descNoName.1=(ID: %s)
+guidemod.view.error.missing.descNameID.0=Couldn't find guide file for guide
+guidemod.view.error.missing.descNameID.1=%2$s (ID: %1$s)

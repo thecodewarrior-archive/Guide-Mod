@@ -1,47 +1,44 @@
 package com.thecodewarrior.guides.views;
 
-import net.minecraft.util.ResourceLocation;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.thecodewarrior.guides.Reference;
+import net.minecraft.util.StatCollector;
+
+import com.thecodewarrior.guides.api.GuideRegistry;
 import com.thecodewarrior.guides.gui.GuiBookOfRevealing;
-import com.thecodewarrior.guides.guides.Guide;
 
-public class ViewMissing extends View {
+public class ViewMissing extends ViewError {
 
-	public static final ResourceLocation tex = new ResourceLocation(Reference.MODID, "textures/gui/view/view_missing.png");
-
+	public String name;
 	
-	public ViewMissing(int width, int height, GuiBookOfRevealing gui) {
-		super(null, width, height, gui);
+	public ViewMissing(String name, int width, int height, GuiBookOfRevealing gui) {
+		super(width, height, gui);
+		this.name = name;
 	}
 
 	@Override
-	public void init() {
-
+	public void init() {}
+	
+	@Override
+	public String getTitleText() {
+		return StatCollector.translateToLocal("guidemod.view.error.missing.title");
 	}
 
 	@Override
-	public void draw(int mX, int mY) {
-		if(mc == null)
-			return;
+	public List<String> getDescLines() {
+		ArrayList<String> l = new ArrayList<String>();
+		String unLocName = "";
+		if(name.equals(GuideRegistry.getGuideName(name))) {
+			unLocName = "guidemod.view.error.missing.descNoName.";
+		} else {
+			unLocName = "guidemod.view.error.missing.descNameID.";
+		}
+		for(int i = 0; StatCollector.canTranslate(unLocName + i); i++) {
+			l.add( String.format(StatCollector.translateToLocal(unLocName + i), name, GuideRegistry.getGuideName(name)) );
+		}
+		return l;
 		
-		mc.renderEngine.bindTexture(tex);
-		drawTexturedModalRect(0, 0, 0, 0, width, height);
-		
-		String missingText = "MISSING";
-		int missingColor = 0xCC1F1F;
-		
-		int missingWidth = mc.fontRenderer.getStringWidth(missingText);
-		int missingX = ( this.width - missingWidth ) / 2;
-		int missingY = 30;
-		
-		mc.fontRenderer.drawStringWithShadow("MISSING", missingX, missingY, missingColor);
-	}
-
-	@Override
-	public boolean onClick(int mX, int mY, int button) {
-		
-		return false;
 	}
 
 }

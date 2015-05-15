@@ -243,7 +243,7 @@ public class ViewBrowse extends ViewScrollable {
 		if(searchingAll) {
 			items = fullSearchResults;
 			path = new ArrayList<String>();
-			path.add("All");
+			path.add(StatCollector.translateToLocal("guidemod.view.browse.searchAllBreadcrumb"));
 		} else {
 			if(pathSearchResults == null) {
 				items = new ArrayList<BrowseItem>();

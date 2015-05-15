@@ -270,11 +270,11 @@ public class ClientProxy extends CommonProxy{
 					).getInputStream();
 			return IOUtils.toString(stream, "UTF-8");
 		} catch (IOException e) {
-			String str = null;
-			String errorText = modid + ":" + guideName + " not found. searched for\n";
-			errorText += "resource pack: " + modid + "/guides/" + lang + "/" + guideName + ".txt\n";
-			errorText += "guide pack: " + modid + "/" + lang + "/" + guideName + ".txt";
+//			String errorText = modid + ":" + guideName + " not found. searched for\n";
+//			errorText += "resource pack: " + modid + "/guides/" + lang + "/" + guideName + ".txt\n";
+//			errorText += "guide pack: " + modid + "/" + lang + "/" + guideName + ".txt";
 			
+			String str = null;			
 			if(didGuidePackPathLoad) {
 				str = getGuidePackText(modid, guideName/*, guidePackPath*/);
 				//GuideMod.l.info("text: " + str);
@@ -283,7 +283,8 @@ public class ClientProxy extends CommonProxy{
 				return str;
 			}
 			
-			return errorText;
+			return null;
+//			return errorText;
 		}
 	}
 	

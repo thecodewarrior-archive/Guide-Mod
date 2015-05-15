@@ -2,6 +2,7 @@ package com.thecodewarrior.guides.views;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
@@ -32,7 +33,7 @@ public class ViewSettings extends View {
 		this.gu = new GuiUtils(this.zLevel);
 		this.shouldDownload = new GuiButtonTransparent(1, 0, 3, 10, 10);//new GuiCheckBox(1, 0, 0, "Automatically download guide packs", GuideServerInterface.enabled);
 		this.buttonList.add(this.shouldDownload);
-		this.reloadPack = new GuiButtonExt(2, 0, 30, "Reload Guides");
+		this.reloadPack = new GuiButtonExt(2, 0, 30, StatCollector.translateToLocal("guidemod.view.settings.reloadPacksButton"));
 		this.buttonList.add(this.reloadPack);
 	}
 
@@ -57,7 +58,7 @@ public class ViewSettings extends View {
 	
 	@Override
 	public void draw(int mX, int mY) {
-		mc.fontRenderer.drawSplitString("Automatically download guide packs for installed mods", 12, 0, 200, 0x000000);
+		mc.fontRenderer.drawSplitString(StatCollector.translateToLocal("guidemod.view.settings.guideServerEnable"), 12, 0, 200, 0x000000);
 		mc.renderEngine.bindTexture(tex);
 		GL11.glColor4f(1, 1, 1, 1);
 		if(GuideServerInterface.enabled) {

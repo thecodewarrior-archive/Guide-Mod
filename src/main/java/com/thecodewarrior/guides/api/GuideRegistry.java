@@ -19,6 +19,7 @@ import com.thecodewarrior.guides.guides.GuideText;
 import com.thecodewarrior.guides.guides.tags.Tag;
 import com.thecodewarrior.guides.views.View;
 import com.thecodewarrior.guides.views.ViewGuide;
+import com.thecodewarrior.guides.views.ViewMissing;
 import com.thecodewarrior.guides.views.ViewNoMatch;
 import com.thecodewarrior.guides.views.ViewNull;
 
@@ -365,12 +366,13 @@ public class GuideRegistry {
 			
 			@Override
 			public View generate(int width, int height, GuiBookOfRevealing gui) {
-				
-				return new ViewGuide(new GuideText(
-							GuideMod.proxy.getGuideText(guideName.split(":")[0], guideName.split(":")[1]),
-							guideName
-						),
-						width, height, gui);
+				String text = GuideMod.proxy.getGuideText(guideName.split(":")[0], guideName.split(":")[1]);
+				if(text == null) {
+					return new ViewMissing(guideName, width, height, gui);
+				} else {
+					return new ViewGuide(new GuideText(text, guideName), width, height, gui);
+				}
+							
 			}
 			
 		}
