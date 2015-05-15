@@ -30,7 +30,7 @@ public class BrowseStructureManager {
 		return root;
 	}
 	
-	public ArrayList<BrowseItem> getForPath(ArrayList<String> path) {
+	public BrowseItem getForPath(ArrayList<String> path) {
 		BrowseItemDirectory dir = root;
 		for(String pathItem : path) {
 			BrowseItem tmp = dir.getByName(pathItem);
@@ -41,7 +41,11 @@ public class BrowseStructureManager {
 			}
 		}
 		
-		return dir.getItems();
+		return dir;
+	}
+	
+	public ArrayList<BrowseItem> getForSearch(String search) {
+		return root.getMatching(search);
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
@@ -22,6 +23,12 @@ public class ViewBrowse extends ViewScrollable {
 
 	ArrayList<String> path;
 	ArrayList<BrowseItem> items;
+	
+	ArrayList<BrowseItem> fullSearchResults;
+	ArrayList<BrowseItem> pathSearchResults;
+	ArrayList<String> searchPath;
+	String searchTerm;
+	
 	ResourceLocation texture = new ResourceLocation(Reference.MODID, "textures/gui/view/view_browse.png");
 	
 	public ViewBrowse(int width, int height, GuiBookOfRevealing gui) {
@@ -31,7 +38,17 @@ public class ViewBrowse extends ViewScrollable {
 	public ViewBrowse(int width, int height, GuiBookOfRevealing gui, ArrayList<String> path) {
 		super(null, width, height, gui);
 		this.path = path;
-		items = GuideMod.browseManager.getForPath(path);
+		BrowseItem pathItem = GuideMod.browseManager.getForPath(path);
+		if(pathItem instanceof BrowseItemDirectory) {
+			items = ((BrowseItemDirectory) pathItem).getItems();
+		}
+	}
+	
+	public ViewBrowse(int width, int height, GuiBookOfRevealing gui, ArrayList<String> path, String search) {
+		super(null, width, height, gui);
+		searchTerm = search;
+		this.searchPath = path;
+		updateSearchResults(search);
 	}
 
 	@Override
@@ -192,12 +209,50 @@ public class ViewBrowse extends ViewScrollable {
 	}
 	
 	public int totalHeight() {
-		return listTop + (items.size()*rowHeight+buffer) + rowHeight;
+		return listTop + (items.size()*(rowHeight+buffer)) + rowHeight;
 	}
 	
 	public void actionPerformed(GuiButton guibutton) {
 		if(scrollActionPerformed(guibutton))
 			return;
+	}
+	
+	public void updateSearch(String search, int occurance) {
+		if(searchTerm == null) {
+			bgClose.param = -1;
+			bgOpen.param = -1;
+			this.gui.goToView(new ViewBrowse(this.actualWidth, this.height, this.gui, path, search));
+		} else if(searchTerm.equals(search)) {
+			updateSelectedResults(occurance);
+		} else {
+			updateSearchResults(search);
+		}
+	}
+	
+	public void updateSearchResults(String search) {
+		fullSearchResults = GuideMod.browseManager.getForSearch(search);
+		BrowseItem pathItem = GuideMod.browseManager.getForPath(searchPath);
+		if(pathItem instanceof BrowseItemDirectory) {
+			pathSearchResults = ((BrowseItemDirectory) pathItem).getMatching(search);
+		}
+		updateSelectedResults(0);
+	}
+	
+	public void updateSelectedResults(int occurance) {
+		boolean searchingAll = (occurance % 2) == 0;
+		if(searchingAll) {
+			items = fullSearchResults;
+			path = new ArrayList<String>();
+			path.add("All");
+		} else {
+			if(pathSearchResults == null) {
+				items = new ArrayList<BrowseItem>();
+				path = searchPath;
+			} else {
+				items = pathSearchResults;
+				path = searchPath;
+			}
+		}
 	}
 
 }

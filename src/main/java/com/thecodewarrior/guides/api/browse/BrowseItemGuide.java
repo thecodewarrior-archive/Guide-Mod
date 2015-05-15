@@ -15,5 +15,8 @@ public class BrowseItemGuide extends BrowseItem{
 		return guideId;
 	}
 	
+	public boolean doesMatchSearch(String search) {
+		return this.text.contains(search);
+	}
 
 }

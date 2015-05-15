@@ -27,5 +27,19 @@ public class BrowseItemDirectory extends BrowseItem {
 		}
 		return null;
 	}
+	
+	public ArrayList<BrowseItem> getMatching(String search) {
+		ArrayList<BrowseItem> matches = new ArrayList<BrowseItem>();
+		
+		for(BrowseItem item : items) {
+			if(item instanceof BrowseItemDirectory) {
+				matches.addAll(( (BrowseItemDirectory)item ).getMatching(search));
+			} else if(item instanceof BrowseItemGuide && ( (BrowseItemGuide)item ).doesMatchSearch(search) ) {
+				matches.add(item);
+			}
+		}
+		
+		return matches;
+	}
 
 }
