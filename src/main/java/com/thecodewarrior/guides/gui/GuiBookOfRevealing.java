@@ -96,6 +96,8 @@ public class GuiBookOfRevealing extends GuiScreen {
 	public int		bookmarkDragAmount;
 	public double	bookmarkDragVelocity;
 	
+	public HoverTimer hover = new HoverTimer();
+	
 	public GuiBookOfRevealing(EntityPlayer player, World w, int x, int y, int z) {
 		super();
 		this.init();
@@ -216,7 +218,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 	protected void mouseMovedOrUp(int x, int y, int button) {
 		super.mouseMovedOrUp(x, y, button);
 		refreshTopLeft();
-		
+				
 		if(this.view == null) { return; }
 		
 		if (this.view.selectedButton != null && button == 0)
@@ -469,9 +471,14 @@ public class GuiBookOfRevealing extends GuiScreen {
 		EventHandlers.partialTicks = partialTicks;
 				
 		refreshTopLeft();
-
+		hover.tick(mX, mY);
+		bookmarkSlideAmount.tick();
+		
 		this.mouseX = mX;
 		this.mouseY = mY;
+		
+		// general debug drawing
+//		mc.fontRenderer.drawString("H:" + hover.getTicks(), 20, 150, 0x00);
 		
 		if(this.needsRefresh) {
 			this.refreshView();
@@ -595,6 +602,9 @@ public class GuiBookOfRevealing extends GuiScreen {
 	private int bookmarkRowCount = 13;
 	private int bookmarkY;
 	
+	public int hoverTicks = 20;
+	public TickCounter<Integer> bookmarkSlideAmount = new TickCounter<Integer>();
+	
 	private void drawBookmarks() {
 		
 		bookmarkY = top+10 + ribbonHeight + 2 + 4/*fading scroll indicator*/ + 1;
@@ -634,6 +644,18 @@ public class GuiBookOfRevealing extends GuiScreen {
 		
 		int deleteQueueIndex = -1;
 		
+		if(hoverIndex == -1){
+			this.bookmarkSlideAmount.reset();
+			this.bookmarkSlideAmount.stop();
+			this.bookmarkSlideAmount.par = -1;
+		}
+		
+		if(hover.hasHoveredFor(hoverTicks) && bookmarkSlideAmount.par == -1 && hoverIndex != -1) {
+			this.bookmarkSlideAmount.reset();
+			this.bookmarkSlideAmount.start();
+			this.bookmarkSlideAmount.par = hoverIndex;
+		}
+		
 		for(int i = bookmarkScrollAmount; i < bookmarkScrollAmount + max; i++) {
 			if(this.deletingBookmark.param == i) {
 				curY += (ribbonHeight+1)* this.deletingBookmark.fracLeft();
@@ -649,7 +671,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 				} else if (i == hoverIndex) {
 					offset = 1;
 				}
-				drawBookmark(i, curY, offset);
+				drawBookmark(i, curY, offset, hoverIndex == i);
 				mc.renderEngine.bindTexture(texture);
 				GL11.glColor4f(1,1,1,1);
 				curY += ribbonHeight + 1;
@@ -673,6 +695,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 			int drag = (this.bookmarkIndex == i) ? bookmarkDragAmount : 0;
 			if(mX > rightEdge + drag &&
 			   mX < rightEdge + textWidth + bookmarkEnd.getIconWidth() + drag &&
+			   mX < this.width-2 &&
 			   mY > curY &&
 			   mY < curY + ribbonHeight) {
 				return i;
@@ -687,11 +710,18 @@ public class GuiBookOfRevealing extends GuiScreen {
 		return -1;
 	}
 	
-	private void drawBookmark(int num, int y, int xOffset) {
+	private void drawBookmark(int num, int y, int xOffset, boolean isHovering) {
 		String text = GuideMod.bookmarkManager.getBookmarkName(num);
 		int rightEdge = left+guiWidth + xOffset;
 		
-		int textWidth = 3+ mc.fontRenderer.getStringWidth(text);
+		int actualTextWidth = mc.fontRenderer.getStringWidth(text);
+		int textWidth = 3+actualTextWidth;
+		
+		boolean hadToClip = false;
+		if(width-rightEdge-bookmarkEnd.getIconWidth() < textWidth) {
+			hadToClip = true;
+			textWidth = width-rightEdge-bookmarkEnd.getIconWidth();
+		}
 		
 		double numOfTiles = (double)textWidth/(double)bookmarkMiddle.getIconWidth();
 		int numOfWholeTiles = (int) Math.floor(numOfTiles);
@@ -714,7 +744,22 @@ public class GuiBookOfRevealing extends GuiScreen {
 		gu.drawIcon(curX, y, bookmarkEnd);
 		gu.drawIcon(rightEdge-bookmarkTear.getIconWidth(), y, bookmarkTear);
 		
-		mc.fontRenderer.drawString(text, rightEdge+1, y+2, 14737632);
+		GL11.glClipPlane(GL11.GL_CLIP_PLANE0, GuiUtils.clipEqMinX(rightEdge));
+		GL11.glEnable(GL11.GL_CLIP_PLANE0);
+
+		GL11.glClipPlane(GL11.GL_CLIP_PLANE1, GuiUtils.clipEqMaxX(width-bookmarkEnd.getIconWidth()));
+		GL11.glEnable(GL11.GL_CLIP_PLANE1);
+		
+		int buf = 10;
+		int offset = (isHovering && hadToClip && !bookmarkSlideAmount.stopped()) ? (int)( bookmarkSlideAmount.ticks()%(actualTextWidth+buf) ) : 0;
+		
+		mc.fontRenderer.drawString(text, rightEdge+1-offset, y+2, 14737632);
+		if(offset != 0) {
+			mc.fontRenderer.drawString(text, rightEdge+1-offset+actualTextWidth+buf, y+2, 14737632);
+		}
+		
+		GL11.glDisable(GL11.GL_CLIP_PLANE0);
+		GL11.glDisable(GL11.GL_CLIP_PLANE1);
 	}
 	
 	private void goToBookmark(int i) {
