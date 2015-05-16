@@ -44,7 +44,7 @@ public class GuideMod {
 	
 	public static Logger l;
 	
-	public static Item bookOfRevealing;
+	//public static Item bookOfRevealing;
 	
 	@SidedProxy(clientSide="com.thecodewarrior.guides.proxy.ClientProxy", serverSide="com.thecodewarrior.guides.proxy.CommonProxy")
 	public static CommonProxy proxy;
@@ -91,10 +91,10 @@ public class GuideMod {
 		eventHandlers.init();
 		FMLCommonHandler.instance().bus().register(eventHandlers);
 		
-		bookOfRevealing = new BookOfRevealing();
-		GameRegistry.registerItem(bookOfRevealing, bookOfRevealing.getUnlocalizedName().substring(5));
+		//bookOfRevealing = new BookOfRevealing();
+		//GameRegistry.registerItem(bookOfRevealing, bookOfRevealing.getUnlocalizedName().substring(5));
 
-		GameRegistry.addShapelessRecipe(new ItemStack( bookOfRevealing ), new ItemStack( Items.book ) , new ItemStack( Items.spider_eye ));
+		//GameRegistry.addShapelessRecipe(new ItemStack( bookOfRevealing ), new ItemStack( Items.book ) , new ItemStack( Items.spider_eye ));
 		
 		GuideRegistry.registerTag(new Tag("guide") {
 			@Override
