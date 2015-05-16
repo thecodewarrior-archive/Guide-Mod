@@ -62,11 +62,11 @@ public class GuiContainerBookOfRevealing extends Container {
 	@SideOnly(Side.CLIENT)
 	public View getView(int width, int height) {		
 		if(this.guide == "") {
-			return new ViewMissing(width, height, this.gui);
+			return null; //new ViewMissing(width, height, this.gui);
 		} else if(this.guide == null) {
 			return new ViewNull(width, height, this.gui);
 		} else {
-			return new ViewGuide(new GuideText(this.guide), width, height, this.gui);
+			return null; //new ViewGuide(new GuideText(this.guide), width, height, this.gui);
 		}
 		
 	}
@@ -75,7 +75,7 @@ public class GuiContainerBookOfRevealing extends Container {
 		if(this.gui == null) {
 			return;
 		}
-		this.gui.itemPlaced(stack);
+		//this.gui.itemPlaced(stack);
 	}
 
 	@Override

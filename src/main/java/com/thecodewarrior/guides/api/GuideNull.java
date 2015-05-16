@@ -8,13 +8,11 @@ import com.thecodewarrior.guides.guides.elements.GuideElement;
 public class GuideNull extends Guide {
 
 	public GuideNull() {
-		super(null);
-		// TODO Auto-generated constructor stub
+		super(null, null);
 	}
 
 	@Override
 	public boolean parse() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	

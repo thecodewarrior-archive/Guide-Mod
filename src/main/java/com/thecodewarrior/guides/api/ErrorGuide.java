@@ -15,7 +15,7 @@ public class ErrorGuide extends Guide {
 	public String error;
 	
 	public ErrorGuide(String name, String error) {
-		super(null);
+		super(null, null);
 		this.name = name;
 		this.error = error;
 		// TODO Auto-generated constructor stub

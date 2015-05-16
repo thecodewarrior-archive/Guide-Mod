@@ -10,11 +10,11 @@ public class Reference {
 	
 	public static int bookOfRevealingGuiID;
 	
-	public static final CreativeTabs tab = new CreativeTabs(MODID + ".tab") {
-		@Override
-		public Item getTabIconItem() {
-			// TODO Auto-generated method stub
-			return GuideMod.bookOfRevealing;
-		}
-	};
+//	public static final CreativeTabs tab = new CreativeTabs(MODID + ".tab") {
+//		@Override
+//		public Item getTabIconItem() {
+//			// TODO Auto-generated method stub
+//			return GuideMod.bookOfRevealing;
+//		}
+//	};
 }
