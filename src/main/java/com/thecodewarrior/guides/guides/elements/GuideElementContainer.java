@@ -78,12 +78,22 @@ public class GuideElementContainer extends GuideElement {
 	}
 	
 	public void draw(int mX, int mY) {
+		draw(mX, mY, Integer.MAX_VALUE, Integer.MIN_VALUE);
+	}
+	
+	public void draw(int mX, int mY, int bottom, int top) {
 		if(!inited) {
 			GuideMod.l.warn("Not drawing GuideElementContainer, hasn't been initialized.");
 			return;
 		}
 		for(GuideElement element: elements) {
-			element.draw(mX, mY);
+			if(element.getY() <= bottom && element.newY() >= top) {
+				if(element instanceof GuideElementContainer) {
+					((GuideElementContainer)element).draw(mX, mY, bottom, top);
+				} else {
+					element.draw(mX, mY);
+				}
+			}
 		}
 	}
 	

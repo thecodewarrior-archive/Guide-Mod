@@ -12,9 +12,9 @@ import org.lwjgl.opengl.GL11;
 import com.thecodewarrior.guides.GuideMod;
 import com.thecodewarrior.guides.Reference;
 import com.thecodewarrior.guides.gui.GuiBookOfRevealing;
-import com.thecodewarrior.guides.gui.GuiButtonCustomTexture;
 import com.thecodewarrior.guides.guides.Guide;
 import com.thecodewarrior.guides.guides.elements.GuideElement;
+import com.thecodewarrior.guides.guides.elements.GuideElementContainer;
 
 public class ViewGuide extends ViewScrollable {
 
@@ -75,11 +75,20 @@ public class ViewGuide extends ViewScrollable {
 		mc.renderEngine.bindTexture(tex);
 		
 		int scrollPx = getScrollPx();
+		int bottomY  = -scrollPx + height;
+		int topY     = -scrollPx;
+		int grace    = 15;
 		
 		GL11.glTranslated(0, scrollPx, 0);
 		if(elements != null) {
 			for(GuideElement element: elements) {
-				element.draw(mX, mY-scrollPx);
+				if(element.getY() <= bottomY+grace && element.newY() >= topY-grace) {
+					if(element instanceof GuideElementContainer) {
+						((GuideElementContainer)element).draw(mX, mY-scrollPx, bottomY+grace, topY-grace);
+					} else {
+						element.draw(mX, mY-scrollPx);
+					}
+				}
 			}
 		}
 		GL11.glTranslated(0, -scrollPx, 0);

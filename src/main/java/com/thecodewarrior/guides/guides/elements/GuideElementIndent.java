@@ -29,9 +29,9 @@ public class GuideElementIndent extends GuideElementContainer {
 //		return this.width - depth;
 //	}
 	
-	public void draw(int mX, int mY) {
+	public void draw(int mX, int mY, int bottom, int top) {
 		GL11.glTranslated( depth, 0, 0);
-			super.draw(mX, mY);
+			super.draw(mX, mY, bottom, top);
 		GL11.glTranslated(-depth, 0, 0);
 	}
 

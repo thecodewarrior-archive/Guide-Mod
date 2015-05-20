@@ -99,22 +99,28 @@ public class ViewBrowse extends ViewScrollable {
 		GL11.glEnable(GL11.GL_CLIP_PLANE2);
 		GL11.glPushMatrix();
 			GL11.glTranslated(left, listTop+getScrollPx(), 0);
+			int curY = 0;
+			int topY = -getScrollPx();
+			int bottomY = topY + height - listTop;
 			for(int i = 0; i < items.size(); i++) {
-				int boxPx = 0;
-				if(bgOpen.param == i) {
-					boxPx = (int)( (width-left) * bgOpen.fracDone() );
-				} else if(bgClose.param == i) {
-					boxPx = (int)( (width-left) * bgClose.fracLeft() );
+				if( !( curY + rowHeight + buffer < topY || curY > bottomY ) ) {
+					int boxPx = 0;
+					if(bgOpen.param == i) {
+						boxPx = (int)( (width-left) * bgOpen.fracDone() );
+					} else if(bgClose.param == i) {
+						boxPx = (int)( (width-left) * bgClose.fracLeft() );
+					}
+					
+					if(boxPx != 0) {
+						GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.25F);
+						mc.renderEngine.bindTexture(texture);
+						u.drawIconWH(0, -1, entryBG, boxPx, mc.fontRenderer.FONT_HEIGHT);
+						GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+					}
+					items.get(i).draw(false/*hover == i*/);
 				}
-				
-				if(boxPx != 0) {
-					GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.25F);
-					mc.renderEngine.bindTexture(texture);
-					u.drawIconWH(0, -1, entryBG, boxPx, mc.fontRenderer.FONT_HEIGHT);
-					GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-				}
-				items.get(i).draw(false/*hover == i*/);
 				GL11.glTranslated(0, rowHeight + buffer, 0);
+				curY += rowHeight + buffer;
 			}
 		GL11.glPopMatrix();
 		GL11.glDisable(GL11.GL_CLIP_PLANE2);
