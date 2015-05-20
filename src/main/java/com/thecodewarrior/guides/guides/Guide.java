@@ -15,8 +15,8 @@ public abstract class Guide {
 	 * Unparsed guide text, initialized in constructor
 	 */
 	protected String rawGuide;
-	public FontRenderer fontRendererObj = GuideMod.proxy.getFontRenderer();
-	public Minecraft mc = GuideMod.proxy.getMC();
+	public FontRenderer fontRendererObj = Minecraft.getMinecraft().fontRenderer;
+	public Minecraft mc = Minecraft.getMinecraft();
 	public GuiBookOfRevealing gui;
 	public String guideName;
 	

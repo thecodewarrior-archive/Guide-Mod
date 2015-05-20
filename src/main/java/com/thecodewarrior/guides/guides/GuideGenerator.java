@@ -1,4 +1,4 @@
-package com.thecodewarrior.guides.api;
+package com.thecodewarrior.guides.guides;
 
 import com.thecodewarrior.guides.gui.GuiBookOfRevealing;
 import com.thecodewarrior.guides.views.View;

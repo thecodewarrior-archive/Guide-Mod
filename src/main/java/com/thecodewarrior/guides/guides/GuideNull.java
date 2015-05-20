@@ -1,8 +1,7 @@
-package com.thecodewarrior.guides.api;
+package com.thecodewarrior.guides.guides;
 
 import java.util.List;
 
-import com.thecodewarrior.guides.guides.Guide;
 import com.thecodewarrior.guides.guides.elements.GuideElement;
 
 public class GuideNull extends Guide {

@@ -14,7 +14,10 @@ import net.minecraft.world.World;
 
 import com.thecodewarrior.guides.GuideMod;
 import com.thecodewarrior.guides.gui.GuiBookOfRevealing;
+import com.thecodewarrior.guides.guidepack.GuidePackReader;
+import com.thecodewarrior.guides.guides.ErrorGuide;
 import com.thecodewarrior.guides.guides.Guide;
+import com.thecodewarrior.guides.guides.GuideGenerator;
 import com.thecodewarrior.guides.guides.GuideText;
 import com.thecodewarrior.guides.guides.tags.Tag;
 import com.thecodewarrior.guides.views.View;
@@ -27,14 +30,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 
 public class GuideRegistry {
-	
-	private static HashMap<String, GuideGenerator> blocksID     = new HashMap<String, GuideGenerator>();
-	private static HashMap<String, GuideGenerator> blocksIDMeta = new HashMap<String, GuideGenerator>();
-	private static HashMap<IBlockMatcher, GuideGenerator> blocksCustom = new HashMap<IBlockMatcher, GuideGenerator>();
-
-	private static HashMap<String, GuideGenerator> itemsID     = new HashMap<String, GuideGenerator>();
-	private static HashMap<String, GuideGenerator> itemsIDMeta = new HashMap<String, GuideGenerator>();
-	private static HashMap<IItemMatcher, GuideGenerator> itemsCustom = new HashMap<IItemMatcher, GuideGenerator>();
 	
 	private static HashMap<String, Tag> tags = new HashMap<String, Tag>();
 	
@@ -132,168 +127,6 @@ public class GuideRegistry {
 		}
 	}
 	
-	//{{ Items
-	
-	public static GuideGenerator findItemGuide(ItemStack stack) {
-		if(stack == null) {
-			return GuideRegistry.NULL_GUIDE;
-		}
-		
-		GuideGenerator guide = null;
-		
-		guide = GuideRegistry.findItemByCustom(stack);
-		if(guide != null) {
-			return guide;
-		}
-		
-		GameRegistry.UniqueIdentifier id = GameRegistry.findUniqueIdentifierFor(stack.getItem());
-		
-		guide = GuideRegistry.findItemByIDMeta(id.modId + ":" + id.name, stack.getItemDamage());
-		if(guide != null) {
-			return guide;
-		}
-		
-		guide = GuideRegistry.findItemByID(id.modId + ":" + id.name);
-		if(guide != null) {
-			return guide;
-		}
-		
-		return GuideRegistry.NOTFOUND_GUIDE;
-	}
-	
-	private static GuideGenerator findItemByCustom(ItemStack stack) {		
-		for(Map.Entry<IItemMatcher, GuideGenerator> entry : GuideRegistry.itemsCustom.entrySet()) {
-			if(entry.getKey().matches(stack)) {
-				return entry.getValue();
-			}
-		}
-		
-		return null;
-	}
-	
-	private static GuideGenerator findItemByIDMeta(String id, int damage) {
-		String fullID = id + "." + damage;
-		if(GuideRegistry.itemsIDMeta.containsKey(fullID)) {
-			return GuideRegistry.itemsIDMeta.get(fullID);
-		}
-		
-		return null;
-	}
-	
-	private static GuideGenerator findItemByID(String id) {
-		if(GuideRegistry.itemsID.containsKey(id)) {
-			return GuideRegistry.itemsID.get(id);
-		}
-		return null;
-	}
-
-	//}}
-	
-	//{{ Blocks
-	
-	public static GuideGenerator findBlockGuide(ItemStack stack) {
-		if(stack == null) {
-			return GuideRegistry.NULL_GUIDE;
-		}
-		if(!( stack.getItem() instanceof ItemBlock )) {
-			return GuideRegistry.NOTBLOCK_GUIDE;
-		}
-		
-		Block block = ( (ItemBlock) stack.getItem() ).field_150939_a;
-		
-		GuideGenerator guide = null;
-		
-		guide = GuideRegistry.findBlockByCustom(block);
-		if(guide != null) {
-			return guide;
-		}
-		
-		GameRegistry.UniqueIdentifier id = GameRegistry.findUniqueIdentifierFor(block);
-		
-		guide = GuideRegistry.findBlockByIDMeta(id.modId + ":" + id.name, stack.getItemDamage());
-		if(guide != null) {
-			return guide;
-		}
-		
-		HashMap<String, GuideGenerator> gen = GuideRegistry.blocksID;
-		
-		guide = GuideRegistry.findBlockByID(id.modId + ":" + id.name);
-		if(guide != null) {
-			return guide;
-		}
-		
-		return GuideRegistry.NOTFOUND_GUIDE;
-	}
-	
-	public static GuideGenerator findBlockGuide(World w, int x, int y, int z) {
-		for(Map.Entry<IBlockMatcher, GuideGenerator> entry : GuideRegistry.blocksCustom.entrySet()) {
-			if(entry.getKey().matches(w,x,y,z)) {
-				return entry.getValue();
-			}
-		}
-		return GuideRegistry.findBlockGuide(new ItemStack(w.getBlock(x, y, z), 1, w.getBlockMetadata(x, y, z)));
-	}
-	
-	private static GuideGenerator findBlockByCustom(Block block) {
-		for(Map.Entry<IBlockMatcher, GuideGenerator> entry : GuideRegistry.blocksCustom.entrySet()) {
-			if(entry.getKey().matches(block)) {
-				return entry.getValue();
-			}
-		}
-		return null;
-	}
-
-	private static GuideGenerator findBlockByIDMeta(String id, int meta) {
-		String fullID = id + "." + meta;
-		if(GuideRegistry.blocksIDMeta.containsKey(fullID)) {
-			return GuideRegistry.blocksIDMeta.get(fullID);
-		}
-		
-		return null;
-	}
-
-	private static GuideGenerator findBlockByID(String id) {
-		if(GuideRegistry.blocksID.containsKey(id)) {
-			return GuideRegistry.blocksID.get(id);
-		}
-		
-		return null;
-	}
-
-	//}}
-	
-	//{{ register Blocks
-	
-	public static void registerBlockGuideByCustom(IBlockMatcher matcher, GuideGenerator guide) {
-		GuideRegistry.blocksCustom.put(matcher, guide);
-	}
-	
-	public static void registerBlockGuideByIDMeta(String id, int meta, GuideGenerator guide) {
-		GuideRegistry.blocksIDMeta.put(id+"."+meta, guide);
-	}
-	
-	public static void registerBlockGuideByID(String id, GuideGenerator guide) {
-		GuideRegistry.blocksID.put(id, guide);
-	}
-
-	//}}
-	
-	//{{ register Items
-	
-	public static void registerItemGuideByCustom(IItemMatcher matcher, GuideGenerator guide) {
-		GuideRegistry.itemsCustom.put(matcher, guide);
-	}
-	
-	public static void registerItemGuideByIDMeta(String id, int damage, GuideGenerator guide) {
-		GuideRegistry.itemsIDMeta.put(id+"."+damage, guide);
-	}
-	
-	public static void registerItemGuideByID(String id, GuideGenerator guide) {
-		GuideRegistry.itemsID.put(id, guide);
-	}
-	
-	//}}
-	
 	//{{ Tags
 	public static void registerTag(Tag tag) {
 		GuideRegistry.tags.put(tag.getProtocol().toLowerCase(), tag);
@@ -305,10 +138,6 @@ public class GuideRegistry {
 	//}}
 	
 	// Default Guide Generators
-	
-	public static void registerGuidePack(File loc) {
-		GuideMod.proxy.registerPack(loc);
-	}
 	
 	public static GuideGenerator newBasicGuide(String name) {
 		return new GuideGeneratorBasic(name);
@@ -336,7 +165,8 @@ public class GuideRegistry {
 	public static GuideGenerator NOTBLOCK_GUIDE = new GuideGeneratorError("guide.text.error.notblock", "Not a block");
 	
 	public static ResourceLocation guideLoc(String name) {
-		return new ResourceLocation( name.split(":")[0], "guides/" + GuideMod.proxy.getLang() + "/" + name.split(":")[1] + ".txt" );
+		return GuidePackReader.getGuideResourceLocation(name.split(":")[0], name.split(":")[1]);
+		//new ResourceLocation( name.split(":")[0], "guides/" + GuideMod.proxy.getLang() + "/" + name.split(":")[1] + ".txt" );
 	}
 	// GuideGenerator classes
 		public static class GuideGeneratorError extends GuideGenerator {
@@ -366,7 +196,7 @@ public class GuideRegistry {
 			
 			@Override
 			public View generate(int width, int height, GuiBookOfRevealing gui) {
-				String text = GuideMod.proxy.getGuideText(guideName.split(":")[0], guideName.split(":")[1]);
+				String text = GuidePackReader.getGuideText(guideName.split(":")[0], guideName.split(":")[1]);
 				if(text == null) {
 					return new ViewMissing(guideName, width, height, gui);
 				} else {

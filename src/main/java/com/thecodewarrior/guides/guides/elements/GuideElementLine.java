@@ -1,12 +1,10 @@
-package com.thecodewarrior.guides.api;
+package com.thecodewarrior.guides.guides.elements;
 
 import net.minecraft.client.renderer.Tessellator;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.Color;
 import org.lwjgl.util.ReadableColor;
-
-import com.thecodewarrior.guides.guides.elements.GuideElement;
 
 public class GuideElementLine extends GuideElement {
 

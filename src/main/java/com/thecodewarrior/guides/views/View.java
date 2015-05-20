@@ -21,7 +21,7 @@ public abstract class View extends Gui {
 	public int width;
 	public int height;
 	
-	public Minecraft mc = GuideMod.proxy.getMC();
+	public Minecraft mc = Minecraft.getMinecraft();
 	public GuiBookOfRevealing gui;
 
 	public GuiButton selectedButton;

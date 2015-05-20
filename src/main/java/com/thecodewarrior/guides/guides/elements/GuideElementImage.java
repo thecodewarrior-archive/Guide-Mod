@@ -2,14 +2,14 @@ package com.thecodewarrior.guides.guides.elements;
 
 import java.util.HashMap;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 
 import org.lwjgl.opengl.GL11;
 import org.w3c.dom.Node;
 
-import com.thecodewarrior.guides.GuideMod;
+import com.thecodewarrior.guides.ConfigOptions;
 import com.thecodewarrior.guides.gui.Rect;
+import com.thecodewarrior.guides.guidepack.GuideImageReader;
 
 public class GuideElementImage extends GuideElement {
 
@@ -30,7 +30,7 @@ public class GuideElementImage extends GuideElement {
 		String[] src = srcString.split(":", 2);
 		if(src.length < 2) {
 			srcMod  = "minecraft";
-			if(GuideMod.dev) {
+			if(ConfigOptions.dev) {
 				srcName = "MISSING_DEV";
 			} else {
 				srcName = "MISSING";
@@ -56,7 +56,7 @@ public class GuideElementImage extends GuideElement {
 			align = Alignment.CENTER;
 		}
 		
-		GuideMod.proxy.loadGuideImage(srcMod, srcName);
+		GuideImageReader.loadGuideImage(srcMod, srcName);
 		
 		forceWidth  = this.width-5;
 		forceHeight = -1;
@@ -70,8 +70,8 @@ public class GuideElementImage extends GuideElement {
 			forceHeight = Integer.parseInt(heightNode.getNodeValue());
 		}
 		
-		this.imgWidth  = GuideMod.proxy.imageWidth (srcMod, srcName);
-		this.imgHeight = GuideMod.proxy.imageHeight(srcMod, srcName);
+		this.imgWidth  = GuideImageReader.imageWidth (srcMod, srcName);
+		this.imgHeight = GuideImageReader.imageHeight(srcMod, srcName);
 		
 		double forceWidthScale  = -1;
 		double forceHeightScale = -1;
@@ -120,7 +120,7 @@ public class GuideElementImage extends GuideElement {
 	public void draw(int mX, int mY) {		
 		//Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(Reference.MODID, "textures/gui/book_of_revealing_gui.png"));
 		
-		GuideMod.proxy.bindGuideImage(srcMod, srcName);
+		GuideImageReader.bindGuideImage(srcMod, srcName);
 		
 //		int width  = GuideMod.proxy.imageWidth(srcMod, srcName);
 //		int height = GuideMod.proxy.imageHeight(srcMod, srcName);

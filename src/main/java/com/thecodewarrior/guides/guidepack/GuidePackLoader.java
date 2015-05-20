@@ -1,4 +1,4 @@
-package com.thecodewarrior.guides.guides;
+package com.thecodewarrior.guides.guidepack;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Iterator;
 import java.util.Map.Entry;
+
+import net.minecraft.client.Minecraft;
 
 import org.apache.logging.log4j.Logger;
 
@@ -32,7 +34,6 @@ public class GuidePackLoader {
 		try {
 			r = new BufferedReader(new FileReader(file));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return;
 		}
@@ -50,7 +51,7 @@ public class GuidePackLoader {
 		
 		loadNameMap(rootObj);
 		
-		loadBrowse(rootObj, packID, GuideMod.proxy.getLang());
+		loadBrowse(rootObj, packID, Minecraft.getMinecraft().gameSettings.language);
 		
 		/*
 		 * 
@@ -87,7 +88,7 @@ System.out.printf("Status: %s, Latitude: %s, Longitude: %s\n", status, lat, lng)
 	static void loadNameMap(JsonObject rootObj) {
 		JsonObject namesMapObj = rootObj.getAsJsonObject("names");
 		if(namesMapObj != null) {
-			JsonObject namesMapLangObj = namesMapObj.getAsJsonObject(GuideMod.proxy.getLang());
+			JsonObject namesMapLangObj = namesMapObj.getAsJsonObject(Minecraft.getMinecraft().gameSettings.language);
 			if(namesMapObj != null) {
 				for(Iterator<Entry<String, JsonElement>> iter = namesMapLangObj.entrySet().iterator(); iter.hasNext(); ) {
 					Entry<String, JsonElement> entry = iter.next();

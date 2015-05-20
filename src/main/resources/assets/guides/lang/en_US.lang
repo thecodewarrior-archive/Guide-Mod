@@ -1,5 +1,7 @@
 
 key.guidemod.openGuideKey=Open Guide
+guidemod.guideReader.internalError=Internal Error
+
 
 # Main GUI - not used yet
 guidemod.gui.backButtonTooltip=Back

@@ -1,12 +1,12 @@
-package com.thecodewarrior.guides.api;
+package com.thecodewarrior.guides.guides;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.util.StatCollector;
 
-import com.thecodewarrior.guides.guides.Guide;
 import com.thecodewarrior.guides.guides.elements.GuideElement;
+import com.thecodewarrior.guides.guides.elements.GuideElementLine;
 import com.thecodewarrior.guides.guides.elements.GuideElementText;
 
 public class ErrorGuide extends Guide {

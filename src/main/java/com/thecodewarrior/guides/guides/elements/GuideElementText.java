@@ -5,9 +5,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import net.minecraft.client.Minecraft;
+
 import org.apache.commons.lang3.StringUtils;
 
-import com.thecodewarrior.guides.GuideMod;
 import com.thecodewarrior.guides.gui.MultiRect;
 import com.thecodewarrior.guides.gui.Rect;
 import com.thecodewarrior.guides.guides.GuideText;
@@ -141,7 +142,7 @@ public class GuideElementText extends GuideElement {
 		for(int i = 0; i < lines.size(); i++) {
 			String line = lines.get(i);
 			if(line.contains(str)) {
-				matches.add( this.getY() + ( GuideMod.proxy.getFontRenderer().FONT_HEIGHT * i ) );
+				matches.add( this.getY() + ( Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT * i ) );
 			}
 		}
 		return matches;

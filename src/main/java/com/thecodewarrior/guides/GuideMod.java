@@ -2,9 +2,7 @@ package com.thecodewarrior.guides;
 
 import java.util.List;
 
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.config.Configuration;
 
 import org.apache.logging.log4j.LogManager;
@@ -14,6 +12,9 @@ import org.w3c.dom.Node;
 import com.thecodewarrior.guides.api.BookmarkManager;
 import com.thecodewarrior.guides.api.GuideRegistry;
 import com.thecodewarrior.guides.api.browse.BrowseStructureManager;
+import com.thecodewarrior.guides.guidepack.GuidePackManager;
+import com.thecodewarrior.guides.guidepack.GuidePackUpdater;
+import com.thecodewarrior.guides.guides.GuideText;
 import com.thecodewarrior.guides.guides.elements.GuideElement;
 import com.thecodewarrior.guides.guides.elements.GuideElementFormat;
 import com.thecodewarrior.guides.guides.elements.GuideElementImage;
@@ -21,18 +22,15 @@ import com.thecodewarrior.guides.guides.elements.GuideElementIndent;
 import com.thecodewarrior.guides.guides.elements.GuideElementText;
 import com.thecodewarrior.guides.guides.elements.GuideElementTextLink;
 import com.thecodewarrior.guides.guides.tags.Tag;
-import com.thecodewarrior.guides.proxy.CommonProxy;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 @Mod(modid=Reference.MODID, version=Reference.VERSION)
 public class GuideMod {
@@ -44,22 +42,11 @@ public class GuideMod {
 	
 	public static Logger l;
 	
-	//public static Item bookOfRevealing;
-	
-	@SidedProxy(clientSide="com.thecodewarrior.guides.proxy.ClientProxy", serverSide="com.thecodewarrior.guides.proxy.CommonProxy")
-	public static CommonProxy proxy;
 	public static GuiHandler guiHandler;
 	public static EventHandlers eventHandlers;
 	Configuration config;
 	public static BookmarkManager bookmarkManager;
 	public static BrowseStructureManager browseManager;
-	
-	public static boolean dev;
-	
-	public static void updateEnabled(boolean value) {
-		instance.config.get("guideserver", "enabled", false, "Is Guide Server enabled?").set(value);
-		instance.config.save();
-	}
 	
 	public static Logger logChild(String name) {
 		Logger log = LogManager.getLogger(loggerName + "] [" + name);
@@ -75,14 +62,7 @@ public class GuideMod {
 		browseManager = new BrowseStructureManager();
 		guiHandler = new GuiHandler();
 		
-		config = new Configuration(event.getSuggestedConfigurationFile());
-		config.load();
-		GuideServerInterface.enabled = config.getBoolean("enabled"    , "guideserver", GuideServerInterface.enabled,           "Is Guide Server enabled?");		
-		GuideServerInterface.host    = config.getString ("host"       , "guideserver", GuideServerInterface.host   ,           "Guide Server Hostname");
-		GuideServerInterface.port    = config.getInt    ("port"       , "guideserver", GuideServerInterface.port   , 0, 65536, "Guide Server Port");
-		GuideServerInterface.dev     = config.getBoolean("development", "guideserver", GuideServerInterface.dev    ,           "Should mod re-download all guides every launch? (development only)");
-		this.dev = GuideServerInterface.dev;
-		config.save();
+		ConfigOptions.init(event.getSuggestedConfigurationFile());
 	}
 	
 	@EventHandler
@@ -90,11 +70,6 @@ public class GuideMod {
 		eventHandlers = new EventHandlers();
 		eventHandlers.init();
 		FMLCommonHandler.instance().bus().register(eventHandlers);
-		
-		//bookOfRevealing = new BookOfRevealing();
-		//GameRegistry.registerItem(bookOfRevealing, bookOfRevealing.getUnlocalizedName().substring(5));
-
-		//GameRegistry.addShapelessRecipe(new ItemStack( bookOfRevealing ), new ItemStack( Items.book ) , new ItemStack( Items.spider_eye ));
 		
 		GuideRegistry.registerTag(new Tag("guide") {
 			@Override
@@ -172,12 +147,10 @@ public class GuideMod {
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		proxy.registerLoggers();
-		proxy.registerProxies();
-		proxy.registerEvents();
+		GuideText.getSeperator(Minecraft.getMinecraft().fontRenderer); // find a 1px wide glyph
 		
-		proxy.downloadGuides();
-		proxy.loadGuidePacks();
+		GuidePackUpdater.downloadPacksForMods();
+		GuidePackManager.loadGuidePacks();
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandler);
 	}
 }

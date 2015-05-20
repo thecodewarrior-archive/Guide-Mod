@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.thecodewarrior.guides.guides.GuideGenerator;
+
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.config.Configuration;
 

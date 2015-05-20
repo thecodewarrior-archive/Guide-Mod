@@ -1,4 +1,4 @@
-package com.thecodewarrior.guides.guides;
+package com.thecodewarrior.guides.guidepack;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,19 +17,51 @@ import java.util.Map;
 
 import org.apache.logging.log4j.Logger;
 
+import com.thecodewarrior.guides.ConfigOptions;
 import com.thecodewarrior.guides.GuideMod;
+
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.ModContainer;
 
 public class GuidePackUpdater {
 	
 	public static String  protocol = "http";
-	public static String  host     = "localhost";//"localhost";
-	public static int     port     = 3000;
+//	public static String  host     = "localhost";//"localhost";
+//	public static int     port     = 3000;
 	
 	public static final Logger l = GuideMod.logChild("GuidePackUpdater");
 	
+	static int totalUpdates;
+	static int modsWithUpdates;
+	
+	public static void downloadPacksForMods() {
+		
+		totalUpdates = 0;
+		modsWithUpdates = 0;
+		
+		if(!ConfigOptions.autoDownload) {
+			l.info("Guide download disabled. skipping.");
+		}
+		List<ModContainer> mods = Loader.instance().getModList();
+		
+		String[] mcVersionSplit = Loader.instance().getMCVersionString().split(" ");
+		
+		
+		GuidePackUpdater.updatePack(GuidePackManager.getGuidePackDir("minecraft"), "minecraft", mcVersionSplit[mcVersionSplit.length-1]);
+		
+		for(ModContainer mod : mods) {
+			File file = GuidePackManager.getGuidePackDir(mod.getModId());
+			int amt = updatePack(file, mod.getModId(), mod.getVersion());
+			totalUpdates += amt;
+			if(amt != 0) {
+				modsWithUpdates++;
+			}
+		}
+	}
+	
 	public static int updatePack(File packPath, String modid, String version) {
 		
-		l.info("Checking for updates to guide pack \"" + modid + "\"");
+		l.info("Checking for updates to guide pack '" + modid + "'");
 		
 		if(!packPath.isDirectory())
 			return 0;
@@ -42,18 +74,18 @@ public class GuidePackUpdater {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(manifest));
 			currentVersions = parseFileVersions(br, packPath);
-			br = new BufferedReader( new InputStreamReader( new URL(protocol, host, port, "/api/"+modid+"/"+version+"/manifest.txt").openStream()) );
+			br = new BufferedReader( new InputStreamReader( new URL(protocol, ConfigOptions.serverHost, ConfigOptions.serverPort,
+																	"/api/"+modid+"/"+version+"/manifest.txt").openStream()) );
 			serverVersions = parseFileVersions(br, packPath);
 			
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			l.error("Manifest file not found" + modid );
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			l.error("Malformed url when downloading manifest file. URL:" + 
+					protocol + "://" + ConfigOptions.serverHost + ":" + ConfigOptions.serverPort + "/api/" + modid + "/" + version + "/manifest.txt"
+					);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			l.error("IOException when opening stream to server");
 		}
 		
 		int updated = 0;
@@ -95,7 +127,7 @@ public class GuidePackUpdater {
 	private static void downloadGuide(String modid, String version, File localfile, String path) {
 		try {
 			localfile.getParentFile().mkdirs();
-			URL remote = new URL(protocol, host, port, "/api/"+modid+"/"+version+"/" + path);
+			URL remote = new URL(protocol, ConfigOptions.serverHost, ConfigOptions.serverPort, "/api/"+modid+"/"+version+"/" + path);
 			ReadableByteChannel rbc = Channels.newChannel(remote.openStream());
 			FileOutputStream fos = new FileOutputStream(localfile);
 			fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);

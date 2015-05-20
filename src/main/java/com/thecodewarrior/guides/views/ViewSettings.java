@@ -6,15 +6,14 @@ import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
-import com.thecodewarrior.guides.GuideMod;
-import com.thecodewarrior.guides.GuideServerInterface;
+import com.thecodewarrior.guides.ConfigOptions;
 import com.thecodewarrior.guides.Reference;
-import com.thecodewarrior.guides.api.GuideRegistry;
 import com.thecodewarrior.guides.gui.BasicIcon;
 import com.thecodewarrior.guides.gui.BasicIconFactory;
 import com.thecodewarrior.guides.gui.GuiBookOfRevealing;
 import com.thecodewarrior.guides.gui.GuiButtonTransparent;
 import com.thecodewarrior.guides.gui.GuiUtils;
+import com.thecodewarrior.guides.guidepack.GuidePackManager;
 
 import cpw.mods.fml.client.config.GuiButtonExt;
 
@@ -41,12 +40,12 @@ public class ViewSettings extends View {
 	public void actionPerformed(GuiButton guibutton) {
 		switch(guibutton.id) {
 		case 1:
-			GuideServerInterface.enabled = !GuideServerInterface.enabled;
-			GuideMod.updateEnabled(GuideServerInterface.enabled);
+			ConfigOptions.autoDownload = !ConfigOptions.autoDownload;
+			ConfigOptions.updateConfig();
 			break;
 		case 2:
-			GuideRegistry.wipeGuideRegistry();
-	    	GuideMod.proxy.loadGuidePacks();
+			GuidePackManager.unloadGuidePacks();
+			GuidePackManager.loadGuidePacks();
 	    	break;
 		}
 	};
@@ -61,7 +60,7 @@ public class ViewSettings extends View {
 		mc.fontRenderer.drawSplitString(StatCollector.translateToLocal("guidemod.view.settings.guideServerEnable"), 12, 0, 200, 0x000000);
 		mc.renderEngine.bindTexture(tex);
 		GL11.glColor4f(1, 1, 1, 1);
-		if(GuideServerInterface.enabled) {
+		if(ConfigOptions.autoDownload) {
 			gu.drawIcon(0, 3, checkOn);
 		} else {
 			gu.drawIcon(0, 3, checkOff);

@@ -1,6 +1,5 @@
 package com.thecodewarrior.guides.gui;
 
-import java.nio.DoubleBuffer;
 import java.util.Stack;
 
 import net.minecraft.client.gui.GuiButton;
@@ -13,7 +12,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.BufferUtils;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -21,12 +19,13 @@ import org.lwjgl.opengl.GL11;
 import com.thecodewarrior.guides.EventHandlers;
 import com.thecodewarrior.guides.GuideMod;
 import com.thecodewarrior.guides.Reference;
-import com.thecodewarrior.guides.api.GuideGenerator;
 import com.thecodewarrior.guides.api.GuideRegistry;
+import com.thecodewarrior.guides.guidepack.GuidePackLoader;
+import com.thecodewarrior.guides.guidepack.GuidePackManager;
+import com.thecodewarrior.guides.guides.GuideGenerator;
 import com.thecodewarrior.guides.views.View;
 import com.thecodewarrior.guides.views.ViewBrowse;
 import com.thecodewarrior.guides.views.ViewGuide;
-import com.thecodewarrior.guides.views.ViewScrollable;
 import com.thecodewarrior.guides.views.ViewSettings;
 
 import cpw.mods.fml.client.config.GuiButtonExt;
@@ -37,7 +36,6 @@ public class GuiBookOfRevealing extends GuiScreen {
 	public static final int GUI_ID = 100;
 
 	public static final ResourceLocation texture = new ResourceLocation(Reference.MODID, "textures/gui/book_of_revealing_gui.png");
-	//public GuiContainerBookOfRevealing container;
 	
 	public static final String seperator = "\u0380";// some random unused code point with size=0 in glyph_sizes.bin
 	
@@ -248,7 +246,6 @@ public class GuiBookOfRevealing extends GuiScreen {
 	}
 	
 	private void refreshGuide(World w, int x, int y, int z) {
-		GuideGenerator guide = GuideRegistry.findBlockGuide(w, x, y, z);
 		GuideGenerator otherGuide = GuideRegistry.findGuideFor(w, x, y, z);
 		refreshGuide(otherGuide);
 	}
@@ -367,8 +364,8 @@ public class GuiBookOfRevealing extends GuiScreen {
         	this.back();
         	break;
         case 2: // reload
-        	GuideRegistry.wipeGuideRegistry();
-        	GuideMod.proxy.loadGuidePacks();
+        	GuidePackManager.unloadGuidePacks();
+        	GuidePackManager.loadGuidePacks();
         	break;
         case 4: // browse
         	if(!( this.view instanceof ViewBrowse ) ) {

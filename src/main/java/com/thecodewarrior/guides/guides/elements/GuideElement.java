@@ -2,6 +2,7 @@ package com.thecodewarrior.guides.guides.elements;
 
 import java.util.ArrayList;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 
@@ -12,7 +13,7 @@ import com.thecodewarrior.guides.gui.Rect;
 public class GuideElement extends Gui {
 	
 	public Rect bounds = new Rect(0,0,0,0);
-	public FontRenderer fontRendererObj = GuideMod.proxy.getFontRenderer();
+	public FontRenderer fontRendererObj = Minecraft.getMinecraft().fontRenderer;
 	public GuiBookOfRevealing gui;
 	
 	protected int x;

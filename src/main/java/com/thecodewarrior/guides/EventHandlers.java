@@ -10,10 +10,10 @@ import net.minecraft.util.Vec3;
 
 import org.lwjgl.input.Keyboard;
 
-import com.thecodewarrior.guides.api.GuideGenerator;
 import com.thecodewarrior.guides.api.GuideRegistry;
 import com.thecodewarrior.guides.api.GuideRegistry.GuideGeneratorBasic;
 import com.thecodewarrior.guides.gui.GuiBookOfRevealing;
+import com.thecodewarrior.guides.guides.GuideGenerator;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
