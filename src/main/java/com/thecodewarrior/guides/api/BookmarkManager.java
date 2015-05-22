@@ -9,6 +9,7 @@ import com.thecodewarrior.guides.guides.GuideGenerator;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.config.Configuration;
 
+//TODO convert to use static everything
 public class BookmarkManager {
 
 	Configuration bookmarkConfig;

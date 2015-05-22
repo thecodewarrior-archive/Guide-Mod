@@ -2,6 +2,8 @@ package com.thecodewarrior.guides.gui;
 
 import java.util.Stack;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiLabel;
 import net.minecraft.client.gui.GuiScreen;
@@ -20,7 +22,6 @@ import com.thecodewarrior.guides.EventHandlers;
 import com.thecodewarrior.guides.GuideMod;
 import com.thecodewarrior.guides.Reference;
 import com.thecodewarrior.guides.api.GuideRegistry;
-import com.thecodewarrior.guides.guidepack.GuidePackLoader;
 import com.thecodewarrior.guides.guidepack.GuidePackManager;
 import com.thecodewarrior.guides.guides.GuideGenerator;
 import com.thecodewarrior.guides.views.View;
@@ -36,7 +37,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 	public static final int GUI_ID = 100;
 
 	public static final ResourceLocation texture = new ResourceLocation(Reference.MODID, "textures/gui/book_of_revealing_gui.png");
-	
+	public static final ResourceLocation backgroundTexture = new ResourceLocation(Reference.MODID, "textures/gui/book_of_revealing_gui_bg.png");
 	public static final String seperator = "\u0380";// some random unused code point with size=0 in glyph_sizes.bin
 	
 	public static final int guiWidth  = 252;
@@ -69,6 +70,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 	private GuiButtonTransparent detailsButton;
 	private GuiButtonTransparent browseButton;
 	private GuiButtonTransparent settingsButton;
+	private GuiButtonTransparent heldItemButton;
 	
 	private GuiButtonTransparent newBookmarkButton;
 	private GuiButtonCustomTexture bookmarkScrollDownButton;
@@ -96,17 +98,21 @@ public class GuiBookOfRevealing extends GuiScreen {
 	
 	public HoverTimer hover = new HoverTimer();
 	
+	public ItemStack heldItem;
+	
 	public GuiBookOfRevealing(EntityPlayer player, World w, int x, int y, int z) {
 		super();
 		this.init();
 		this.refreshGuide(w,x,y,z);
 		this.refreshView();
+		l.info("XYZ: " + x + ", " + y + ", " + z);
 	}
 	
 	public GuiBookOfRevealing(EntityPlayer player, ItemStack stack) {
 		super();
 		this.init();
 		this.refreshGuide(stack);
+		this.refreshView();
 	}
 
 	public GuiBookOfRevealing(EntityPlayer player) {
@@ -117,6 +123,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 	
 	protected void init() {
 		this.refreshGuide(GuideRegistry.NULL_GUIDE);
+		this.heldItem = Minecraft.getMinecraft().thePlayer.getHeldItem();
 	}
 	
 	public boolean doesGuiPauseGame() {
@@ -297,6 +304,9 @@ public class GuiBookOfRevealing extends GuiScreen {
 		this.settingsButton = new GuiButtonTransparent(5,
 				left-settingsRibbon.getIconWidth(), top+48,
 				settingsRibbon.getIconWidth(), settingsRibbon.getIconHeight());
+		this.heldItemButton = new GuiButtonTransparent(10,
+				left-27, top+170,
+				heldItemRibbon.getIconWidth(), heldItemRibbon.getIconHeight());
 		
 		this.newBookmarkButton = new GuiButtonTransparent(6,
 				left+guiWidth, top+10,
@@ -315,6 +325,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 		this.buttonList.add(this.detailsButton);
 		this.buttonList.add(this.browseButton);
 		this.buttonList.add(this.settingsButton);
+		this.buttonList.add(this.heldItemButton);
 		this.buttonList.add(this.backButton);
 		this.buttonList.add(this.newBookmarkButton);
 		this.buttonList.add(this.bookmarkScrollUpButton);
@@ -394,6 +405,11 @@ public class GuiBookOfRevealing extends GuiScreen {
         		this.bookmarkScrollAmount++;
         	}
         	break;
+        case 10: // held item
+        	if(heldItem != null) {
+        		this.refreshGuide(heldItem);
+        	}
+        	break;
     	default:
     		l.info("unknown action: " + guibutton.id);
         }
@@ -441,6 +457,8 @@ public class GuiBookOfRevealing extends GuiScreen {
 	static final BasicIcon	backRibbon			= f.create(227, guiRollBottom, 29, ribbonHeight);
 	static final BasicIcon	backRibbonDisabled	= f.create(227, guiRollBottom + rollHeight + 1, 29, ribbonHeight);
 	
+	static final BasicIcon	heldItemRibbon		= f.create(0, 0, 30, 18);
+	
 	static final BasicIcon	detailsRibbon		= f.create(0,   guiRollBottom, 26, ribbonHeight);
 	static final BasicIcon	browseRibbon		= f.create(26,  guiRollBottom, 26, ribbonHeight);
 	static final BasicIcon	settingsRibbon		= f.create(52,  guiRollBottom, 26, ribbonHeight);
@@ -460,6 +478,20 @@ public class GuiBookOfRevealing extends GuiScreen {
 	static final BasicIcon	searchMiddle		= f.create(207, guiHeight+31, 8, 11);
 	static       BasicIcon	searchMiddleFrac	= f.create(207, guiHeight+31, 8, 11);
 	static final BasicIcon	searchRight			= f.create(215, guiHeight+31, 6, 11);
+	
+	private void drawItemStack(ItemStack p_146982_1_, int p_146982_2_, int p_146982_3_, String p_146982_4_)
+    {
+        GL11.glTranslatef(0.0F, 0.0F, 32.0F);
+        this.zLevel = 200.0F;
+        itemRender.zLevel = 200.0F;
+        FontRenderer font = null;
+        if (p_146982_1_ != null) font = p_146982_1_.getItem().getFontRenderer(p_146982_1_);
+        if (font == null) font = fontRendererObj;
+        itemRender.renderItemAndEffectIntoGUI(font, this.mc.getTextureManager(), p_146982_1_, p_146982_2_, p_146982_3_);
+        //itemRender.renderItemOverlayIntoGUI(font, this.mc.getTextureManager(), p_146982_1_, p_146982_2_, p_146982_3_ - (this.draggedStack == null ? 0 : 8), p_146982_4_);
+        this.zLevel = 0.0F;
+        itemRender.zLevel = 0.0F;
+    }
 	
 	public void drawScreen(int mX, int mY, float partialTicks)
 	{
@@ -486,8 +518,12 @@ public class GuiBookOfRevealing extends GuiScreen {
 		
 		drawLeftSideButtons();
 		drawBookmarks();
+		drawHeldItemRibbon();
 		
+		mc.renderEngine.bindTexture(backgroundTexture);
 		gu.drawIcon(left, top, page); /* main page */
+		
+		mc.renderEngine.bindTexture(texture);
 		gu.drawIcon(left-2, top, rollTop); /* top wrap */
 		gu.drawIcon(left-2, top+guiHeight-rollHeight, rollBottom); /* bottom wrap */
 		
@@ -523,6 +559,19 @@ public class GuiBookOfRevealing extends GuiScreen {
 		this.drawButtons(mX, mY);
 		drawSearchBar();
 		
+		drawHeldItemItemStack();
+	}
+	
+	private void drawHeldItemRibbon() {
+		if(heldItem != null) {
+			gu.drawIcon(left-27 -(heldItemButton.hovering() ? 1 : 0), top+170, heldItemRibbon);
+		}
+	}
+	
+	private void drawHeldItemItemStack() {
+		if(heldItem != null) {
+			drawItemStack(heldItem, left-17 -(heldItemButton.hovering() ? 1 : 0), top+171, "text");
+		}
 	}
 
 	private void drawLeftSideButtons() {

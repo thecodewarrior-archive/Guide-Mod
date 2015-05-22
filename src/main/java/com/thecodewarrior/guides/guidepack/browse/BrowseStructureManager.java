@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+//TODO convert to use static everything
 public class BrowseStructureManager {
 
 	Map<String, BrowseItemDirectoryMod> modItems = new HashMap<String, BrowseItemDirectoryMod>();

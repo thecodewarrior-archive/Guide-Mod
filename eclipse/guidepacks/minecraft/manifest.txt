@@ -36,7 +36,7 @@ en_US/silkTouch.txt:1
 en_US/slab.txt:1
 en_US/stone.txt:1
 en_US/sugar_cane.txt:1
-en_US/sword.txt:1
+en_US/sword.txt:2
 en_US/tool.txt:1
 en_US/toolMaterial.txt:1
 en_US/tools.txt:1
@@ -79,7 +79,7 @@ images/tools/sword/wood.png:1
 images/wood-ish_stone-ish_tools.png:1
 manifest.txt:1
 pack.info:1
-pack.json:5
+pack.json:6
 parser test.txt:1
 reference.txt:1
 register.txt:1

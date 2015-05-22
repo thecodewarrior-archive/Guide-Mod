@@ -54,6 +54,7 @@ public class EventHandlers {
         if(openGuideKey.isPressed()) {
         	EntityPlayer player = Minecraft.getMinecraft().thePlayer;
         	MovingObjectPosition pos = rayTrace(player, Minecraft.getMinecraft().playerController.getBlockReachDistance(), 0, true);
+        	GuiHandler.isPicking = false;
 			if(pos != null) {
 //				String id = player.worldObj.getBlock(pos.blockX, pos.blockY, pos.blockZ).getUnlocalizedName();
 				GuiHandler.x = pos.blockX;
@@ -64,7 +65,12 @@ public class EventHandlers {
     		if(!player.isSneaking()) {
         		player.openGui(GuideMod.instance, GuiBookOfRevealing.GUI_ID, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posZ);
     		} else {
-    			GuideGenerator g = GuideRegistry.findGuideFor(player.worldObj, GuiHandler.x, GuiHandler.y, GuiHandler.z);
+    			GuideGenerator g;
+    			if(pos != null) {
+    				g = GuideRegistry.findGuideFor(player.worldObj, GuiHandler.x, GuiHandler.y, GuiHandler.z);
+    			} else {
+    				g = GuideRegistry.findGuideFor(player.getHeldItem());
+    			}
     			if(g instanceof GuideGeneratorBasic) {
         			GuideMod.bookmarkManager.addBookmarkAtIndex(0, ((GuideGeneratorBasic) g).guideName);
     			}

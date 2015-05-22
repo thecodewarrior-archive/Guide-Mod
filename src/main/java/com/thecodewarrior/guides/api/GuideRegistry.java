@@ -78,29 +78,11 @@ public class GuideRegistry {
 	}
 	
 	public static GuideGenerator findGuideFor(World w, int x, int y, int z) {
-		
 		GameRegistry.UniqueIdentifier idObj = GameRegistry.findUniqueIdentifierFor(w.getBlock(x,y,z));
 		String id = idObj.modId + ":" + idObj.name;
 		int meta  = w.getBlockMetadata(x, y, z);
 		
-		GuideMatcher.Match bestMatch = new GuideMatcher.Match();
-		for (List<GuideMatcher> matcherArray : matchers.values()) {
-			for(GuideMatcher matcher : matcherArray) {
-		    	GuideMatcher.Match match = matcher.match(id, meta);
-		    	if(
-		    			(match.hasMatch) &&
-		    			(match.typeSpecifity == bestMatch.typeSpecifity && match.itemSpecifity > bestMatch.itemSpecifity) ||
-		    			(match.typeSpecifity >  bestMatch.typeSpecifity)
-		    		) {
-		    		bestMatch = match;
-		    	}
-		    }
-		}
-		if(bestMatch.hasMatch) {
-			return guideFromName(bestMatch.guideName);
-		} else {
-			return NO_MATCH_GUIDE;
-		}
+		return match(id, meta);
 	}
 	
 	public static GuideGenerator findGuideFor(ItemStack stack) {
@@ -108,6 +90,10 @@ public class GuideRegistry {
 		String id = idObj.modId + ":" + idObj.name;
 		int meta  = stack.getItemDamage();
 		
+		return match(id, meta);
+	}
+	
+	private static GuideGenerator match(String id, int meta) {
 		GuideMatcher.Match bestMatch = new GuideMatcher.Match();
 		for (List<GuideMatcher> matcherArray : matchers.values()) {
 			for(GuideMatcher matcher : matcherArray) {

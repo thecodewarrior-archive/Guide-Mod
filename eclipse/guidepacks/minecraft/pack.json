@@ -68,6 +68,28 @@
             {
                 "id":"minecraft:yellow_flower"
             }
+        ],
+        "minecraft:sword": [
+            {
+                "id":"minecraft:diamond_sword"
+            },
+            {
+                "id":"minecraft:gold_sword"
+            },
+            {
+                "id":"minecraft:iron_sword"
+            },
+            {
+                "id":"minecraft:stone_sword"
+            },
+            {
+                "id":"minecraft:wood_sword"
+            }
+        ],
+        "minecraft:enchant": [
+            {
+                "id":"minecraft:enchanted_book"
+            }
         ]
     },
     "browse": {
