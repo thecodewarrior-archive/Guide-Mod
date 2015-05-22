@@ -10,6 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import com.thecodewarrior.guides.GuideMod;
@@ -65,6 +66,9 @@ public class GuideRegistry {
 	public static String getGuideName(String guide) {
 		if(guideNames.containsKey(guide)) {
 			return guideNames.get(guide);
+		} else if(guide.endsWith(".details") && guideNames.containsKey(guide.substring(0, guide.length() - ".details".length()))) {
+			return StatCollector.translateToLocalFormatted(
+					"guidemod.nameWithDetail", guideNames.get(guide.substring(0, guide.length() - ".details".length())));
 		} else {
 			return guide;
 		}
@@ -129,6 +133,9 @@ public class GuideRegistry {
 	public static GuideGenerator newBasicGuide(String name) {
 		return new GuideGeneratorBasic(name);
 	}
+	public static GuideGenerator newIBNGDGuide(String name) {
+		return new GuideGeneratorIBNGD(name);
+	}
 	
 	public static GuideGenerator NULL_GUIDE = new GuideGenerator() {
 
@@ -192,6 +199,12 @@ public class GuideRegistry {
 							
 			}
 			
+		}
+		
+		public static class GuideGeneratorIBNGD extends GuideGeneratorBasic {
+			public GuideGeneratorIBNGD(String guideName) {
+				super(guideName + ".details");
+			}
 		}
 		
 		public static abstract class GuideGeneratorView extends GuideGenerator {

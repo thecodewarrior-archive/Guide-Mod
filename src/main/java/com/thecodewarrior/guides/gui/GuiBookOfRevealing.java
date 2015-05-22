@@ -105,7 +105,6 @@ public class GuiBookOfRevealing extends GuiScreen {
 		this.init();
 		this.refreshGuide(w,x,y,z);
 		this.refreshView();
-		l.info("XYZ: " + x + ", " + y + ", " + z);
 	}
 	
 	public GuiBookOfRevealing(EntityPlayer player, ItemStack stack) {
@@ -378,6 +377,29 @@ public class GuiBookOfRevealing extends GuiScreen {
         	GuidePackManager.unloadGuidePacks();
         	GuidePackManager.loadGuidePacks();
         	break;
+        case 3: // details ( Itty Bitty Nitty Gritty Details )
+        	if(this.view instanceof ViewGuide) {
+        		String name = ((ViewGuide) view).guideName();
+    			View prev = viewHistory.size() != 0 ? viewHistory.lastElement() : null;
+    			
+        		if(!name.endsWith(".details")) {
+        			
+        			if(prev != null && prev instanceof ViewGuide && ((ViewGuide) prev).guideName().equals(name+".details")) {
+        				this.back();
+        			} else {
+        				this.refreshGuide(GuideRegistry.newIBNGDGuide(((ViewGuide) view).guideName()));
+        			}
+        			
+        		} else {
+        			String sub = name.substring(0, name.length()-( ".details".length() ));
+        			if(prev != null && prev instanceof ViewGuide && ((ViewGuide) prev).guideName().equals(sub)) {
+        				this.back();
+        			} else {
+        				this.refreshGuide(GuideRegistry.newBasicGuide(sub));
+        			}
+        		}
+        	}
+        	break;
         case 4: // browse
         	if(!( this.view instanceof ViewBrowse ) ) {
         		this.goToView(new ViewBrowse(viewWidth, viewHeight, this));
@@ -586,7 +608,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 			gu.drawIcon(left-backRibbonDisabled.getIconWidth()+1, top+10, backRibbonDisabled);
 		}
 		int detailsHoverOffset = 1;
-		if(detailsButton.hovering()) {
+		if(detailsButton.hovering() || (view instanceof ViewGuide && ((ViewGuide) view).guideName().endsWith(".details"))) {
 			detailsHoverOffset = 0;
 		}
 		gu.drawIcon(left-detailsRibbon.getIconWidth()+detailsHoverOffset, top+24, detailsRibbon);
@@ -758,7 +780,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 	
 	private void drawBookmark(int num, int y, int xOffset, boolean isHovering) {
 		String text = GuideMod.bookmarkManager.getBookmarkName(num);
-		int rightEdge = left+guiWidth + xOffset;
+		int rightEdge = left+guiWidth;
 		
 		int actualTextWidth = mc.fontRenderer.getStringWidth(text);
 		int textWidth = 3+actualTextWidth;
@@ -768,6 +790,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 			hadToClip = true;
 			textWidth = width-rightEdge-bookmarkEnd.getIconWidth();
 		}
+		rightEdge += xOffset;
 		
 		double numOfTiles = (double)textWidth/(double)bookmarkMiddle.getIconWidth();
 		int numOfWholeTiles = (int) Math.floor(numOfTiles);
@@ -793,7 +816,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 		GL11.glClipPlane(GL11.GL_CLIP_PLANE0, GuiUtils.clipEqMinX(rightEdge));
 		GL11.glEnable(GL11.GL_CLIP_PLANE0);
 
-		GL11.glClipPlane(GL11.GL_CLIP_PLANE1, GuiUtils.clipEqMaxX(width-bookmarkEnd.getIconWidth()));
+		GL11.glClipPlane(GL11.GL_CLIP_PLANE1, GuiUtils.clipEqMaxX(rightEdge+textWidth));
 		GL11.glEnable(GL11.GL_CLIP_PLANE1);
 		
 		int buf = 10;

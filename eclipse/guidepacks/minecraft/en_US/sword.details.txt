@@ -1,0 +1,14 @@
+<title>Sword Details</title>
+
+<tool>
+<image src="" />
+</tool>
+
+<content>
+Sword damage (without enchantments)
+Wooden sword: 5 ( 2.5 hearts )
+Golden sword: 5 ( 2.5 hearts )
+Stone sword: 6 ( 3 hearts )
+Iron sword: 7 ( 3.5 hearts )
+Diamond sword: 8 ( 4 hearts )
+</content>
