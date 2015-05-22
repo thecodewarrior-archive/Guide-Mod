@@ -41,6 +41,12 @@ public class GuideRegistry {
 	
 	private static HashMap<String, String> guideNames = new HashMap<String, String>();
 	
+
+	public static void wipeGuideRegistry() {
+		matchers = new HashMap<String, List<GuideMatcher>>();
+		guideNames = new HashMap<String, String>();
+	}
+	
 	private static List<GuideMatcher> getOrCreateGuidePack(String packID) {
 		if(!matchers.containsKey(packID)) {
 			matchers.put(packID, new ArrayList<GuideMatcher>());
@@ -51,11 +57,6 @@ public class GuideRegistry {
 	public static void registerMatcher(String packID, GuideMatcher mat) {
 		List<GuideMatcher> matchList = getOrCreateGuidePack(packID);
 		matchList.add(mat);
-	}
-	
-	public static void wipeGuideRegistry() {
-		matchers = new HashMap<String, List<GuideMatcher>>();
-		guideNames = new HashMap<String, String>();
 	}
 	
 	public static void addGuideName(String guide, String name) {

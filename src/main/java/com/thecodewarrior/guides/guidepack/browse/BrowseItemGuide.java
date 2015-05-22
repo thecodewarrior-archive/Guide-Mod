@@ -1,4 +1,4 @@
-package com.thecodewarrior.guides.api.browse;
+package com.thecodewarrior.guides.guidepack.browse;
 
 import com.thecodewarrior.guides.api.GuideRegistry;
 

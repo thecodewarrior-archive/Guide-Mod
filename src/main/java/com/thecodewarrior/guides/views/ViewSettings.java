@@ -23,6 +23,9 @@ public class ViewSettings extends View {
 	GuiButton shouldDownload;
 	GuiButtonExt reloadPack;
 	GuiUtils gu;
+	
+	String lastReloadTimeText;
+	
 	public ViewSettings(int width, int height, GuiBookOfRevealing gui) {
 		super(null, width, height, gui);
 	}
@@ -32,8 +35,20 @@ public class ViewSettings extends View {
 		this.gu = new GuiUtils(this.zLevel);
 		this.shouldDownload = new GuiButtonTransparent(1, 0, 3, 10, 10);//new GuiCheckBox(1, 0, 0, "Automatically download guide packs", GuideServerInterface.enabled);
 		this.buttonList.add(this.shouldDownload);
-		this.reloadPack = new GuiButtonExt(2, 0, 30, StatCollector.translateToLocal("guidemod.view.settings.reloadPacksButton"));
+		this.reloadPack = new GuiButtonExt(2, 0, 18, StatCollector.translateToLocal("guidemod.view.settings.reloadPacksButton"));
 		this.buttonList.add(this.reloadPack);
+		this.updateLastReloadTimeText();
+	}
+	
+	void updateLastReloadTimeText() {
+		int seconds = GuidePackManager.lastLoadSeconds;
+		int minutes = (int)Math.floor( ( (float)GuidePackManager.lastLoadSeconds)/60.0 );
+		seconds -= minutes*60;
+		if(minutes > 0) {
+			lastReloadTimeText = String.format( StatCollector.translateToLocal("guidemod.view.settings.estimatedReloadTime.ms") , minutes, seconds);
+		} else {
+			lastReloadTimeText = String.format( StatCollector.translateToLocal("guidemod.view.settings.estimatedReloadTime.s") , seconds);
+		}
 	}
 
 	@Override
@@ -46,6 +61,7 @@ public class ViewSettings extends View {
 		case 2:
 			GuidePackManager.unloadGuidePacks();
 			GuidePackManager.loadGuidePacks();
+			this.updateLastReloadTimeText();
 	    	break;
 		}
 	};
@@ -65,13 +81,17 @@ public class ViewSettings extends View {
 		} else {
 			gu.drawIcon(0, 3, checkOff);
 		}
-		mc.renderEngine.bindTexture(gui.texture);
-		GL11.glScaled(0.5, 0.5, 0.5);
-			
-			drawTexturedModalRect(12*2, 30*2, 0, 0, 256, 256);
-		GL11.glScaled(2  ,   2,   2);
+		
+		if(ConfigOptions.dev) {
+			mc.renderEngine.bindTexture(gui.texture);
+			GL11.glScaled(0.5, 0.5, 0.5);
+				drawTexturedModalRect(12*2, 30*2, 0, 0, 256, 256);
+			GL11.glScaled(2  ,   2,   2);
+		}
 		
 		this.reloadPack.drawButton(mc, mX, mY);
+		
+		mc.fontRenderer.drawSplitString(lastReloadTimeText, 1, 40, width-10, 0x00);
 	}
 
 	@Override

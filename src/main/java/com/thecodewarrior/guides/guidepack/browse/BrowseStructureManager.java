@@ -1,4 +1,4 @@
-package com.thecodewarrior.guides.api.browse;
+package com.thecodewarrior.guides.guidepack.browse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,10 +10,11 @@ public class BrowseStructureManager {
 	BrowseItemDirectoryRoot root = new BrowseItemDirectoryRoot("/");
 	
 	public BrowseStructureManager() {
-//		BrowseItemDirectoryMod mc = getMod("minecraft", "Vanilla minecraft");
-//		mc.addChild(new BrowseItemGuide("minecraft:planks"));
-//		mc.addChild(new BrowseItemGuide("minecraft:lava"));
-//		root.addChild(mc);
+	}
+	
+	public void wipeBrowseStructure() {
+		modItems = new HashMap<String, BrowseItemDirectoryMod>();
+		root = new BrowseItemDirectoryRoot("/");
 	}
 	
 	public BrowseItemDirectoryMod getMod(String modid, String name) {
@@ -22,6 +23,8 @@ public class BrowseStructureManager {
 			m = new BrowseItemDirectoryMod(modid, name);
 			modItems.put(modid, m);
 			root.addChild(m);
+		} else {
+			m = modItems.get(modid);
 		}
 		return m;
 	}

@@ -20,8 +20,8 @@ import com.google.gson.JsonSyntaxException;
 import com.thecodewarrior.guides.GuideMod;
 import com.thecodewarrior.guides.api.GuideMatcher;
 import com.thecodewarrior.guides.api.GuideRegistry;
-import com.thecodewarrior.guides.api.browse.BrowseItemDirectory;
-import com.thecodewarrior.guides.api.browse.BrowseItemGuide;
+import com.thecodewarrior.guides.guidepack.browse.BrowseItemDirectory;
+import com.thecodewarrior.guides.guidepack.browse.BrowseItemGuide;
 
 public class GuidePackLoader {
 	

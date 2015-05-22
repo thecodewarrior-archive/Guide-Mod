@@ -27,6 +27,18 @@ public class GuideImageReader {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public static void unloadAllImages() {
+		
+		for(DynamicTexture tex : dynamicTextures.values()) {
+			tex.deleteGlTexture();
+		}
+		
+		textureLocations   = new HashMap<String, ResourceLocation>();
+		dynamicTextures    = new HashMap<String, DynamicTexture>();
+		imageWidths  = new HashMap<String, Integer>();
+		imageHeights = new HashMap<String, Integer>();
+	}
+	
 	public static void bindGuideImage(String modid, String name) {
 		String key = modid + ":" + name;
         loadGuideImage(modid, name);
@@ -62,7 +74,7 @@ public class GuideImageReader {
 			return;
 		}
 	}
-	
+	/*
 	// I didn't make this, I have nowhere near the expertise to create something this awesome
 	// and I still only vaguely understand it
 	// the problem is, I forgot where I got this code
@@ -109,6 +121,8 @@ public class GuideImageReader {
 		return textureID;
 	}
 
+	/**/
+	
 	public static int imageWidth(String modid, String name) {
 		return imageWidths.get(modid + ":" + name);
 	}

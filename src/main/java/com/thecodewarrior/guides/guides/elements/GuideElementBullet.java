@@ -2,15 +2,13 @@ package com.thecodewarrior.guides.guides.elements;
 
 import java.util.HashMap;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 
+import org.lwjgl.opengl.GL11;
+
 import com.thecodewarrior.guides.GuideMod;
 import com.thecodewarrior.guides.Reference;
-import com.thecodewarrior.guides.guides.tags.Tag;
-import com.thecodewarrior.notmine.codechicken.lib.colour.ColourRGBA;
 
 public class GuideElementBullet extends GuideElement{
 
@@ -22,7 +20,8 @@ public class GuideElementBullet extends GuideElement{
 	
 	public GuideElementBullet(int x, int y, int width, String str) {
 		super(x, y, width);
-		
+		// unused for now
+		/*
 		HashMap<String, String> args = null;// Tag.parseArgs(str);
 		
 		if(args.containsKey("0")) {
@@ -51,6 +50,7 @@ public class GuideElementBullet extends GuideElement{
 				GuideMod.l.warn("[Bullet element]Unable to parse color: " + args.get("color"));
 			}
 		}
+		*/
 	}
 	
 	public void draw(int mX, int mY) {
@@ -77,10 +77,15 @@ public class GuideElementBullet extends GuideElement{
 			break;
 		}
 		
-		ColourRGBA c = new ColourRGBA(this.color);
+		byte r = (byte)( (color >> 24) & 0xFF );
+		byte g = (byte)( (color >> 16) & 0xFF );
+		byte b = (byte)( (color >> 8 ) & 0xFF );
+		byte a = (byte)(  color        & 0xFF );
 		
+		//ColourRGBA c = new ColourRGBA(this.color);
 		Minecraft.getMinecraft().renderEngine.bindTexture(tex);
-		GL11.glColor4b(c.r, c.g, c.b, c.a);
+		//GL11.glColor4b(c.r, c.g, c.b, c.a);
+		GL11.glColor4b(r, g, b, a);
 		
 		this.drawTexturedModalRect(this.x-texW-2, this.y, texU, texV, texW, texH);
 		

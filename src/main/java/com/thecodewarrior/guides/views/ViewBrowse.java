@@ -11,13 +11,13 @@ import org.lwjgl.opengl.GL11;
 import com.thecodewarrior.guides.GuideMod;
 import com.thecodewarrior.guides.Reference;
 import com.thecodewarrior.guides.api.GuideRegistry;
-import com.thecodewarrior.guides.api.browse.BrowseItem;
-import com.thecodewarrior.guides.api.browse.BrowseItemDirectory;
-import com.thecodewarrior.guides.api.browse.BrowseItemGuide;
 import com.thecodewarrior.guides.gui.Animation;
 import com.thecodewarrior.guides.gui.BasicIcon;
 import com.thecodewarrior.guides.gui.GuiBookOfRevealing;
 import com.thecodewarrior.guides.gui.GuiUtils;
+import com.thecodewarrior.guides.guidepack.browse.BrowseItem;
+import com.thecodewarrior.guides.guidepack.browse.BrowseItemDirectory;
+import com.thecodewarrior.guides.guidepack.browse.BrowseItemGuide;
 
 public class ViewBrowse extends ViewScrollable {
 

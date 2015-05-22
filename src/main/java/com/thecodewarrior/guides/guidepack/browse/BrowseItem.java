@@ -1,4 +1,4 @@
-package com.thecodewarrior.guides.api.browse;
+package com.thecodewarrior.guides.guidepack.browse;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;

@@ -26,8 +26,6 @@ import cpw.mods.fml.common.ModContainer;
 public class GuidePackUpdater {
 	
 	public static String  protocol = "http";
-//	public static String  host     = "localhost";//"localhost";
-//	public static int     port     = 3000;
 	
 	public static final Logger l = GuideMod.logChild("GuidePackUpdater");
 	
