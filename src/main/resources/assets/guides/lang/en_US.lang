@@ -3,14 +3,19 @@ key.guidemod.openGuideKey=Open Guide
 guidemod.guideReader.internalError=Internal Error
 guidemod.nameWithDetail=%s (Details)
 
-# Main GUI - not used yet
-guidemod.gui.backButtonTooltip=Back
-guidemod.gui.IBNGDButtonTooltip=Itty-Bitty-Nitty-Gritty Details
-guidemod.gui.browseButtonTooltip=Browse All Guides
-guidemod.gui.settingsButtonTooltip=Settings
-guidemod.gui.addBookmarkTooltip=Add a bookmark
-guidemod.gui.bookmarkTooltip=Click to go to guide, drag to the right to delete
-guidemod.gui.bookmarkScrollUpTooltip=Scroll
+guidemod.gui.tooltip.details.title=More Details
+guidemod.gui.tooltip.browse.title=Browse all guides
+guidemod.gui.tooltip.settings.title=Guide Mod Settings
+guidemod.gui.tooltip.heldItem.title=Current item
+guidemod.gui.tooltip.heldItem.desc=View the guide for the currently held item
+guidemod.gui.tooltip.back.title=Back
+guidemod.gui.tooltip.newBookmark.title=New Bookmark
+guidemod.gui.tooltip.bookmarkScrollUp.title=Scroll Up
+guidemod.gui.tooltip.bookmarkScrollDown.title=Scroll Down
+guidemod.gui.tooltip.help.title=Help
+guidemod.gui.tooltip.bookmark.title=Bookmark
+guidemod.gui.tooltip.bookmark.desc.0=Click to go to guide
+guidemod.gui.tooltip.bookmark.desc.1=Drag to delete ➔
 
 # Browse view
 guidemod.view.browse.searchAllBreadcrumb=All

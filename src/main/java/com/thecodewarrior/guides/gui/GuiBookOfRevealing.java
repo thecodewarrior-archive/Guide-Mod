@@ -1,5 +1,7 @@
 package com.thecodewarrior.guides.gui;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Stack;
 
 import net.minecraft.client.Minecraft;
@@ -11,6 +13,7 @@ import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import org.apache.logging.log4j.Logger;
@@ -137,16 +140,31 @@ public class GuiBookOfRevealing extends GuiScreen {
 	}
 	
 	public void back() {
-		this.view = this.viewHistory.pop();
+		View oldView = view;
+		View newView = this.viewHistory.pop();
+		this.view = newView;
 		if(this.viewHistory.size() == 0) {
 			this.backButton.enabled = false;
+			return;
 		}
+		
 	}
 	
 	public void refreshView() {
 		if(this.needsRefresh) {
-			this.goToView(this.guideGen.generate(viewWidth, viewHeight, this));
+			View oldView = view;
+			View newView = this.guideGen.generate(viewWidth, viewHeight, this);
 			this.needsRefresh = false;
+			
+			if(oldView instanceof ViewGuide && newView instanceof ViewGuide) {
+				if(
+						((ViewGuide)oldView).guideName().equals( ((ViewGuide)newView).guideName() )
+					) {
+					return;
+				}
+			}
+			this.goToView(newView);
+
 		}
 	}
 	
@@ -164,10 +182,6 @@ public class GuiBookOfRevealing extends GuiScreen {
     {
 		super.mouseClicked(x,y,button);
 		refreshTopLeft();
-		
-		l.info("mouse clicked");
-		
-		
 		
 		/* minecraft button code */
 		if (button == 0)
@@ -338,6 +352,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 		
 		this.deletingBookmark = new Animation<Integer>(2, -1);
 		
+		initToolTips();
 		
 		//this.reloadButton = new GuiButtonExt(1, left+215, top+144, 40, 20, "Reload");
 		//this.buttonList.add(this.reloadButton);
@@ -581,7 +596,99 @@ public class GuiBookOfRevealing extends GuiScreen {
 		this.drawButtons(mX, mY);
 		drawSearchBar();
 		
+		drawToolTips();
+		
+//		ArrayList<String> lines = new ArrayList<String>();
+//		lines.add(StatCollector.translateToLocal("guidemod.gui.tooltip.back"));
+//		
+//		drawHoveringText(lines, mX, mY, Minecraft.getMinecraft().fontRenderer);
+//		
 		drawHeldItemItemStack();
+	}
+	
+	ArrayList<MetaRect<String[]>> tooltips;
+	
+	void initToolTips() {
+		tooltips = new ArrayList<MetaRect<String[]>>();
+		
+		addGenericToolTipForButton(detailsButton,				"details");
+		addGenericToolTipForButton(browseButton,				"browse");
+		addGenericToolTipForButton(settingsButton,				"settings");
+		addGenericToolTipForButton(heldItemButton,				"heldItem");
+		addGenericToolTipForButton(backButton,					"back");
+		addGenericToolTipForButton(newBookmarkButton,			"newBookmark");
+		addGenericToolTipForButton(bookmarkScrollUpButton,		"bookmarkScrollUp");
+		addGenericToolTipForButton(bookmarkScrollDownButton,	"bookmarkScrollDown");
+		addGenericToolTipForButton(helpButton,					"help");
+		
+		bookmarkTooltip = getGenericToolTipText("bookmark");
+	}
+	
+	String[] getGenericToolTipText(String name) {
+		if(StatCollector.canTranslate("guidemod.gui.tooltip." + name + ".desc.0")) {
+			ArrayList<String> str = new ArrayList<String>();
+			str.add(StatCollector.translateToLocal("guidemod.gui.tooltip." + name + ".title"));
+			for(int i = 0; StatCollector.canTranslate("guidemod.gui.tooltip." + name + ".desc." + i) ; i++) {
+				str.add("§8" + StatCollector.translateToLocal("guidemod.gui.tooltip." + name + ".desc." + i));
+			}
+			
+			String[] a = new String[str.size()];
+			return str.toArray(a);
+		} else if(StatCollector.canTranslate("guidemod.gui.tooltip." + name + ".desc")) {
+			return new String[] {
+					StatCollector.translateToLocal("guidemod.gui.tooltip." + name + ".title"),
+					"§8" + StatCollector.translateToLocal("guidemod.gui.tooltip." + name + ".desc")
+					};
+		} else {
+			return new String[] {
+					StatCollector.translateToLocal("guidemod.gui.tooltip." + name + ".title")};
+		}
+	}
+	
+	void addGenericToolTipForButton(GuiButton button, String name) {
+		addToolTipForButton(button, getGenericToolTipText(name));
+	}
+	
+	void addToolTipForButton(GuiButton button, String[] lines) {
+		addToolTip(button.xPosition, button.yPosition, button.width, button.height, lines);
+	}
+	
+	void addToolTip(int x, int y, int w, int h, String[] lines) {
+		tooltips.add(
+				new MetaRect<String[]>(x, y, w, h, lines)
+				);
+	}
+	
+	static int tooltipTicks = 10;
+	static int tooltipID = -1;
+	static int bookmarkTooltipID = -1;
+	static String[] bookmarkTooltip;
+	
+	void drawToolTips() {
+		if(tooltipID == -1) {
+			if(hover.hasHoveredFor(tooltipTicks)) {
+				for(int i = 0; i < tooltips.size(); i++) {
+					MetaRect<String[]> tooltip = tooltips.get(i);
+					if(tooltip.pointInside(mouseX, mouseY)) {
+						tooltipID = i;
+					}
+				}
+			}
+		} else if(!tooltips.get(tooltipID).pointInside(mouseX, mouseY)) {
+			tooltipID = -1;
+		} else {
+			drawHoveringText(Arrays.asList( tooltips.get(tooltipID).getMeta() ), mouseX, mouseY, Minecraft.getMinecraft().fontRenderer);
+		}
+		
+		if(bookmarkTooltipID == -1) {
+			if(hover.hasHoveredFor(tooltipTicks)) {
+				bookmarkTooltipID = bookmarkHoverIndex(mouseX, mouseY);
+			}
+		} else if(bookmarkTooltipID != bookmarkHoverIndex(mouseX, mouseY)) {
+			bookmarkTooltipID = -1;
+		} else {
+			drawHoveringText(Arrays.asList( bookmarkTooltip ), mouseX, mouseY, Minecraft.getMinecraft().fontRenderer);
+		}
 	}
 	
 	private void drawHeldItemRibbon() {
