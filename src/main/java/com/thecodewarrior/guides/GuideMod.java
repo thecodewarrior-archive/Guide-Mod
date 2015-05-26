@@ -11,6 +11,7 @@ import org.w3c.dom.Node;
 
 import com.thecodewarrior.guides.api.BookmarkManager;
 import com.thecodewarrior.guides.api.GuideRegistry;
+import com.thecodewarrior.guides.gui.GuiBookOfRevealing;
 import com.thecodewarrior.guides.guidepack.GuidePackManager;
 import com.thecodewarrior.guides.guidepack.GuidePackUpdater;
 import com.thecodewarrior.guides.guidepack.browse.BrowseStructureManager;
@@ -148,7 +149,7 @@ public class GuideMod {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		GuideText.getSeperator(Minecraft.getMinecraft().fontRenderer); // find a 1px wide glyph
-		
+		GuiBookOfRevealing.initTickers();
 		GuidePackUpdater.downloadPacksForMods();
 		GuidePackManager.loadGuidePacks();
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandler);

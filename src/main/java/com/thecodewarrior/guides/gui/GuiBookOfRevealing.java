@@ -21,10 +21,12 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
+import com.thecodewarrior.guides.ConfigOptions;
 import com.thecodewarrior.guides.EventHandlers;
 import com.thecodewarrior.guides.GuideMod;
 import com.thecodewarrior.guides.Reference;
 import com.thecodewarrior.guides.api.GuideRegistry;
+import com.thecodewarrior.guides.gui.ticker.Ticker;
 import com.thecodewarrior.guides.guidepack.GuidePackManager;
 import com.thecodewarrior.guides.guides.GuideGenerator;
 import com.thecodewarrior.guides.views.View;
@@ -52,7 +54,8 @@ public class GuiBookOfRevealing extends GuiScreen {
 	public static final int viewTopOffset  = 12;
 	public static final int viewLeftOffset = 2;
 	
-	public Stack<View> viewHistory = new Stack<View>();
+	public Stack<View>   viewHistory    = new Stack<View>();
+	public static Stack<Ticker> pendingTickers = new Stack<Ticker>();
 
 	public int top;
 	public int left;
@@ -217,8 +220,9 @@ public class GuiBookOfRevealing extends GuiScreen {
 			return;
 		}
 	
-		if(this.view == null) { return; }
-		this.view.onClick(x-(viewLeft), y-(viewTop), button);
+		if(this.view != null) { this.view.onClick(x-(viewLeft), y-(viewTop), button); }
+		if(this.ticker != null) { this.ticker.click(x-tickerLeft, y-tickerTop, button);}
+		
     }
 
 	protected void mouseClickMove(int x, int y, int lastButton, long timeSinceClick) {
@@ -295,6 +299,12 @@ public class GuiBookOfRevealing extends GuiScreen {
 		this.view = v;
 	}
 	
+	public static void initTickers() {
+		pendingTickers.add( new Ticker(0xff000000, "Stringy red stuff") );
+		pendingTickers.add( new Ticker(0x00ff0000, "Stringy green stuff") );
+		pendingTickers.add( new Ticker(0x0000ff00, "Stringy blue stuff") );
+	}
+	
 	public void initGui() {
 		super.initGui();
 		refreshTopLeft();
@@ -344,6 +354,13 @@ public class GuiBookOfRevealing extends GuiScreen {
 		this.buttonList.add(this.bookmarkScrollUpButton);
 		this.buttonList.add(this.bookmarkScrollDownButton);
 		this.buttonList.add(this.helpButton);
+		
+		if(ConfigOptions.dev) {
+			this.buttonList.add(new GuiButtonExt(101, 10, 110, 50, 20, "DEV 1"));
+			this.buttonList.add(new GuiButtonExt(102, 10, 130, 50, 20, "DEV 2"));
+			this.buttonList.add(new GuiButtonExt(103, 10, 150, 50, 20, "DEV 3"));
+		}
+		
 		
 		this.searchBar = new GuiTextField(mc.fontRenderer, left+9, top+194, guiWidth-7, 9);
 		this.searchBar.setCanLoseFocus(true);
@@ -447,9 +464,30 @@ public class GuiBookOfRevealing extends GuiScreen {
         		this.refreshGuide(heldItem);
         	}
         	break;
+        case 101: // dev #1
+        	dev1();
+        	break;
+        case 102:
+        	dev2();
+        	break;
+        case 103:
+        	dev3();
+        	break;
     	default:
     		l.info("unknown action: " + guibutton.id);
         }
+	}
+	
+	public void dev1() {
+		this.initTickers();
+	}
+	
+	public void dev2() {
+		
+	}
+
+	public void dev3() {
+		
 	}
 	
 //********************************DRAWING CODE**********************************
@@ -556,6 +594,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 		drawLeftSideButtons();
 		drawBookmarks();
 		drawHeldItemRibbon();
+		drawTicker();
 		
 		mc.renderEngine.bindTexture(backgroundTexture);
 		gu.drawIcon(left, top, page); /* main page */
@@ -594,6 +633,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 		// re-bind the texture, as the view will likely have bound a different one
 		mc.renderEngine.bindTexture(texture);
 		this.drawButtons(mX, mY);
+		mc.renderEngine.bindTexture(texture);
 		drawSearchBar();
 		
 		drawToolTips();
@@ -604,6 +644,28 @@ public class GuiBookOfRevealing extends GuiScreen {
 //		drawHoveringText(lines, mX, mY, Minecraft.getMinecraft().fontRenderer);
 //		
 		drawHeldItemItemStack();
+	}
+	
+	Ticker ticker;
+	int tickerLeft;
+	int tickerTop;
+	
+	void drawTicker() {
+		if( ticker == null || ticker.closed() ) {
+			if(!pendingTickers.empty()) {
+				ticker = pendingTickers.pop();
+			} else {
+				ticker = null;
+			}
+		}
+		GL11.glPushMatrix();
+			tickerLeft = left+((page.getIconWidth()-230)/2);
+			tickerTop = top+guiHeight;
+			if(ticker != null) {
+				GL11.glTranslated(tickerLeft, tickerTop, 0);
+				ticker.draw(mouseX-tickerLeft, mouseY-tickerTop);
+			}
+		GL11.glPopMatrix();
 	}
 	
 	ArrayList<MetaRect<String[]>> tooltips;
