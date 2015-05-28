@@ -26,6 +26,7 @@ import com.thecodewarrior.guides.EventHandlers;
 import com.thecodewarrior.guides.GuideMod;
 import com.thecodewarrior.guides.Reference;
 import com.thecodewarrior.guides.api.GuideRegistry;
+import com.thecodewarrior.guides.api.Link;
 import com.thecodewarrior.guides.gui.icon.BasicIcon;
 import com.thecodewarrior.guides.gui.icon.IconFactory;
 import com.thecodewarrior.guides.gui.ticker.Ticker;
@@ -349,6 +350,8 @@ public class GuiBookOfRevealing extends GuiScreen {
 		TickerLoader.downloadTickers();
 	}
 	
+	public static Link helpLink = new Link("guidemod:helpMain");
+	
 	public void initGui() {
 		super.initGui();
 		refreshTopLeft();
@@ -502,6 +505,9 @@ public class GuiBookOfRevealing extends GuiScreen {
         	if(this.bookmarkScrollAmount+this.bookmarkRowCount < c) {
         		this.bookmarkScrollAmount++;
         	}
+        	break;
+        case 9: // help button
+        	helpLink.go(this);
         	break;
         case 10: // held item
         	if(heldItem != null) {

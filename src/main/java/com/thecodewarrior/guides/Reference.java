@@ -5,7 +5,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 
 public class Reference {
-	public static final String MODID = "guides";
+	public static final String MODID = "guidemod";
 	public static final String VERSION = "0.2";
 	
 	public static int bookOfRevealingGuiID;
