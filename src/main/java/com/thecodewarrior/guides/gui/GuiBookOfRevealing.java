@@ -350,7 +350,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 		TickerLoader.downloadTickers();
 	}
 	
-	public static Link helpLink = new Link("guidemod:helpMain");
+	public static Link helpLink = new Link(Reference.MODID + ":helpMain");
 	
 	public void initGui() {
 		super.initGui();

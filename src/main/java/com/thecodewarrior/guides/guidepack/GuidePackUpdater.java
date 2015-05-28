@@ -21,6 +21,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.thecodewarrior.guides.ConfigOptions;
 import com.thecodewarrior.guides.GuideMod;
+import com.thecodewarrior.guides.Reference;
 import com.thecodewarrior.guides.gui.GuiBookOfRevealing;
 import com.thecodewarrior.guides.gui.ticker.Ticker;
 import com.thecodewarrior.guides.gui.ticker.TickerButton;
@@ -49,8 +50,12 @@ public class GuidePackUpdater {
 		
 		GuidePackUpdater.updatePack(GuidePackManager.getGuidePackDir("minecraft"), "minecraft", mcVersionSplit[mcVersionSplit.length-1], ConfigOptions.autoDownload);
 		
+		
+		updatePack(GuidePackManager.getGuidePackDir(Reference.MODID), Reference.MODID, Reference.VERSION, true);
 		for(ModContainer mod : mods) {
 			File file = GuidePackManager.getGuidePackDir(mod.getModId());
+			if(mod.getModId().equals(Reference.MODID))
+				continue;
 			int amt = updatePack(file, mod.getModId(), mod.getVersion(), ConfigOptions.autoDownload);
 			totalUpdates += amt;
 			if(amt != 0) {
