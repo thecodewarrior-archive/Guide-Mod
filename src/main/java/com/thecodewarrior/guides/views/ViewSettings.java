@@ -8,11 +8,11 @@ import org.lwjgl.opengl.GL11;
 
 import com.thecodewarrior.guides.ConfigOptions;
 import com.thecodewarrior.guides.Reference;
-import com.thecodewarrior.guides.gui.BasicIcon;
-import com.thecodewarrior.guides.gui.BasicIconFactory;
 import com.thecodewarrior.guides.gui.GuiBookOfRevealing;
 import com.thecodewarrior.guides.gui.GuiButtonTransparent;
 import com.thecodewarrior.guides.gui.GuiUtils;
+import com.thecodewarrior.guides.gui.icon.BasicIcon;
+import com.thecodewarrior.guides.gui.icon.IconFactory;
 import com.thecodewarrior.guides.guidepack.GuidePackManager;
 
 import cpw.mods.fml.client.config.GuiButtonExt;
@@ -66,7 +66,7 @@ public class ViewSettings extends View {
 		}
 	};
 	
-	static BasicIconFactory f = new BasicIconFactory(256, tex);
+	static IconFactory f = new IconFactory(256, tex);
 	
 	static BasicIcon checkOff = f.create(0,  0, 10, 10);
 	static BasicIcon checkOn  = f.create(0, 10, 10, 10);

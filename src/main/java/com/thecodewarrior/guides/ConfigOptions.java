@@ -2,6 +2,7 @@ package com.thecodewarrior.guides;
 
 import java.io.File;
 
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.config.Configuration;
 
 public class ConfigOptions {
@@ -13,6 +14,9 @@ public class ConfigOptions {
 	
 	public static String serverHost = "localhost";
 	public static int    serverPort = 80;
+	
+	public static int defaultTickerTimeout = 5*20;
+	public static String lang = "en_US";
 	
 	public static void init(File configFile) {
 		config = new Configuration(configFile);

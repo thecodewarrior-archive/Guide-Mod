@@ -26,8 +26,13 @@ import com.thecodewarrior.guides.EventHandlers;
 import com.thecodewarrior.guides.GuideMod;
 import com.thecodewarrior.guides.Reference;
 import com.thecodewarrior.guides.api.GuideRegistry;
+import com.thecodewarrior.guides.gui.icon.BasicIcon;
+import com.thecodewarrior.guides.gui.icon.IconFactory;
 import com.thecodewarrior.guides.gui.ticker.Ticker;
+import com.thecodewarrior.guides.gui.ticker.TickerButton;
+import com.thecodewarrior.guides.gui.ticker.TickerButtonLink;
 import com.thecodewarrior.guides.guidepack.GuidePackManager;
+import com.thecodewarrior.guides.guidepack.TickerLoader;
 import com.thecodewarrior.guides.guides.GuideGenerator;
 import com.thecodewarrior.guides.views.View;
 import com.thecodewarrior.guides.views.ViewBrowse;
@@ -53,6 +58,8 @@ public class GuiBookOfRevealing extends GuiScreen {
 	
 	public static final int viewTopOffset  = 12;
 	public static final int viewLeftOffset = 2;
+	
+	public static GuiBookOfRevealing currentGui = null;
 	
 	public Stack<View>   viewHistory    = new Stack<View>();
 	public static Stack<Ticker> pendingTickers = new Stack<Ticker>();
@@ -127,8 +134,16 @@ public class GuiBookOfRevealing extends GuiScreen {
 	}
 	
 	protected void init() {
+		currentGui = this;
 		this.refreshGuide(GuideRegistry.NULL_GUIDE);
 		this.heldItem = Minecraft.getMinecraft().thePlayer.getHeldItem();
+	}
+	
+	public void onGuiClosed() {
+		if(this.ticker != null) {
+			this.pendingTickers.add(this.ticker);
+		}
+		currentGui = null;
 	}
 	
 	public boolean doesGuiPauseGame() {
@@ -300,9 +315,38 @@ public class GuiBookOfRevealing extends GuiScreen {
 	}
 	
 	public static void initTickers() {
-		pendingTickers.add( new Ticker(0xff000000, "Stringy red stuff") );
-		pendingTickers.add( new Ticker(0x00ff0000, "Stringy green stuff") );
-		pendingTickers.add( new Ticker(0x0000ff00, "Stringy blue stuff") );
+		if(ConfigOptions.dev) {
+			// color is 0x rr gg bb aa
+			Ticker t = new Ticker(0xff000000, "These should go to guides");
+			t.addButton(new TickerButtonLink("Stone", "minecraft:stone"));
+			t.addButton(new TickerButtonLink("Lava",  "minecraft:lava" ));
+			pendingTickers.add( t );
+			t = new Ticker(0xff00ff00, "These should do the same thing as the dev buttons");
+			t.addButton(new TickerButton("DEV 1") {
+				@Override
+				public void click(GuiBookOfRevealing gui) {
+					gui.dev1();
+				}
+			});
+			t.addButton(new TickerButton("DEV 2") {
+				@Override
+				public void click(GuiBookOfRevealing gui) {
+					gui.dev2();
+				}
+			});
+			t.addButton(new TickerButton("DEV 3") {
+				@Override
+				public void click(GuiBookOfRevealing gui) {
+					gui.dev3();
+				}
+			});
+			pendingTickers.add( t );
+			t = new Ticker(0x00ff007f, "This should have a 50% transparent background, and no buttons");
+			pendingTickers.add( t );
+			t = new Ticker(0x00ff0000, "This should be wrapping the long text that is to follow because minecraft has some neat functions for wrapping text to a max length so yeah. There you go.");
+			pendingTickers.add( t );
+		}
+		TickerLoader.downloadTickers();
 	}
 	
 	public void initGui() {
@@ -520,7 +564,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 	static final int rollHeight = 10;
 	static final int ribbonHeight = 11;
 	
-	static final BasicIconFactory f = new BasicIconFactory(256, null);
+	static final IconFactory f = new IconFactory(256, null);
 	
 	static final BasicIcon	page				= f.create(0, 0, guiWidth, guiHeight);
 
@@ -582,7 +626,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 		this.mouseY = mY;
 		
 		// general debug drawing
-//		mc.fontRenderer.drawString("H:" + hover.getTicks(), 20, 150, 0x00);
+		mc.fontRenderer.drawString("H:" + mc.fontRenderer.FONT_HEIGHT, 10, 175, 0x00);
 		
 		if(this.needsRefresh) {
 			this.refreshView();
@@ -602,7 +646,6 @@ public class GuiBookOfRevealing extends GuiScreen {
 		mc.renderEngine.bindTexture(texture);
 		gu.drawIcon(left-2, top, rollTop); /* top wrap */
 		gu.drawIcon(left-2, top+guiHeight-rollHeight, rollBottom); /* bottom wrap */
-		
 		
 		if(this.view != null) {
 			// Draw the background
@@ -654,6 +697,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 		if( ticker == null || ticker.closed() ) {
 			if(!pendingTickers.empty()) {
 				ticker = pendingTickers.pop();
+				ticker.resetTimer();
 			} else {
 				ticker = null;
 			}

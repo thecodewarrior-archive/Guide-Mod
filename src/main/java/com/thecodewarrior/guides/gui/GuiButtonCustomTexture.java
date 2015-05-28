@@ -13,7 +13,10 @@ public class GuiButtonCustomTexture extends GuiButtonExt {
 
 	public int textureU;
 	public int textureV;
-	public boolean customColor = false;
+	public double r = 1;
+	public double g = 1;
+	public double b = 1;
+	public double a = 1;
 	public ResourceLocation texture;
 	
 	public GuiButtonCustomTexture(int id, int xPos, int yPos, int u, int v, int width,
@@ -25,6 +28,13 @@ public class GuiButtonCustomTexture extends GuiButtonExt {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public void setColor(double r, double g, double b, double a) {
+		this.r = r;
+		this.g = g;
+		this.b = b;
+		this.a = a;
+	}
+	
      /**
       * Draws this button to the screen.
       */
@@ -33,8 +43,8 @@ public class GuiButtonCustomTexture extends GuiButtonExt {
          if (this.visible)
          {
         	 boolean flag = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
-             if(!customColor)
-            	 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        	 GL11.glColor4d(r, g, b, a);
+            	 
              mc.getTextureManager().bindTexture(texture);
              int u = textureU;
              int v = textureV;

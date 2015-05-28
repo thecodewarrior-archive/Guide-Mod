@@ -17,6 +17,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSyntaxException;
+import com.thecodewarrior.guides.ConfigOptions;
 import com.thecodewarrior.guides.GuideMod;
 import com.thecodewarrior.guides.api.GuideMatcher;
 import com.thecodewarrior.guides.api.GuideRegistry;
@@ -51,7 +52,7 @@ public class GuidePackLoader {
 		
 		loadNameMap(rootObj);
 		
-		loadBrowse(rootObj, packID, Minecraft.getMinecraft().gameSettings.language);
+		loadBrowse(rootObj, packID, ConfigOptions.lang);
 		
 		/*
 		 * 
@@ -88,7 +89,7 @@ System.out.printf("Status: %s, Latitude: %s, Longitude: %s\n", status, lat, lng)
 	static void loadNameMap(JsonObject rootObj) {
 		JsonObject namesMapObj = rootObj.getAsJsonObject("names");
 		if(namesMapObj != null) {
-			JsonObject namesMapLangObj = namesMapObj.getAsJsonObject(Minecraft.getMinecraft().gameSettings.language);
+			JsonObject namesMapLangObj = namesMapObj.getAsJsonObject(ConfigOptions.lang);
 			if(namesMapObj != null) {
 				for(Iterator<Entry<String, JsonElement>> iter = namesMapLangObj.entrySet().iterator(); iter.hasNext(); ) {
 					Entry<String, JsonElement> entry = iter.next();

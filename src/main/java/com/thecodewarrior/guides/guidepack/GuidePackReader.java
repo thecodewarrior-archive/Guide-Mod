@@ -13,6 +13,7 @@ import net.minecraft.util.StatCollector;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.Logger;
 
+import com.thecodewarrior.guides.ConfigOptions;
 import com.thecodewarrior.guides.GuideMod;
 
 public class GuidePackReader {
@@ -30,7 +31,7 @@ public class GuidePackReader {
 	
 	public static String getGuidePackText(String modid, String guideName) {
 		try {
-			String lang = Minecraft.getMinecraft().gameSettings.language;
+			String lang = ConfigOptions.lang;
 			File file = new File(GuidePackManager.getGuidePackDir(modid), lang + "/" + guideName + ".txt");
 			InputStream stream = new FileInputStream(file);
 			String str = IOUtils.toString(stream);
@@ -42,7 +43,7 @@ public class GuidePackReader {
 	}
 	
 	public static ResourceLocation getGuideResourceLocation(String modid, String guideName) {
-		return new ResourceLocation(modid, "guides/" + Minecraft.getMinecraft().gameSettings.language + "/" + guideName + ".txt");
+		return new ResourceLocation(modid, "guides/" + ConfigOptions.lang + "/" + guideName + ".txt");
 	}
 	
 	public static String getResourceText(ResourceLocation loc) {
@@ -57,7 +58,7 @@ public class GuidePackReader {
 	
 	public static String getGuideText(String modid, String guideName) {
 		
-		String lang = Minecraft.getMinecraft().gameSettings.language;
+		String lang = ConfigOptions.lang;
 		String text = getResourceText(getGuideResourceLocation(modid, guideName));
 		if(text == null) {
 			text = getGuidePackText(modid, guideName);

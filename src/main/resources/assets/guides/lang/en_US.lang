@@ -1,4 +1,8 @@
 
+guidemod.updateNotification.text=Auto Update is off, and there are %d guides out of date from %d guide packs.
+guidemod.updateNotification.updateOnce=Update on next launch
+guidemod.updateNotification.enableAutoUpdate=Enable auto update
+
 key.guidemod.openGuideKey=Open Guide
 guidemod.guideReader.internalError=Internal Error
 guidemod.nameWithDetail=%s (Details)

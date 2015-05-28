@@ -11,6 +11,7 @@ import scala.actors.threadpool.Arrays;
 
 import com.thecodewarrior.guides.GuideMod;
 import com.thecodewarrior.guides.api.GuideRegistry;
+import com.thecodewarrior.guides.api.Link;
 
 public class GuideElementTextLink extends GuideElementText {
 
@@ -19,7 +20,7 @@ public class GuideElementTextLink extends GuideElementText {
 	protected List<GuideElementText> elements;
 	protected int defaultColor;
 	protected int hoverColor;
-	protected String link;
+	protected Link link;
 	
 	protected String data;
 	
@@ -45,14 +46,14 @@ public class GuideElementTextLink extends GuideElementText {
 		parse(UNDERLINE + text);
 		NamedNodeMap map = node.getAttributes();
 		Node attrNode = map.getNamedItem("href");
-		this.link = attrNode.getNodeValue();//.getAttributes().getNamedItem("href").getNodeValue();//this.data.split("\\|", 2)[1];
+		this.link = new Link(attrNode.getNodeValue());//.getAttributes().getNamedItem("href").getNodeValue();//this.data.split("\\|", 2)[1];
 //		l.info(text + " => " + this.link);
 		this.defaultColor = color;
 		this.hoverColor = hoverColor;
 	}
 	
 	public void clickInside(int mX, int mY, int button) {
-		this.gui.refreshGuide(GuideRegistry.newBasicGuide(this.link));
+		this.link.go(gui);
 	}
 
 	private String subsetJoin(String[] arr, int start, String joinWith) {

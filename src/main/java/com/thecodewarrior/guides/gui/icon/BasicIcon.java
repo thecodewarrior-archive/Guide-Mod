@@ -1,21 +1,17 @@
-package com.thecodewarrior.guides.gui;
+package com.thecodewarrior.guides.gui.icon;
 
 import net.minecraft.util.IIcon;
 
 public class BasicIcon implements IIcon {
 
-	private float u;
-	private float v;
-	private int w;
-	private int h;
-	private float texSize;
-	private int uPx;
-	private int vPx;
+	protected int w;
+	protected int h;
+	protected float texSize;
+	protected int uPx;
+	protected int vPx;
 	
 	public BasicIcon(int u, int v, int w, int h, int texSize) {
 		this.texSize = texSize;
-		this.u = u / this.texSize;
-		this.v = v / this.texSize;
 		this.uPx = u;
 		this.vPx = v;
 		this.w = w;
@@ -42,32 +38,32 @@ public class BasicIcon implements IIcon {
 
 	@Override
 	public float getMinU() {
-		return u;
+		return getMinPxU()/texSize;
 	}
 
 	@Override
 	public float getMaxU() {
-		return u+(w/texSize);
+		return getMinU()+(w/texSize);
 	}
 
 	@Override
 	public float getInterpolatedU(double arg) {
-		return (float) ( (w*arg/texSize) + u );
+		return (float) ( (w*arg/texSize) + getMinU() );
 	}
 
 	@Override
 	public float getMinV() {
-		return v;
+		return getMinPxV()/texSize;
 	}
 
 	@Override
 	public float getMaxV() {
-		return v+(h/texSize);
+		return getMinV()+(h/texSize);
 	}
 
 	@Override
 	public float getInterpolatedV(double arg) {
-		return (float)( (h*arg/texSize) + v);
+		return (float)( (h*arg/texSize) + getMinV());
 	}
 
 	@Override

@@ -15,10 +15,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.minecraft.util.StatCollector;
+
 import org.apache.logging.log4j.Logger;
 
 import com.thecodewarrior.guides.ConfigOptions;
 import com.thecodewarrior.guides.GuideMod;
+import com.thecodewarrior.guides.gui.GuiBookOfRevealing;
+import com.thecodewarrior.guides.gui.ticker.Ticker;
+import com.thecodewarrior.guides.gui.ticker.TickerButton;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.ModContainer;
@@ -37,27 +42,43 @@ public class GuidePackUpdater {
 		totalUpdates = 0;
 		modsWithUpdates = 0;
 		
-		if(!ConfigOptions.autoDownload) {
-			l.info("Guide download disabled. skipping.");
-		}
 		List<ModContainer> mods = Loader.instance().getModList();
 		
 		String[] mcVersionSplit = Loader.instance().getMCVersionString().split(" ");
 		
 		
-		GuidePackUpdater.updatePack(GuidePackManager.getGuidePackDir("minecraft"), "minecraft", mcVersionSplit[mcVersionSplit.length-1]);
+		GuidePackUpdater.updatePack(GuidePackManager.getGuidePackDir("minecraft"), "minecraft", mcVersionSplit[mcVersionSplit.length-1], ConfigOptions.autoDownload);
 		
 		for(ModContainer mod : mods) {
 			File file = GuidePackManager.getGuidePackDir(mod.getModId());
-			int amt = updatePack(file, mod.getModId(), mod.getVersion());
+			int amt = updatePack(file, mod.getModId(), mod.getVersion(), ConfigOptions.autoDownload);
 			totalUpdates += amt;
 			if(amt != 0) {
 				modsWithUpdates++;
 			}
 		}
+		if(!ConfigOptions.autoDownload)
+			addUpdatedTicker();
 	}
 	
-	public static int updatePack(File packPath, String modid, String version) {
+	public static void addUpdatedTicker() {
+		Ticker t = new Ticker(
+				0xFF0000,
+				String.format(StatCollector.translateToLocal("guidemod.updateNotification.text"), totalUpdates, modsWithUpdates)
+				);
+		
+		t.addButton(new TickerButton( StatCollector.translateToLocal("guidemod.updateNotification.enableAutoUpdate") ){
+					@Override
+					public void click(GuiBookOfRevealing gui) {
+						ConfigOptions.autoDownload = true;
+						ConfigOptions.updateConfig();
+					}
+		});
+		t.setTimeout(40);
+		GuiBookOfRevealing.pendingTickers.add(t);
+	}
+	
+	public static int updatePack(File packPath, String modid, String version, boolean apply) {
 		
 		l.info("Checking for updates to guide pack '" + modid + "'");
 		
@@ -93,27 +114,28 @@ public class GuidePackUpdater {
 				if( serverVersions.containsKey(i)) {
 					int sv = serverVersions.get(i);
 					if(cv < sv) {
-						l.info("updating file " + i);
-						downloadGuide(modid, version, new File(packPath, i), i);
+						if(apply)
+							downloadGuide(modid, version, new File(packPath, i), i);
 						updated++;
 					}
 					serverVersions.remove(i);
 				} else {
-					l.info("removing file " + i);
-					removeGuide(new File(packPath, i));
+					if(apply)
+						removeGuide(new File(packPath, i));
 					updated++;
 				}
 			}
 		
 			for(String i : serverVersions.keySet()) {
-				l.info("downloading new file " + i);
-				downloadGuide(modid, version, new File(packPath, i), i);
+				if(apply)
+					downloadGuide(modid, version, new File(packPath, i), i);
 				updated++;
 			}
 		}
 			
 		
-		downloadGuide(modid, version, new File(packPath, "manifest.txt"), "manifest.txt");
+		if(apply)
+			downloadGuide(modid, version, new File(packPath, "manifest.txt"), "manifest.txt");
 		
 		return updated;
 	}
