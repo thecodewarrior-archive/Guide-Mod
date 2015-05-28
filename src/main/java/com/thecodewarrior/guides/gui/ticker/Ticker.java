@@ -94,8 +94,10 @@ public class Ticker extends Gui {
     		
     		for(TickerButton t : tickerButtonList) {
     			boolean hovering = (mX > x && mX < x+tickerButtonWidth && mY > y && mY < y+tickerButtonHeight);
-        		if(hovering && GuiBookOfRevealing.currentGui != null) {
-        			t.click(GuiBookOfRevealing.currentGui);
+        		if(hovering) {
+        			hasUserClickedOnButton = true;
+        			if(GuiBookOfRevealing.currentGui != null)
+        				t.click(GuiBookOfRevealing.currentGui);
         		}
     			x += tickerButtonWidth + tickerButtonMargin;
     		}
@@ -132,6 +134,7 @@ public class Ticker extends Gui {
 	static final ManuallyAnimatedIcon closeProgress = f.createManuallyAnimated(0, 50, 7, 7, true);
 	
 	boolean wasHoveringLastFrame = false;
+	boolean hasUserClickedOnButton = false;
 	
 	public void draw(int mX, int mY) {
 		if(timer.stopped())
@@ -163,7 +166,9 @@ public class Ticker extends Gui {
 			timer.start();
 		}
 		
-		timer.tick();
+		if(!hasUserClickedOnButton)
+			timer.tick();
+		
 		GL11.glColor4d(r, g, b, a);
 		mc.renderEngine.bindTexture(texture);
 		u.drawIcon(0, bgX, background);

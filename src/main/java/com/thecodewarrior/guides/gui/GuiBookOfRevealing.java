@@ -511,10 +511,10 @@ public class GuiBookOfRevealing extends GuiScreen {
         case 101: // dev #1
         	dev1();
         	break;
-        case 102:
+        case 102: // dev #2
         	dev2();
         	break;
-        case 103:
+        case 103: // dev #3
         	dev3();
         	break;
     	default:

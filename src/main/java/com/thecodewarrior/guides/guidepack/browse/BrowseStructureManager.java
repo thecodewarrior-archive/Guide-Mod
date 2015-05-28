@@ -29,18 +29,24 @@ public class BrowseStructureManager {
 		}
 		return m;
 	}
+	public BrowseItemDirectoryMod getMod(String modid) {
+		BrowseItemDirectoryMod m = null;
+		if(modItems.containsKey(modid)) {
+			m = modItems.get(modid);
+		}
+		return m;
+	}
 	
 	public BrowseItemDirectoryRoot getRoot() {
 		return root;
 	}
 	
 	public BrowseItem getForPath(ArrayList<String> path) {
-		BrowseItemDirectory dir = root;
+		BrowseItem dir = root;
 		for(String pathItem : path) {
-			BrowseItem tmp = dir.getByName(pathItem);
-			if(tmp instanceof BrowseItemDirectory) {
-				dir = (BrowseItemDirectory) tmp;
-			} else {
+			BrowseItem tmp = ((BrowseItemDirectory)dir).getByName(pathItem);
+			dir = tmp;
+			if(!( tmp instanceof BrowseItemDirectory )) {
 				break;
 			}
 		}
