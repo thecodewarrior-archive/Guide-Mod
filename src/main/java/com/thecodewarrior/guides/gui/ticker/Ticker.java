@@ -59,7 +59,7 @@ public class Ticker extends Gui {
 		a = ( color        & 0xFF)/256.0;
 		if(a == 0) a = 1;
 		((GuiButtonCustomTexture)this.closeButton).setColor(r, g, b, a);
-		textColor = (/* RGB text color */0x000000 << 8 /* move over to make space for alpha */) | ( /* alpha */ color & 0xFF );
+		textColor =  ( /* alpha */ (color & 0xFF) << 24 ) | (/* RGB text color */0x000000 >> 8 /* move over to make space for alpha */);
 		timer = new TickCounter();
 		timer.stop();
 		this.timeout = ConfigOptions.defaultTickerTimeout;
