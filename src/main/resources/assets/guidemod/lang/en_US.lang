@@ -12,6 +12,7 @@ guidemod.gui.tooltip.browse.title=Browse all guides
 guidemod.gui.tooltip.settings.title=Guide Mod Settings
 guidemod.gui.tooltip.heldItem.title=Current item
 guidemod.gui.tooltip.heldItem.desc=View the guide for the currently held item
+guidemod.gui.tooltip.heldItem.dev=Item/Block ID = %s, meta = %d
 guidemod.gui.tooltip.back.title=Back
 guidemod.gui.tooltip.newBookmark.title=New Bookmark
 guidemod.gui.tooltip.bookmarkScrollUp.title=Scroll Up

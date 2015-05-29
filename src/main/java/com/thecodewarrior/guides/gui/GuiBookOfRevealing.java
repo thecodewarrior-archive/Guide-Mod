@@ -2,6 +2,7 @@ package com.thecodewarrior.guides.gui;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Stack;
 
 import net.minecraft.client.Minecraft;
@@ -41,6 +42,7 @@ import com.thecodewarrior.guides.views.ViewGuide;
 import com.thecodewarrior.guides.views.ViewSettings;
 
 import cpw.mods.fml.client.config.GuiButtonExt;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class GuiBookOfRevealing extends GuiScreen {
 	public static final Logger l = GuideMod.logChild("GUI");
@@ -632,7 +634,8 @@ public class GuiBookOfRevealing extends GuiScreen {
 		this.mouseY = mY;
 		
 		// general debug drawing
-		mc.fontRenderer.drawString("H:" + mc.fontRenderer.FONT_HEIGHT, 10, 175, 0x00);
+		if(ConfigOptions.dev)
+			mc.fontRenderer.drawString("H:" + mc.fontRenderer.FONT_HEIGHT, 10, 175, 0x00);
 		
 		if(this.needsRefresh) {
 			this.refreshView();
@@ -685,7 +688,7 @@ public class GuiBookOfRevealing extends GuiScreen {
 		mc.renderEngine.bindTexture(texture);
 		drawSearchBar();
 		
-		drawToolTips();
+		GL11.glDisable(GL11.GL_LIGHTING);
 		
 //		ArrayList<String> lines = new ArrayList<String>();
 //		lines.add(StatCollector.translateToLocal("guidemod.gui.tooltip.back"));
@@ -693,6 +696,8 @@ public class GuiBookOfRevealing extends GuiScreen {
 //		drawHoveringText(lines, mX, mY, Minecraft.getMinecraft().fontRenderer);
 //		
 		drawHeldItemItemStack();
+		drawToolTips();
+
 	}
 	
 	Ticker ticker;
@@ -719,19 +724,19 @@ public class GuiBookOfRevealing extends GuiScreen {
 	}
 	
 	ArrayList<MetaRect<String[]>> tooltips;
-	
+	ArrayList<IndexedRect> customTooltips;
 	void initToolTips() {
 		tooltips = new ArrayList<MetaRect<String[]>>();
-		
+		customTooltips = new ArrayList<IndexedRect>();
 		addGenericToolTipForButton(detailsButton,				"details");
 		addGenericToolTipForButton(browseButton,				"browse");
 		addGenericToolTipForButton(settingsButton,				"settings");
-		addGenericToolTipForButton(heldItemButton,				"heldItem");
 		addGenericToolTipForButton(backButton,					"back");
 		addGenericToolTipForButton(newBookmarkButton,			"newBookmark");
 		addGenericToolTipForButton(bookmarkScrollUpButton,		"bookmarkScrollUp");
 		addGenericToolTipForButton(bookmarkScrollDownButton,	"bookmarkScrollDown");
 		addGenericToolTipForButton(helpButton,					"help");
+		customTooltips.add( new IndexedRect(0, heldItemButton.xPosition, heldItemButton.yPosition, heldItemButton.width, heldItemButton.height) );
 		
 		bookmarkTooltip = getGenericToolTipText("bookmark");
 	}
@@ -771,10 +776,12 @@ public class GuiBookOfRevealing extends GuiScreen {
 				);
 	}
 	
-	static int tooltipTicks = 10;
-	static int tooltipID = -1;
-	static int bookmarkTooltipID = -1;
-	static String[] bookmarkTooltip;
+	int tooltipTicks = 10;
+	int tooltipID = -1;
+	int bookmarkTooltipID = -1;
+	String[] bookmarkTooltip;
+	int customTooltipID = -1;
+	List<String> customTooltipLines;
 	
 	void drawToolTips() {
 		if(tooltipID == -1) {
@@ -800,6 +807,35 @@ public class GuiBookOfRevealing extends GuiScreen {
 			bookmarkTooltipID = -1;
 		} else {
 			drawHoveringText(Arrays.asList( bookmarkTooltip ), mouseX, mouseY, Minecraft.getMinecraft().fontRenderer);
+		}
+		
+		if(customTooltipID == -1) {
+			if(hover.hasHoveredFor(tooltipTicks)) {
+				for(int i = 0; i < customTooltips.size(); i++) {
+					IndexedRect tooltip = customTooltips.get(i);
+					if(tooltip.pointInside(mouseX, mouseY)) {
+						customTooltipID = i;
+						customTooltipLines = new ArrayList<String>();
+						switch(customTooltips.get(customTooltipID).id) {
+						case 0:
+							customTooltipLines.addAll(Arrays.asList(getGenericToolTipText("heldItem")));
+							if(ConfigOptions.dev && this.heldItem != null) {
+								GameRegistry.UniqueIdentifier idObj = GameRegistry.findUniqueIdentifierFor(this.heldItem.getItem());
+								String id = idObj.modId + ":" + idObj.name;
+								int meta  = this.heldItem.getItemDamage();
+								customTooltipLines.add("§8" + String.format(StatCollector.translateToLocal("guidemod.gui.tooltip.heldItem.dev"),
+										id, meta
+										));
+							}
+						}
+					}
+				}
+			}
+		} else if(!customTooltips.get(customTooltipID).pointInside(mouseX, mouseY)) {
+			customTooltipID = -1;
+		} else {
+			
+			drawHoveringText(customTooltipLines, mouseX, mouseY, Minecraft.getMinecraft().fontRenderer);
 		}
 	}
 	

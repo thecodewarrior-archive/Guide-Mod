@@ -10,7 +10,7 @@ public class ConfigOptions {
 	static Configuration config;
 	
 	public static boolean dev = false;
-	public static boolean autoDownload = false;
+	public static boolean autoDownload = true;
 	
 	public static String serverHost = "localhost";
 	public static int    serverPort = 80;

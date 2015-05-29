@@ -86,6 +86,8 @@ public class Ticker extends Gui {
                     return;
                 }
             }
+            if(tickerButtonList.size() == 0)
+            	return;
             int x = 4;
     		int y = height-tickerButtonHeight;
     		int innerWidth = 230-5;
