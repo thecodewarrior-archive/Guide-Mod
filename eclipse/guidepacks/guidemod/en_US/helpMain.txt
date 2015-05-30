@@ -1,0 +1,5 @@
+<title>Guide Mod Help</title>
+<tool>
+    <image src="" />
+</tool>
+<content>Eventually this will contain some help information... like this! :P</content>

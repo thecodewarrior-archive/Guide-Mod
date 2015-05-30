@@ -38,32 +38,54 @@ public class GuidePackUpdater {
 	static int totalUpdates;
 	static int modsWithUpdates;
 	
+	public static boolean manualUpdate = false;
+	
 	public static void downloadPacksForMods() {
 		
 		totalUpdates = 0;
 		modsWithUpdates = 0;
 		
+		boolean dl = ConfigOptions.autoDownload || manualUpdate;
+		
 		List<ModContainer> mods = Loader.instance().getModList();
 		
 		String[] mcVersionSplit = Loader.instance().getMCVersionString().split(" ");
 		
-		
-		GuidePackUpdater.updatePack(GuidePackManager.getGuidePackDir("minecraft"), "minecraft", mcVersionSplit[mcVersionSplit.length-1], ConfigOptions.autoDownload);
-		
+		GuidePackUpdater.updatePack(GuidePackManager.getGuidePackDir("minecraft"), "minecraft", mcVersionSplit[mcVersionSplit.length-1], dl);
 		
 		updatePack(GuidePackManager.getGuidePackDir(Reference.MODID), Reference.MODID, Reference.VERSION, true);
+		
 		for(ModContainer mod : mods) {
-			File file = GuidePackManager.getGuidePackDir(mod.getModId());
 			if(mod.getModId().equals(Reference.MODID))
 				continue;
-			int amt = updatePack(file, mod.getModId(), mod.getVersion(), ConfigOptions.autoDownload);
+			File file = GuidePackManager.getGuidePackDir(mod.getModId());
+			int amt = updatePack(file, mod.getModId(), mod.getVersion(), dl);
 			totalUpdates += amt;
 			if(amt != 0) {
 				modsWithUpdates++;
 			}
 		}
+		
+		for(String pack : ConfigOptions.supplementaryGuidePacks) {
+			String[] split = pack.split(":", 2);
+			if(split.length < 2) {
+				l.info("ERROR: Additional guide pack " + pack + " doesn't match format packid:version!");
+				continue;
+			}
+			String id = split[0];
+			String version = split[1];
+			File file = GuidePackManager.getGuidePackDir(id);
+			int amt = updatePack(file, id, version, dl);
+			totalUpdates += amt;
+			if(amt != 0) {
+				modsWithUpdates++;
+			}
+		}
+		
 		if(!ConfigOptions.autoDownload)
 			addUpdatedTicker();
+		
+		manualUpdate = false;
 	}
 	
 	public static void addUpdatedTicker() {
@@ -87,33 +109,42 @@ public class GuidePackUpdater {
 		
 		l.info("Checking for updates to guide pack '" + modid + "'");
 		
-		if(!packPath.isDirectory())
+		if(!packPath.isDirectory() && packPath.exists()) {
+			l.info("  Pack path isn't a directory... why is this?");
 			return 0;
+		}
 		
 		File manifest = new File(packPath, "manifest.txt");
 		
-		Map<String, Integer> currentVersions = null;
+		Map<String, Integer> currentVersions = new HashMap<String, Integer>();
 		Map<String, Integer> serverVersions = null;
 		
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(manifest));
-			currentVersions = parseFileVersions(br, packPath);
+			BufferedReader br = null;
+			try{
+				br = new BufferedReader(new FileReader(manifest));
+				currentVersions = parseFileVersions(br, packPath);
+			} catch (FileNotFoundException e) {
+				//l.error("  Manifest file not found " + modid );
+			}
 			br = new BufferedReader( new InputStreamReader( new URL(protocol, ConfigOptions.serverHost, ConfigOptions.serverPort,
 																	"/api/"+modid+"/"+version+"/manifest.txt").openStream()) );
 			serverVersions = parseFileVersions(br, packPath);
 			
-		} catch (FileNotFoundException e) {
-			l.error("Manifest file not found" + modid );
 		} catch (MalformedURLException e) {
-			l.error("Malformed url when downloading manifest file. URL:" + 
+			l.error("  Malformed url when downloading manifest file. URL:" + 
 					protocol + "://" + ConfigOptions.serverHost + ":" + ConfigOptions.serverPort + "/api/" + modid + "/" + version + "/manifest.txt"
 					);
 		} catch (IOException e) {
-			l.error("IOException when opening stream to server");
+			l.error("  IOException when opening stream to server");
 		}
 		
 		int updated = 0;
 		if(serverVersions != null) {
+			if(!packPath.exists() && apply) {
+				l.info("  So it does exist on the server, I'll create a directory then.");
+				packPath.mkdir();
+			}
 			for(String i : currentVersions.keySet()) {
 				int cv = currentVersions.get(i);
 				if( serverVersions.containsKey(i)) {
@@ -141,7 +172,12 @@ public class GuidePackUpdater {
 		
 		if(apply)
 			downloadGuide(modid, version, new File(packPath, "manifest.txt"), "manifest.txt");
-		
+		if(updated > 0) {
+			l.info(String.format("  Guide pack has %d updates, auto update is %s, and the guides %s updated.",
+					updated, ConfigOptions.autoDownload ? "on" : "off", apply ? "were" : "were not"));
+		} else {
+			l.info("  No updates found for guide pack");
+		}
 		return updated;
 	}
 	
@@ -151,9 +187,9 @@ public class GuidePackUpdater {
 	
 	private static void downloadGuide(String modid, String version, File localfile, String path) {
 		try {
-			localfile.getParentFile().mkdirs();
 			URL remote = new URL(protocol, ConfigOptions.serverHost, ConfigOptions.serverPort, "/api/"+modid+"/"+version+"/" + path);
 			ReadableByteChannel rbc = Channels.newChannel(remote.openStream());
+			localfile.getParentFile().mkdirs();
 			FileOutputStream fos = new FileOutputStream(localfile);
 			fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
 			fos.close();

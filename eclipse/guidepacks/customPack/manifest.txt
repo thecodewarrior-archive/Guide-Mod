@@ -1,0 +1,2 @@
+pack.json:3
+en_US/file.txt:1

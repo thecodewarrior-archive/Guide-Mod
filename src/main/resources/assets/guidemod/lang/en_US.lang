@@ -28,6 +28,7 @@ guidemod.view.browse.searchAllBreadcrumb=All
 # Settings view
 guidemod.view.settings.guideServerEnable=Automatically download guide packs for installed mods
 guidemod.view.settings.reloadPacksButton=Reload Guide Packs
+guidemod.view.settings.updatePacksButton=Update Guide Packs
 guidemod.view.settings.estimatedReloadTime.ms=Estimated reload time: %s minutes, %s seconds
 guidemod.view.settings.estimatedReloadTime.s=Estimated reload time: %s seconds
 

@@ -1,0 +1,14 @@
+{
+    "idmaps": {},
+    "browse": {
+        "en_US": [
+            "Guide Mod",
+            "guidemod:helpMain"
+        ]
+    },
+    "names": {
+        "en_US": {
+            "guidemod:helpMain":"Guide mod help"
+        }
+    }
+}

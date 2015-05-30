@@ -1,0 +1,24 @@
+{
+    "idmaps": {
+        "customPack:file": [
+            {
+                "id":"minecraft:fish"
+            }
+        ]
+    },
+    "browse": {
+        "en_US": [
+            "Random thing",
+            [
+                "Stuffs!",
+                "minecraft:block",
+                "customPack:file"
+            ]
+        ]
+    },
+    "names": {
+        "en_US": {
+            "customPack:file":"A random file"
+        }
+    }
+}

@@ -14,6 +14,7 @@ import com.thecodewarrior.guides.gui.GuiUtils;
 import com.thecodewarrior.guides.gui.icon.BasicIcon;
 import com.thecodewarrior.guides.gui.icon.IconFactory;
 import com.thecodewarrior.guides.guidepack.GuidePackManager;
+import com.thecodewarrior.guides.guidepack.GuidePackUpdater;
 
 import cpw.mods.fml.client.config.GuiButtonExt;
 
@@ -21,7 +22,8 @@ public class ViewSettings extends View {
 
 	public static final ResourceLocation tex = new ResourceLocation(Reference.MODID, "textures/gui/view/view_settings.png");
 	GuiButton shouldDownload;
-	GuiButtonExt reloadPack;
+	GuiButtonExt reloadPacks;
+	GuiButtonExt updatePacks;
 	GuiUtils gu;
 	
 	String lastReloadTimeText;
@@ -35,8 +37,10 @@ public class ViewSettings extends View {
 		this.gu = new GuiUtils(this.zLevel);
 		this.shouldDownload = new GuiButtonTransparent(1, 0, 3, 10, 10);//new GuiCheckBox(1, 0, 0, "Automatically download guide packs", GuideServerInterface.enabled);
 		this.buttonList.add(this.shouldDownload);
-		this.reloadPack = new GuiButtonExt(2, 0, 18, StatCollector.translateToLocal("guidemod.view.settings.reloadPacksButton"));
-		this.buttonList.add(this.reloadPack);
+		this.updatePacks = new GuiButtonExt(3, 0, 18, StatCollector.translateToLocal("guidemod.view.settings.updatePacksButton"));
+		this.reloadPacks = new GuiButtonExt(2, 0, 38, StatCollector.translateToLocal("guidemod.view.settings.reloadPacksButton"));
+		this.buttonList.add(this.reloadPacks);
+		this.buttonList.add(this.updatePacks);
 		this.updateLastReloadTimeText();
 	}
 	
@@ -63,6 +67,12 @@ public class ViewSettings extends View {
 			GuidePackManager.loadGuidePacks();
 			this.updateLastReloadTimeText();
 	    	break;
+		case 3:
+			GuidePackManager.unloadGuidePacks();
+			GuidePackUpdater.manualUpdate = true;
+			GuidePackUpdater.downloadPacksForMods();
+			GuidePackManager.loadGuidePacks();
+			break;
 		}
 	};
 	
@@ -89,9 +99,10 @@ public class ViewSettings extends View {
 			GL11.glScaled(2  ,   2,   2);
 		}
 		
-		this.reloadPack.drawButton(mc, mX, mY);
+		this.reloadPacks.drawButton(mc, mX, mY);
+		this.updatePacks.drawButton(mc, mX, mY);
 		
-		mc.fontRenderer.drawSplitString(lastReloadTimeText, 1, 40, width-10, 0x00);
+		mc.fontRenderer.drawSplitString(lastReloadTimeText, 1, reloadPacks.yPosition + reloadPacks.height + 2, width-10, 0x00);
 	}
 
 	@Override

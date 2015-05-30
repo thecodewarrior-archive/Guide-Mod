@@ -1,8 +1,9 @@
 package com.thecodewarrior.guides;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.config.Configuration;
 
 public class ConfigOptions {
@@ -17,6 +18,8 @@ public class ConfigOptions {
 	
 	public static int defaultTickerTimeout = 5*20;
 	public static String lang = "en_US";
+	
+	public static List<String> supplementaryGuidePacks;
 	
 	public static void init(File configFile) {
 		config = new Configuration(configFile);
@@ -33,13 +36,14 @@ public class ConfigOptions {
 						"Guide Server Port");
 		dev          = config.getBoolean("development" , "guideserver", dev,
 						"Enable development mode");
+		supplementaryGuidePacks = Arrays.asList(config.getStringList("supplementaryGuidePacks", "guideserver", new String[] {},
+				"Guide packs to download in addition to the ones from installed mods"));
 		config.save();
 	}
 	
 	public static void updateConfig() {
 		
 		config.get("guideserver", "autodownload", false, "Automatically download guides?").set(autoDownload);
-		
 		
 		config.save();
 	}
